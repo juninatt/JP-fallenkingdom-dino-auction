@@ -1,5 +1,6 @@
 package se.pbt.mrcoffee.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,11 +11,9 @@ import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CoffeeServiceTest {
@@ -29,42 +28,66 @@ class CoffeeServiceTest {
     private CoffeeService coffeeService;
 
 
+    @BeforeEach
+    void setup() {
+        coffeeRepository.deleteAll();
+        coffeeRepository.saveAll(List.of(
+                TestObjectFactory.createCoffee("Americano"),
+                TestObjectFactory.createCoffee("Cappuccino"),
+                TestObjectFactory.createCoffee("Espresso"),
+                TestObjectFactory.createCoffee("Latte"),
+                TestObjectFactory.createCoffee("Double Double")
+        ));
+    }
+
+
     @Nested
     @DisplayName("getAllCoffees():")
     public class GetAllCoffeesTests {
 
-        @Test
-        @DisplayName("Returns correct number of objects")
-        void getAllCoffees_returnListOfCoffees() {
-            // Arrange
-            var coffe1 = TestObjectFactory.createCoffee("Coffee 1");
-            var coffe2 = TestObjectFactory.createCoffee("Coffee 2");
+        @Nested
+        @DisplayName("Returns:")
+        class GetAllCoffeesReturnTest {
 
-            coffeeRepository.save(coffe1);
-            coffeeRepository.save(coffe2);
+            @Test
+            @DisplayName("Returns list of objects of class Coffe.java")
+            void getAllCoffees_validInput_returnsObjectsOfClassCoffe() {
+                // Call method to test
+                var result = coffeeService.getAllCoffees();
 
-            // Act
-            List<Coffee> resultCoffees = coffeeRepository.findAll();
+                // Assert all objects in returned list are of class Coffee.java
+                assertNotNull(result);
+                result.forEach(
+                        coffee -> assertEquals(Coffee.class, coffee.getClass()));
+            }
 
-            // Assert
-            assertNotNull(resultCoffees);
-            assertEquals(resultCoffees.size(), resultCoffees.size());
+            @Test
+            @DisplayName("Returns list of correct size")
+            void getAllCoffees_validInput_returnsListOfCorrectSize() {
+                // Call method to test
+                var result = coffeeService.getAllCoffees();
+
+                // Assert returned list is of expected size
+                assertNotNull(result);
+                assertEquals(result.size(), result.size());
+            }
+
         }
 
-        @Test
-        @DisplayName("Returns empty list when no objects are found in database")
-        void getAllCoffees_returnEmptyList() {
-            coffeeRepository.deleteAll();
-            // Arrange
-            List<Coffee> expectedCoffees = Collections.emptyList();
+        @Nested
+        @DisplayName("Throws")
+        class GetAllCoffeesThrowsTest {
 
-            // Act
-            List<Coffee> resultCoffees = coffeeRepository.findAll();
+            @Test
+            @DisplayName("Returns empty list when no objects are found in database")
+            void getAllCoffees_returnEmptyList() {
+                // Empty database
+                coffeeRepository.deleteAll();
+                assertTrue(coffeeRepository.findAll().isEmpty());
 
-            // Assert
-            assertNotNull(resultCoffees);
-            assertEquals(expectedCoffees.size(), resultCoffees.size());
-            assertEquals(expectedCoffees, resultCoffees);
+                // Call method to test and assert for NullPointerException
+                assertThrows(NullPointerException.class, () -> coffeeRepository.findAll());
+            }
         }
     }
 }
