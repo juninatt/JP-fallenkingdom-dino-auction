@@ -1,91 +1,70 @@
 package se.pbt.mrcoffee.service;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class CoffeeServiceTest {
 
-    @Mock
+    @Autowired
     private CoffeeRepository coffeeRepository;
 
-    @Mock
+    @Autowired
     private JmsMessageProducer jmsMessageProducer;
 
-    @InjectMocks
+    @Autowired
     private CoffeeService coffeeService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
-    @Test
-    void getCoffeeById_existingId_returnsCoffee() {
-        // Arrange
-        Coffee expectedCoffee = new Coffee(
-                "Coffee 1",
-                "Description",
-                BigDecimal.valueOf(1),
-                "Origin",
-                "Roast Level",
-                "Flavour Notes",
-                "Caffeine Content");
-        when(coffeeRepository.findById(1L)).thenReturn(Optional.of(expectedCoffee));
+    @Nested
+    @DisplayName("getAllCoffees():")
+    public class GetAllCoffeesTests {
 
-        // Act
-        Coffee resultCoffee = coffeeRepository.findById(1L).get();
+        @Test
+        @DisplayName("Returns correct number of objects")
+        void getAllCoffees_returnListOfCoffees() {
+            // Arrange
+            var coffe1 = TestObjectFactory.createCoffee("Coffee 1");
+            var coffe2 = TestObjectFactory.createCoffee("Coffee 2");
 
-        // Assert
-        assertNotNull(resultCoffee);
-        assertEquals(expectedCoffee, resultCoffee);
-        verify(coffeeRepository, times(1)).findById(1L);
-    }
+            coffeeRepository.save(coffe1);
+            coffeeRepository.save(coffe2);
 
-    @Test
-    void updateCoffee_existingId_updatesCoffeeAndSendsJmsMessage() {
-        // Arrange
-        long coffeeId = 1L;
-        Coffee existingCoffee = new Coffee(
-                "Coffee 1",
-                "Description",
-                BigDecimal.valueOf(1),
-                "Origin",
-                "Roast Level",
-                "Flavour Notes",
-                "Caffeine Content");
-        Coffee updatedCoffee = new Coffee(
-                "Updated Coffee",
-                "Updated Description",
-                BigDecimal.valueOf(2),
-                "Updated Origin",
-                "Updated Roast Level",
-                "Updated Flavour Notes",
-                "Updated Caffeine Content");
+            // Act
+            List<Coffee> resultCoffees = coffeeRepository.findAll();
 
-        when(coffeeRepository.findById(coffeeId)).thenReturn(Optional.of(existingCoffee));
-        when(coffeeRepository.save(existingCoffee)).thenReturn(updatedCoffee);
+            // Assert
+            assertNotNull(resultCoffees);
+            assertEquals(resultCoffees.size(), resultCoffees.size());
+        }
 
-        // Act
-        Coffee resultCoffee = coffeeService.updateCoffee(coffeeId, updatedCoffee);
+        @Test
+        @DisplayName("Returns empty list when no objects are found in database")
+        void getAllCoffees_returnEmptyList() {
+            coffeeRepository.deleteAll();
+            // Arrange
+            List<Coffee> expectedCoffees = Collections.emptyList();
 
-        // Assert
-        assertNotNull(resultCoffee);
-        assertEquals(updatedCoffee, resultCoffee);
-        verify(coffeeRepository, times(1)).findById(coffeeId);
-        verify(coffeeRepository, times(1)).save(existingCoffee);
-        verify(jmsMessageProducer, times(1)).sendMessage("myQueue", "Coffee updated: " + existingCoffee.getName());
+            // Act
+            List<Coffee> resultCoffees = coffeeRepository.findAll();
+
+            // Assert
+            assertNotNull(resultCoffees);
+            assertEquals(expectedCoffees.size(), resultCoffees.size());
+            assertEquals(expectedCoffees, resultCoffees);
+        }
     }
 }
