@@ -22,7 +22,7 @@ public class CoffeeService {
     }
 
     public List<Coffee> getAllCoffees() {
-        return (List<Coffee>) coffeeRepository.findAll();
+        return coffeeRepository.findAll();
     }
 
     public Coffee getCoffeeById(long id) {
