@@ -22,7 +22,7 @@ public class CoffeeService {
         return (List<Coffee>) coffeeRepository.findAll();
     }
 
-    public Coffee getCoffeeById(String id) {
+    public Coffee getCoffeeById(long id) {
         Optional<Coffee> optionalCoffee = coffeeRepository.findById(id);
         return optionalCoffee.orElse(null);
     }
@@ -31,7 +31,7 @@ public class CoffeeService {
         return coffeeRepository.save(coffee);
     }
 
-    public Coffee updateCoffee(String id, Coffee coffee) {
+    public Coffee updateCoffee(long id, Coffee coffee) {
         Optional<Coffee> optionalCoffee = coffeeRepository.findById(id);
         if (optionalCoffee.isPresent()) {
             Coffee existingCoffee = optionalCoffee.get();
@@ -43,7 +43,7 @@ public class CoffeeService {
         }
     }
 
-    public boolean deleteCoffee(String id) {
+    public boolean deleteCoffee(long id) {
         Optional<Coffee> optionalCoffee = coffeeRepository.findById(id);
         if (optionalCoffee.isPresent()) {
             coffeeRepository.delete(optionalCoffee.get());

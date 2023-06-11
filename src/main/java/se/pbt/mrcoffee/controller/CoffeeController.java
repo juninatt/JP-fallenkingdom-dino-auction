@@ -27,7 +27,7 @@ public class CoffeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Coffee> getCoffeeById(@PathVariable String id) {
+    public ResponseEntity<Coffee> getCoffeeById(@PathVariable long id) {
         Coffee coffee = coffeeService.getCoffeeById(id);
         if (coffee != null) {
             return ResponseEntity.ok(coffee);
@@ -43,7 +43,7 @@ public class CoffeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Coffee> updateCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
+    public ResponseEntity<Coffee> updateCoffee(@PathVariable long id, @RequestBody Coffee coffee) {
         Coffee updatedCoffee = coffeeService.updateCoffee(id, coffee);
         if (updatedCoffee != null) {
             return ResponseEntity.ok(updatedCoffee);
@@ -53,7 +53,7 @@ public class CoffeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCoffee(@PathVariable String id) {
+    public ResponseEntity<Void> deleteCoffee(@PathVariable long id) {
         boolean deleted = coffeeService.deleteCoffee(id);
         if (deleted) {
             return ResponseEntity.noContent().build();
