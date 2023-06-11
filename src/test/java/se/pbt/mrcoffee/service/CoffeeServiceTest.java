@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,16 +30,22 @@ class CoffeeServiceTest {
     @Test
     void getCoffeeById_existingId_returnsCoffee() {
         // Arrange
-        String coffeeId = "1";
-        Coffee expectedCoffee = new Coffee(coffeeId, "Coffee 1");
-        when(coffeeRepository.findById(coffeeId)).thenReturn(Optional.of(expectedCoffee));
+        Coffee expectedCoffee = new Coffee(
+                "Coffee 1",
+                "Description",
+                BigDecimal.valueOf(1),
+                "Origin",
+                "Roast Level",
+                "Flavour Notes",
+                "Caffeine Content");
+        when(coffeeRepository.findById(1L)).thenReturn(Optional.of(expectedCoffee));
 
         // Act
-        Coffee resultCoffee = coffeeService.getCoffeeById(coffeeId);
+        Coffee resultCoffee = coffeeService.getCoffeeById(1);
 
         // Assert
         assertNotNull(resultCoffee);
         assertEquals(expectedCoffee, resultCoffee);
-        verify(coffeeRepository, times(1)).findById(coffeeId);
+        verify(coffeeRepository, times(1)).findById(1L);
     }
 }

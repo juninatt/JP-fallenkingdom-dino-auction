@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.service.CoffeeService;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,8 +34,11 @@ class CoffeeControllerTest {
     void getAllCoffees() {
         // Arrange
         List<Coffee> expectedCoffees = Arrays.asList(
-                new Coffee("1", "Coffee 1"),
-                new Coffee("2", "Coffee 2")
+                new Coffee("1", "Coffee 1", BigDecimal.valueOf(9.99), "Colombia", "Medium", "Rich and fruity", "Medium"),
+                new Coffee("2", "Coffee 2", BigDecimal.valueOf(12.99), "Brazil", "Dark", "Intense and chocolatey", "High"),
+                new Coffee("3", "Coffee 3", BigDecimal.valueOf(11.50), "Costa Rica", "Medium", "Smooth and nutty", "Medium"),
+                new Coffee("4", "Coffee 4", BigDecimal.valueOf(10.75), "Brazil", "Medium-Dark", "Bold and caramel", "High"),
+                new Coffee("5", "Coffee 5", BigDecimal.valueOf(14.99), "Ethiopia", "Light", "Floral and citrusy", "Low")
         );
         when(coffeeService.getAllCoffees()).thenReturn(expectedCoffees);
 
