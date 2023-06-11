@@ -40,14 +40,8 @@
 
 		<!-- JMS Messaging -->
 		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>artemis-server</artifactId>
-			<version>2.28.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>artemis-jms-server</artifactId>
-			<version>2.28.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
 	</dependencies>
 
