@@ -2,6 +2,7 @@ package se.pbt.mrcoffee.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
@@ -22,7 +23,10 @@ public class CoffeeService {
     }
 
     public List<Coffee> getAllCoffees() {
-        return coffeeRepository.findAll();
+        var allCoffees = coffeeRepository.findAll();
+        if (allCoffees.isEmpty())
+            throw new CoffeeNotFoundException();
+        else return allCoffees;
     }
 
     public Coffee getCoffeeById(long id) {

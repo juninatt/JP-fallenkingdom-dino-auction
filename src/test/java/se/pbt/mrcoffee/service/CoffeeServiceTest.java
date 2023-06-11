@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
@@ -79,14 +80,14 @@ class CoffeeServiceTest {
         class GetAllCoffeesThrowsTest {
 
             @Test
-            @DisplayName("Returns empty list when no objects are found in database")
+            @DisplayName("Throws CoffeeNotFoundException when no objects are found in database")
             void getAllCoffees_returnEmptyList() {
                 // Empty database
                 coffeeRepository.deleteAll();
                 assertTrue(coffeeRepository.findAll().isEmpty());
 
                 // Call method to test and assert for NullPointerException
-                assertThrows(NullPointerException.class, () -> coffeeRepository.findAll());
+                assertThrows(CoffeeNotFoundException.class, () -> coffeeService.getAllCoffees());
             }
         }
     }
