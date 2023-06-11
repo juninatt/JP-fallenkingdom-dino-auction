@@ -1,9 +1,9 @@
-package se.pbt.mrcoffe.service;
+package se.pbt.mrcoffee.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.mrcoffe.model.Coffee;
-import se.pbt.mrcoffe.repository.CoffeeRepository;
+import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.repository.CoffeeRepository;
 
 import java.util.List;
 import java.util.Optional;

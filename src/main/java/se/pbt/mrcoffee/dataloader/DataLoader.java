@@ -1,9 +1,9 @@
-package se.pbt.mrcoffe.dataloader;
+package se.pbt.mrcoffee.dataloader;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
-import se.pbt.mrcoffe.model.Coffee;
-import se.pbt.mrcoffe.repository.CoffeeRepository;
+import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.repository.CoffeeRepository;
 
 import java.util.List;
 

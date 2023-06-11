@@ -1,11 +1,11 @@
-package se.pbt.mrcoffe.controller;
+package se.pbt.mrcoffee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.pbt.mrcoffe.model.Coffee;
-import se.pbt.mrcoffe.service.CoffeeService;
+import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.service.CoffeeService;
 
 import java.util.List;
 
@@ -61,5 +61,4 @@ public class CoffeeController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

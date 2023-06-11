@@ -1,4 +1,4 @@
-package se.pbt.mrcoffe.controller;
+package se.pbt.mrcoffee.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import se.pbt.mrcoffe.model.Coffee;
-import se.pbt.mrcoffe.service.CoffeeService;
+import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.service.CoffeeService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +47,4 @@ class CoffeeControllerTest {
         verify(coffeeService, times(1)).getAllCoffees();
     }
 
-    // Implement test methods for other controller methods
-    // getCoffeeById(), createCoffee(), updateCoffee(), deleteCoffee()
 }

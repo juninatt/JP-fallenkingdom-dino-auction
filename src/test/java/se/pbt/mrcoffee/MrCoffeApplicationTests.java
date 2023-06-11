@@ -1,4 +1,4 @@
-package se.pbt.mrcoffe;
+package se.pbt.mrcoffee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

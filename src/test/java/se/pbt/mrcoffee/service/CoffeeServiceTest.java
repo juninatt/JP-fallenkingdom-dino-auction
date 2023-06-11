@@ -1,12 +1,12 @@
-package se.pbt.mrcoffe.service;
+package se.pbt.mrcoffee.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import se.pbt.mrcoffe.model.Coffee;
-import se.pbt.mrcoffe.repository.CoffeeRepository;
+import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.repository.CoffeeRepository;
 
 import java.util.Optional;
 
@@ -41,7 +41,4 @@ class CoffeeServiceTest {
         assertEquals(expectedCoffee, resultCoffee);
         verify(coffeeRepository, times(1)).findById(coffeeId);
     }
-
-    // Implement test methods for other service methods
-    // getAllCoffees(), createCoffee(), updateCoffee(), deleteCoffee()
 }

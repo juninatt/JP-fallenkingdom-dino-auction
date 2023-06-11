@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'se.pbt.mr-coffe' is invalid and this project uses 'se.pbt.mrcoffe' instead.
+* The original package name 'se.pbt.mr-coffe' is invalid and this project uses 'se.pbt.mrcoffee' instead.
 
 # Getting Started
 

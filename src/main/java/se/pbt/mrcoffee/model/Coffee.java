@@ -1,4 +1,4 @@
-package se.pbt.mrcoffe.model;
+package se.pbt.mrcoffee.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
