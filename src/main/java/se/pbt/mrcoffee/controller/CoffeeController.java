@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.service.CoffeeService;
 
 import java.util.List;

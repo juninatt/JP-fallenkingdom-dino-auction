@@ -2,7 +2,7 @@ package se.pbt.mrcoffee.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.model.product.Coffee;
 
 /**
  * Exception thrown when a {@link Coffee} object is not found.

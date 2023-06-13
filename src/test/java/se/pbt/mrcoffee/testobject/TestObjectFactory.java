@@ -1,6 +1,6 @@
 package se.pbt.mrcoffee.testobject;
 
-import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.model.product.Coffee;
 
 import java.math.BigDecimal;
 

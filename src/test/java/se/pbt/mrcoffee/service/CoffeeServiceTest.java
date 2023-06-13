@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
-import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
@@ -17,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@DisplayName("CoffeeService:")
 class CoffeeServiceTest {
 
     @Autowired

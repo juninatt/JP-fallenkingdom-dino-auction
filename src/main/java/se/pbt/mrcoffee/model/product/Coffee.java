@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.model;
+package se.pbt.mrcoffee.model.product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

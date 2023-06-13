@@ -2,7 +2,7 @@ package se.pbt.mrcoffee.dataloader;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
-import se.pbt.mrcoffee.model.Coffee;
+import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.CoffeeRepository;
 
 import java.math.BigDecimal;
