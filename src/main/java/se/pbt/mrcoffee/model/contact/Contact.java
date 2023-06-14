@@ -19,15 +19,12 @@ public abstract class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactId;
 
-    @Column(name = "email", nullable = false)
     @NotBlank(message = "Email is required")
     private String email;
 
-    @Column(name = "phone_number", nullable = false)
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
 
-    @Column(name = "additional_info")
     private String additionalInfo;
 
     @OneToOne(cascade = CascadeType.ALL)

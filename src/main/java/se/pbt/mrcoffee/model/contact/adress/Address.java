@@ -1,6 +1,7 @@
 package se.pbt.mrcoffee.model.contact.adress;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import se.pbt.mrcoffee.model.contact.Contact;
 
 import java.util.HashMap;
@@ -12,22 +13,22 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
     private Long addressId;
 
-    @Column(name = "street")
+    @NotBlank(message = "Street is required")
     private String street;
 
-    @Column(name = "street_number")
+    @NotBlank(message = "Street number is required")
     private int streetNumber;
 
-    @Column(name = "city")
+    private int apartmentNumber;
+
+    @NotBlank(message = "City is required")
     private String city;
 
-    @Column(name = "postal_code")
+    @NotBlank(message = "Postal code is required")
     private String postalCode;
 
-    @Column(name = "country")
     private String country;
 
     @ManyToMany
@@ -47,18 +48,28 @@ public class Address {
     /**
      * Parameterized constructor for the Address class.
      *
-     * @param street       The street name.
-     * @param streetNumber The street number.
-     * @param city         The city name.
-     * @param postalCode   The postal code.
-     * @param country      The country name.
+     * @param street          The street name.
+     * @param streetNumber    The street number.
+     * @param apartmentNumber The apartment or house number.
+     * @param city            The city name.
+     * @param postalCode      The postal code.
+     * @param country         The country name.
      */
-    public Address(String street, int streetNumber, String city, String postalCode, String country) {
+    public Address(String street, int streetNumber, int apartmentNumber, String city, String postalCode, String country) {
         this.street = street;
         this.streetNumber = streetNumber;
+        this.apartmentNumber = apartmentNumber;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
+    }
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     public String getStreet() {
@@ -75,6 +86,14 @@ public class Address {
 
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public int getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(int apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
     public String getCity() {

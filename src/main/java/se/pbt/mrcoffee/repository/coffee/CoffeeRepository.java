@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.repository;
+package se.pbt.mrcoffee.repository.coffee;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

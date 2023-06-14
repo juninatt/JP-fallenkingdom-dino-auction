@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.service.CoffeeService;
+import se.pbt.mrcoffee.service.coffee.CoffeeService;
 
 import java.util.List;
 

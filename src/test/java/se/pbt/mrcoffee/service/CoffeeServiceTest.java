@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.repository.CoffeeRepository;
+import se.pbt.mrcoffee.repository.coffee.CoffeeRepository;
+import se.pbt.mrcoffee.service.coffee.CoffeeService;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.List;
