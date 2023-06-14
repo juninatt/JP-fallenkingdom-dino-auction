@@ -10,7 +10,7 @@ import se.pbt.mrcoffee.model.contact.Contact;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public abstract class MrCoffeeUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public abstract class User {
      * Default constructor for the User class.
      * Protected access modifier to prevent direct instantiation.
      */
-    protected User() {
+    protected MrCoffeeUser() {
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class User {
      * @param username The username of the user.
      * @param password The password of the user.
      */
-    public User(String username, String password) {
+    public MrCoffeeUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -55,7 +55,7 @@ public abstract class User {
      * @param password The password of the user
      * @param contact The contact information of the user
      */
-    public User(String username, String password, Contact contact) {
+    public MrCoffeeUser(String username, String password, Contact contact) {
         this.username = username;
         this.password = password;
         this.contact = contact;
