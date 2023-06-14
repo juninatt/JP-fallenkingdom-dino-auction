@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.controller;
+package se.pbt.mrcoffee.controller.coffee;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
