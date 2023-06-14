@@ -16,19 +16,19 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
     @NotBlank(message = "Username is required")
     @Size(min = 5, message = "Username must be at least 5 characters")
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id")
-    private Contact contactInformation;
+    private Contact contact;
 
     /**
      * Default constructor for the User class.
@@ -53,12 +53,12 @@ public abstract class User {
      *
      * @param username The username of the user
      * @param password The password of the user
-     * @param contactInformation The contact information of the user
+     * @param contact The contact information of the user
      */
-    public User(String username, String password, Contact contactInformation) {
+    public User(String username, String password, Contact contact) {
         this.username = username;
         this.password = password;
-        this.contactInformation = contactInformation;
+        this.contact = contact;
     }
 
     public Long getUserId() {
@@ -85,12 +85,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public Contact getContactInformation() {
-        return contactInformation;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContactInformation(Contact contactInformation) {
-        this.contactInformation = contactInformation;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 }
 
