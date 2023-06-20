@@ -8,9 +8,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import se.pbt.mrcoffee.controller.coffee.CoffeeController;
+import se.pbt.mrcoffee.controller.product.CoffeeController;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.service.coffee.CoffeeService;
+import se.pbt.mrcoffee.service.product.CoffeeService;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

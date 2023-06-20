@@ -9,13 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.repository.coffee.CoffeeRepository;
-import se.pbt.mrcoffee.service.coffee.CoffeeService;
+import se.pbt.mrcoffee.repository.product.CoffeeRepository;
+import se.pbt.mrcoffee.service.product.CoffeeService;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @DisplayName("CoffeeService:")
@@ -35,18 +37,18 @@ class CoffeeServiceTest {
     void setup() {
         coffeeRepository.deleteAll();
         coffeeRepository.saveAll(List.of(
-                TestObjectFactory.createCoffee("Americano"),
-                TestObjectFactory.createCoffee("Cappuccino"),
-                TestObjectFactory.createCoffee("Espresso"),
-                TestObjectFactory.createCoffee("Latte"),
-                TestObjectFactory.createCoffee("Double Double")
+                TestObjectFactory.createCoffee(),
+                TestObjectFactory.createCoffee(),
+                TestObjectFactory.createCoffee(),
+                TestObjectFactory.createCoffee(),
+                TestObjectFactory.createCoffee()
         ));
     }
 
 
     @Nested
     @DisplayName("getAllCoffees():")
-    public class GetAllCoffeesTests {
+    class GetAllCoffeesTests {
 
         @Nested
         @DisplayName("Returns:")
@@ -91,6 +93,58 @@ class CoffeeServiceTest {
                 // Call method to test and assert for NullPointerException
                 assertThrows(CoffeeNotFoundException.class, () -> coffeeService.getAllCoffees());
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("updateCoffee():")
+    class UpdateCoffeeTests {
+
+        @Test
+        @DisplayName("Returns updated Coffee when Coffee exists")
+        void updateCoffee_validInput_returnsUpdatedCoffee() {
+            // Arrange
+            long coffeeId = 1L;
+            String updatedName = "Updated Coffee";
+            Coffee updatedCoffee = new Coffee();
+            updatedCoffee.setName(updatedName);
+
+            Coffee existingCoffee = TestObjectFactory.createCoffee();
+            CoffeeRepository coffeeRepository = mock(CoffeeRepository.class);
+            when(coffeeRepository.findById(coffeeId)).thenReturn(Optional.of(existingCoffee));
+            when(coffeeRepository.save(existingCoffee)).thenReturn(existingCoffee);
+
+            JmsMessageProducer jmsMessageProducer = mock(JmsMessageProducer.class);
+
+            CoffeeService coffeeService = new CoffeeService(coffeeRepository, jmsMessageProducer);
+
+            // Act
+            Coffee result = coffeeService.updateCoffee(coffeeId, updatedCoffee);
+
+            // Assert
+            assertNotNull(result);
+            assertEquals(updatedName, result.getName());
+            verify(jmsMessageProducer).sendMessage("myQueue", "Coffee updated: " + updatedName);
+        }
+
+        @Test
+        @DisplayName("Returns null when Coffee does not exist")
+        void updateCoffee_coffeeNotFound_returnsNull() {
+            // Arrange
+            long nonExistingCoffeeId = 999L;
+            CoffeeRepository coffeeRepository = mock(CoffeeRepository.class);
+            when(coffeeRepository.findById(nonExistingCoffeeId)).thenReturn(Optional.empty());
+
+            JmsMessageProducer jmsMessageProducer = mock(JmsMessageProducer.class);
+
+            CoffeeService coffeeService = new CoffeeService(coffeeRepository, jmsMessageProducer);
+
+            // Act
+            Coffee result = coffeeService.updateCoffee(nonExistingCoffeeId, new Coffee());
+
+            // Assert
+            assertNull(result);
+            verifyNoInteractions(jmsMessageProducer);
         }
     }
 }

@@ -42,7 +42,7 @@ class AddressServiceTest {
         @DisplayName("Creates a new address")
         void createAddress_ShouldCreateNewAddress() {
             // Create a test object
-            var address = TestObjectFactory.createAddress("Azalea");
+            var address = TestObjectFactory.createAddress();
 
             // Call the method to be tested and assign the returned value
             var result = addressService.createAddress(address);
@@ -68,8 +68,8 @@ class AddressServiceTest {
         void getAllAddresses_ShouldReturnAllAddresses() {
             // Create test objects and add to database
             var addresses = new ArrayList<Address>();
-            addresses.add(TestObjectFactory.createAddress("Mapel street"));
-            addresses.add(TestObjectFactory.createAddress("Karljohansgatan"));
+            addresses.add(TestObjectFactory.createAddress());
+            addresses.add(TestObjectFactory.createAddress());
             addressRepository.saveAll(addresses);
 
             // Call tested method and assign return value
@@ -91,7 +91,7 @@ class AddressServiceTest {
         @DisplayName("Returns the address with the given ID")
         void getAddressById_ShouldReturnAddressWithGivenId() {
             // Create a test object and save it to the database
-            var address = TestObjectFactory.createAddress("Kungsgatan");
+            var address = TestObjectFactory.createAddress();
             addressRepository.save(address);
 
             var id = address.getAddressId();
@@ -114,7 +114,7 @@ class AddressServiceTest {
         @DisplayName("Updates an existing address")
         void updateAddress_ShouldUpdateExistingAddress() {
             // Create a test object and save it to the database
-            var address = TestObjectFactory.createAddress("Rout 66");
+            var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
             var id = address.getAddressId();
@@ -139,7 +139,7 @@ class AddressServiceTest {
         @DisplayName("Returns null when no address exists with the given ID")
         void updateAddress_ShouldReturnNullWhenNoAddressWithGivenIdExists() {
             // Call the tested method with invalid ID and assign return value
-            var result = addressService.updateAddress(666L, TestObjectFactory.createAddress("Elm Street"));
+            var result = addressService.updateAddress(666L, TestObjectFactory.createAddress());
 
             // Assert returned value is null
             assertNull(result);
@@ -155,7 +155,7 @@ class AddressServiceTest {
         @DisplayName("Deletes an existing address")
         void deleteAddress_ShouldDeleteExistingAddress() {
             // Create a test object and save it to the database
-            var address = TestObjectFactory.createAddress("Hel Street");
+            var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
             var id = address.getAddressId();
