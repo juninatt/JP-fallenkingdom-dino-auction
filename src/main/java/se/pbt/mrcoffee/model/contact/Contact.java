@@ -2,7 +2,7 @@ package se.pbt.mrcoffee.model.contact;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import se.pbt.mrcoffee.model.contact.adress.Address;
+import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
 import java.util.HashMap;
