@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.model.contact.adress;
+package se.pbt.mrcoffee.model.adress;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -6,6 +6,7 @@ import se.pbt.mrcoffee.model.contact.Contact;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @Table(name = "address")
@@ -68,10 +69,6 @@ public class Address {
         return addressId;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
-
     public String getStreet() {
         return street;
     }
@@ -126,6 +123,25 @@ public class Address {
 
     public void setContacts(Map<String, Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return streetNumber == address.streetNumber &&
+                apartmentNumber == address.apartmentNumber &&
+                Objects.equals(addressId, address.addressId) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(postalCode, address.postalCode) &&
+                Objects.equals(country, address.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addressId, street, streetNumber, apartmentNumber, city, postalCode, country);
     }
 }
 
