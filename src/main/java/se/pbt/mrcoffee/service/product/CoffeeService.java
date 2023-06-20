@@ -1,11 +1,11 @@
-package se.pbt.mrcoffee.service.coffee;
+package se.pbt.mrcoffee.service.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.repository.coffee.CoffeeRepository;
+import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 
 import java.util.List;
 import java.util.Optional;

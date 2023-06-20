@@ -1,45 +1,45 @@
-package se.pbt.mrcoffee.service.privatecustomercontact;
+package se.pbt.mrcoffee.service.contact;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
-import se.pbt.mrcoffee.model.contact.PrivateCustomerContact;
-import se.pbt.mrcoffee.repository.privatecustomercontact.PrivateCustomerContactRepository;
+import se.pbt.mrcoffee.model.contact.CustomerContact;
+import se.pbt.mrcoffee.repository.contact.CustomerContactRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PrivateCustomerContactService {
+public class CustomerContactService {
 
-    private final PrivateCustomerContactRepository contactRepository;
+    private final CustomerContactRepository contactRepository;
     private final JmsMessageProducer jmsMessageProducer;
 
     @Autowired
-    public PrivateCustomerContactService(PrivateCustomerContactRepository contactRepository, JmsMessageProducer jmsMessageProducer) {
+    public CustomerContactService(CustomerContactRepository contactRepository, JmsMessageProducer jmsMessageProducer) {
         this.contactRepository = contactRepository;
         this.jmsMessageProducer = jmsMessageProducer;
     }
 
-    public List<PrivateCustomerContact> getAllPrivateCustomerContacts() {
+    public List<CustomerContact> getAllPrivateCustomerContacts() {
         return contactRepository.findAll();
     }
 
-    public PrivateCustomerContact getPrivateCustomerContactById(long id) {
-        Optional<PrivateCustomerContact> optionalContact = contactRepository.findById(id);
+    public CustomerContact getPrivateCustomerContactById(long id) {
+        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
         return optionalContact.orElse(null);
     }
 
-    public PrivateCustomerContact createPrivateCustomerContact(PrivateCustomerContact contact) {
-        PrivateCustomerContact createdContact = contactRepository.save(contact);
+    public CustomerContact createPrivateCustomerContact(CustomerContact contact) {
+        CustomerContact createdContact = contactRepository.save(contact);
         jmsMessageProducer.sendMessage("myQueue", "Private customer contact created: " + createdContact.getEmail());
         return createdContact;
     }
 
-    public PrivateCustomerContact updatePrivateCustomerContact(long id, PrivateCustomerContact contact) {
-        Optional<PrivateCustomerContact> optionalContact = contactRepository.findById(id);
+    public CustomerContact updatePrivateCustomerContact(long id, CustomerContact contact) {
+        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
         if (optionalContact.isPresent()) {
-            PrivateCustomerContact existingContact = optionalContact.get();
+            CustomerContact existingContact = optionalContact.get();
             existingContact.setEmail(contact.getEmail());
             existingContact.setPhoneNumber(contact.getPhoneNumber());
             // Update other properties as needed
@@ -51,7 +51,7 @@ public class PrivateCustomerContactService {
     }
 
     public boolean deletePrivateCustomerContact(long id) {
-        Optional<PrivateCustomerContact> optionalContact = contactRepository.findById(id);
+        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
         if (optionalContact.isPresent()) {
             contactRepository.delete(optionalContact.get());
             jmsMessageProducer.sendMessage("myQueue", "Private customer contact deleted: " + id);
