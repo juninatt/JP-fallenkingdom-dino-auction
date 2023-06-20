@@ -51,74 +51,34 @@ public class Coffee extends Product {
         this.caffeineContent = caffeineContent;
     }
 
-    /**
-     * Get the origin of the coffee beans.
-     *
-     * @return The origin of the coffee beans.
-     */
     public String getOrigin() {
         return origin;
     }
 
-    /**
-     * Set the origin of the coffee beans.
-     *
-     * @param origin The origin of the coffee beans.
-     */
     public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    /**
-     * Get the roast level of the coffee beans.
-     *
-     * @return The roast level of the coffee beans.
-     */
     public String getRoastLevel() {
         return roastLevel;
     }
 
-    /**
-     * Set the roast level of the coffee beans.
-     *
-     * @param roastLevel The roast level of the coffee beans.
-     */
     public void setRoastLevel(String roastLevel) {
         this.roastLevel = roastLevel;
     }
 
-    /**
-     * Get the flavor notes of the coffee.
-     *
-     * @return The flavor notes of the coffee.
-     */
     public String getFlavorNotes() {
         return flavorNotes;
     }
 
-    /**
-     * Set the flavor notes of the coffee.
-     *
-     * @param flavorNotes The flavor notes of the coffee.
-     */
     public void setFlavorNotes(String flavorNotes) {
         this.flavorNotes = flavorNotes;
     }
 
-    /**
-     * Get the caffeine content in the coffee.
-     *
-     * @return The caffeine content in the coffee.
-     */
     public String getCaffeineContent() {
         return caffeineContent;
     }
 
-    /**
-     * Set the caffeine content in the coffee.
-     *
-     * @param caffeineContent The caffeine content in the coffee.
-     */
     public void setCaffeineContent(String caffeineContent) {
         this.caffeineContent = caffeineContent;
     }
