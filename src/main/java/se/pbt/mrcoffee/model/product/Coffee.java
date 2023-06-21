@@ -2,6 +2,8 @@ package se.pbt.mrcoffee.model.product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
@@ -11,15 +13,19 @@ import java.math.BigDecimal;
 @Entity
 public class Coffee extends Product {
 
+    @NotBlank(message = "Origin is required")
     @Column(nullable = false)
     private String origin;
 
+    @NotBlank(message = "Roast level is required")
     @Column(nullable = false)
     private String roastLevel;
 
+    @NotBlank(message = "Flavour notes is required")
     @Column(nullable = false)
     private String flavorNotes;
 
+    @NotBlank(message = "Caffeine content is required")
     @Column(nullable = false)
     private String caffeineContent;
 
@@ -41,15 +47,16 @@ public class Coffee extends Product {
      * @param flavorNotes     The flavor notes of the coffee.
      * @param caffeineContent The caffeine content in the coffee.
      */
-    public Coffee(String name, String description, BigDecimal price, String origin, String roastLevel,
-                  String flavorNotes, String caffeineContent) {
-        // Call the super class constructor
+    public Coffee(@NotBlank String name, @NotBlank String description, @NotNull BigDecimal price,
+                  @NotBlank String origin, @NotBlank String roastLevel,
+                  @NotBlank String flavorNotes, @NotBlank String caffeineContent) {
         super(name, description, price);
         this.origin = origin;
         this.roastLevel = roastLevel;
         this.flavorNotes = flavorNotes;
         this.caffeineContent = caffeineContent;
     }
+
 
     public String getOrigin() {
         return origin;
