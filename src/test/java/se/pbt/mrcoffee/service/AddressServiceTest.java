@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.repository.address.AddressRepository;
 import se.pbt.mrcoffee.service.address.AddressService;
@@ -24,8 +23,6 @@ class AddressServiceTest {
     private AddressService addressService;
     @Autowired
     private AddressRepository addressRepository;
-    @Autowired
-    private JmsMessageProducer jmsMessageProducer;
 
 
     @BeforeEach
@@ -60,7 +57,7 @@ class AddressServiceTest {
 
 
     @Nested
-    @DisplayName("getAllAddresses() ->")
+    @DisplayName("getAllAddresses()")
     class GetAllAddressesTest {
 
         @Test
