@@ -4,6 +4,7 @@ import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
 import se.pbt.mrcoffee.model.product.Coffee;
+import se.pbt.mrcoffee.model.receipt.Receipt;
 
 import java.math.BigDecimal;
 
@@ -66,6 +67,15 @@ public class TestObjectFactory {
                 null,
                 "Nespresso",
                 "Coffee"
+        );
+    }
+
+    public static Receipt createReceipt() {
+        return new Receipt(
+                BigDecimal.valueOf(999.99),
+                "Secret",
+                BigDecimal.valueOf(9.99),
+                "1"
         );
     }
 }
