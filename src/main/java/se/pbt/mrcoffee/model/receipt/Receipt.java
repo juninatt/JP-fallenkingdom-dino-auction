@@ -1,9 +1,11 @@
 package se.pbt.mrcoffee.model.receipt;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.product.Product;
-import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -32,14 +34,14 @@ public class Receipt {
     private String orderNumber;
 
     @NotNull
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "receipt")
+    @OneToMany(
+            mappedBy = "receipt",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
     private List<Product> products;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private MrCoffeeUser user;
 
     public Receipt() {
         createdAt = LocalDateTime.now();
@@ -94,23 +96,11 @@ public class Receipt {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public MrCoffeeUser getUser() {
-        return user;
-    }
-
-    public void setUser(MrCoffeeUser user) {
-        this.user = user;
     }
 }
