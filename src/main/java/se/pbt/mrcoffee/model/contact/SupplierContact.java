@@ -11,35 +11,22 @@ import java.util.Objects;
 
 
 /**
- * Represents a supplier in the system
+ * Represents contact information of a supplier.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class SupplierContact extends Contact {
 
     @NotBlank(message = "Company name is required")
-    @Size( max = 30, message = "Cant be longer than 30 characters")
+    @Size( max = 30, message = "Company name cant be more than 30 characters")
     private String companyName;
 
     @NotBlank(message = "Industry is required")
-    @Size( max = 30, message = "Cant be longer than 30 characters")
+    @Size( max = 30, message = "Industry be more than 30 characters")
     private String industry;
 
-    /**
-     * Default constructor for SupplierContact class
-     */
     public SupplierContact() {}
 
-    /**
-     * Constructor for the PrivateContact class.
-     *
-     * @param email           The email address of the supplier.
-     * @param phoneNumber     The phone number of the supplier.
-     * @param additionalInfo  Additional information about the supplier.
-     * @param mrCoffeeUser    The user associated with the supplier.
-     * @param companyName     The company name of the supplier.
-     * @param industry        The industry of the supplier.
-     */
     public SupplierContact(String email, String phoneNumber, String additionalInfo, MrCoffeeUser mrCoffeeUser, String companyName, String industry) {
         super(email, phoneNumber, additionalInfo, mrCoffeeUser);
         this.companyName = companyName;
