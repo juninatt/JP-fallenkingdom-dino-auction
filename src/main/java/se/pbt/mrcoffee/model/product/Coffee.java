@@ -33,9 +33,14 @@ public class Coffee extends Product {
         super();
     }
 
-    public Coffee(@NotBlank String name, @NotBlank String description, @NotNull BigDecimal price,
-                  @NotBlank String origin, @NotBlank String roastLevel,
-                  @NotBlank String flavorNotes, @NotBlank String caffeineContent) {
+    public Coffee(@NotBlank String name,
+                  @NotBlank String description,
+                  @NotNull BigDecimal price,
+                  @NotBlank String origin,
+                  @NotBlank String roastLevel,
+                  @NotBlank String flavorNotes,
+                  @NotBlank String caffeineContent
+    ) {
         super(name, description, price);
         this.origin = origin;
         this.roastLevel = roastLevel;
