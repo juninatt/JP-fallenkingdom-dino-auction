@@ -54,7 +54,11 @@ public abstract class Contact {
 
     public Contact() {}
 
-    public Contact(String email, String phoneNumber, String additionalInfo, MrCoffeeUser mrCoffeeUser) {
+    public Contact(@NotBlank String email,
+                   @NotBlank String phoneNumber,
+                   String additionalInfo,
+                   MrCoffeeUser mrCoffeeUser
+    ) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.additionalInfo = additionalInfo;
