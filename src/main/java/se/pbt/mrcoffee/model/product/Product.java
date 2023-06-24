@@ -29,7 +29,7 @@ public abstract class Product {
     @Column(nullable = false, updatable = false)
     private final LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receipt_id")
     private Receipt receipt;
 
