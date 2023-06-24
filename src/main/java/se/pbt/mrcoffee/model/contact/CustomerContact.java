@@ -27,7 +27,14 @@ public class CustomerContact extends Contact {
 
     public CustomerContact() {}
 
-    public CustomerContact(String email, String phoneNumber, String additionalInfo, MrCoffeeUser mrCoffeeUser, String firstName, String lastName) {
+    public CustomerContact(
+            @NotBlank String email,
+            @NotBlank String phoneNumber,
+            @NotBlank String additionalInfo,
+            @NotBlank MrCoffeeUser mrCoffeeUser,
+            @NotBlank String firstName,
+            @NotBlank String lastName
+    ) {
         super(email, phoneNumber, additionalInfo, mrCoffeeUser);
         this.firstName = firstName;
         this.lastName = lastName;
