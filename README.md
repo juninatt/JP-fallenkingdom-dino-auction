@@ -21,6 +21,7 @@ The MrCoffee project is a Java-based application that simulates a coffee maker m
 - RESTful API
 - MS (Java Message Service)
 - Apache ActiveMQ (JMS provider)
+- Swagger (API documentation)
 
 ## Prerequisites
 
@@ -49,3 +50,13 @@ Follow these steps to install and set up the MrCoffee application:
 The MrCoffee application is pre-configured with default settings for the H2 database and JMS integration with Apache ActiveMQ. However, if you need to modify the configuration, you can do so in the application.properties file located in the src/main/resources directory.
 
 Ensure that you update the JMS connection details in the configuration file to match your Apache ActiveMQ installation.
+
+## API Documentation
+
+The MrCoffee application utilizes Swagger for API documentation. The API documentation provides detailed information about the available endpoints, request/response formats, and authentication requirements.
+
+To access the API documentation, run the application and navigate to the following URL in your web browser:
+
+    http://localhost:8080/swagger-ui.html
+
+The Swagger UI will display an interactive documentation page where you can explore and test the API endpoints.
