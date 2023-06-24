@@ -2,6 +2,7 @@ package se.pbt.mrcoffee.model.contact;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
@@ -20,18 +21,30 @@ public abstract class Contact {
     private Long contactId;
 
     @NotBlank(message = "Email is required")
+    @Size(max = 256, message = "Email address is to long")
     private String email;
 
     @NotBlank(message = "Phone number is required")
+    @Size(max = 15, message = "Phone number must follow the  international phone numbering plan (ITU-T E. 164)")
     private String phoneNumber;
 
+    @Size(max = 255, message = "Additional information cant have more than 255 characters")
     private String additionalInfo;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    /**
+     * Represents the associated {@link MrCoffeeUser} for this contact information.
+     * The relationship is defined as a one-to-one mapping using a foreign key
+     * where the user is the owner.
+     */
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private MrCoffeeUser mrCoffeeUser;
 
-    @ManyToMany
+    /**
+     * Represents the mapping of {@link Address} entities associated with this contact information.
+     * The mapping is defined as a many-to-many relationship using a join table.
+     */
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "contact_address",
             joinColumns = @JoinColumn(name = "contact_id"),
@@ -39,20 +52,8 @@ public abstract class Contact {
     )
     private final Map<String, Address> addresses = new HashMap<>();
 
-    /**
-     * Default constructor for the Contact class.
-     */
-    public Contact() {
-    }
+    public Contact() {}
 
-    /**
-     * Constructor for the Contact class.
-     *
-     * @param email           The email address of the contact.
-     * @param phoneNumber     The phone number of the contact.
-     * @param additionalInfo  Additional information about the contact.
-     * @param mrCoffeeUser            The user associated with the contact.
-     */
     public Contact(String email, String phoneNumber, String additionalInfo, MrCoffeeUser mrCoffeeUser) {
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -62,10 +63,6 @@ public abstract class Contact {
 
     public Long getContactId() {
         return contactId;
-    }
-
-    public void setContactId(Long contactId) {
-        this.contactId = contactId;
     }
 
     public String getEmail() {
@@ -102,6 +99,10 @@ public abstract class Contact {
 
     public Map<String, Address> getAddresses() {
         return addresses;
+    }
+
+    public void addAddress(String identifier, Address address) {
+        addresses.put(identifier, address);
     }
 }
 
