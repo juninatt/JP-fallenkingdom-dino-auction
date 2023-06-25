@@ -37,7 +37,7 @@ public class Address {
     private String country;
 
     /**
-     * Represents the mapping of contacts associated with this address.
+     * Represents the mapping of the contact information associated with this address.
      * The mapping is defined as a many-to-many relationship using a join table.
      */
     @ManyToMany(fetch = FetchType.LAZY)
@@ -48,13 +48,17 @@ public class Address {
     )
     private final Map<String, Contact> contacts = new HashMap<>();
 
-    /**
-     * Default constructor for the Address class.
-     */
     public Address() {
     }
 
-    public Address(String street, int streetNumber, int apartmentNumber, String city, String postalCode, String country) {
+    public Address(
+            @NotBlank String street,
+            @NotBlank int streetNumber,
+            int apartmentNumber,
+            @NotBlank String city,
+            @NotBlank String postalCode,
+            String country
+    ) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.apartmentNumber = apartmentNumber;
