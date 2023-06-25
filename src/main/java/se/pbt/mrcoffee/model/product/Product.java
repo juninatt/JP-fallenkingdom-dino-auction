@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "products")
 public abstract class Product {
 
     @Id
