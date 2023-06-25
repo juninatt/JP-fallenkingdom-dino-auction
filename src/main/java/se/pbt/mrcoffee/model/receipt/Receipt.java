@@ -36,6 +36,11 @@ public class Receipt {
     @NotNull
     private final LocalDateTime createdAt;
 
+    /**
+     * Represents the list of products associated with this Receipt.
+     * The relationship is defined as a one-to-many mapping, where Receipt is the owner side.
+     * The products are eagerly loaded, and any operations performed on Receipt will be cascaded to the associated products.
+     */
     @OneToMany(
             mappedBy = "receipt",
             fetch = FetchType.EAGER,
@@ -47,7 +52,12 @@ public class Receipt {
         createdAt = LocalDateTime.now();
     }
 
-    public Receipt(BigDecimal totalAmount, String discountCode, BigDecimal discountAmount, String orderNumber) {
+    public Receipt(
+            @NotBlank BigDecimal totalAmount,
+            String discountCode,
+            BigDecimal discountAmount,
+            @NotBlank String orderNumber
+    ) {
         this.totalAmount = totalAmount;
         this.discountCode = discountCode;
         this.discountAmount = discountAmount;
@@ -102,5 +112,9 @@ public class Receipt {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
     }
 }
