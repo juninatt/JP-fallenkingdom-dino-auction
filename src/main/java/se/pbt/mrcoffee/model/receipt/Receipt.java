@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.product.Product;
+import se.pbt.mrcoffee.model.purchase.Purchase;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "receipt")
+@Table(name = "receipts")
 public class Receipt {
 
     @Id
@@ -48,6 +49,10 @@ public class Receipt {
             cascade = CascadeType.ALL
     )
     private List<Product> products;
+
+    @OneToOne
+    @JoinColumn(name = "purchase_id")
+    private Purchase purchase;
 
     public Receipt() {
         createdAt = LocalDateTime.now();
