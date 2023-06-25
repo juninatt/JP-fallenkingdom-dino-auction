@@ -16,46 +16,39 @@ public abstract class MrCoffeeUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "username", nullable = false)
     @NotBlank(message = "Username is required")
     @Size(min = 5, message = "Username must be at least 5 characters")
     private String username;
 
-    @Column(name = "password", nullable = false)
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    /**
+     * Represents the contact information associated with this user.
+     * The relationship is defined as a one-to-one mapping, where MrCoffeeUser is the owner side.
+     */
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id")
     private Contact contact;
 
-    /**
-     * Default constructor for the User class.
-     * Protected access modifier to prevent direct instantiation.
-     */
+
     protected MrCoffeeUser() {
     }
 
-    /**
-     * Constructor for the User class with the username and password parameters.
-     *
-     * @param username The username of the user.
-     * @param password The password of the user.
-     */
-    public MrCoffeeUser(String username, String password) {
+    public MrCoffeeUser(
+            @NotBlank String username,
+            @NotBlank String password
+    ) {
         this.username = username;
         this.password = password;
     }
 
-    /**
-     * Constructor for the User class with the username, password and contact parameters.
-     *
-     * @param username The username of the user
-     * @param password The password of the user
-     * @param contact The contact information of the user
-     */
-    public MrCoffeeUser(String username, String password, Contact contact) {
+    public MrCoffeeUser(
+            @NotBlank String username,
+            @NotBlank String password,
+            Contact contact
+    ) {
         this.username = username;
         this.password = password;
         this.contact = contact;

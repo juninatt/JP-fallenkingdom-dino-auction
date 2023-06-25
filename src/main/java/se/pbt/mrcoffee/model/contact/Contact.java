@@ -36,9 +36,8 @@ public abstract class Contact {
      * The relationship is defined as a one-to-one mapping using a foreign key
      * where the user is the owner.
      */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private MrCoffeeUser mrCoffeeUser;
+    @OneToOne(mappedBy = "contact")
+    private MrCoffeeUser user;
 
     /**
      * Represents the mapping of {@link Address} entities associated with this contact information.
@@ -54,15 +53,16 @@ public abstract class Contact {
 
     public Contact() {}
 
-    public Contact(@NotBlank String email,
-                   @NotBlank String phoneNumber,
-                   String additionalInfo,
-                   MrCoffeeUser mrCoffeeUser
+    public Contact(
+            @NotBlank String email,
+            @NotBlank String phoneNumber,
+            String additionalInfo,
+            MrCoffeeUser user
     ) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.additionalInfo = additionalInfo;
-        this.mrCoffeeUser = mrCoffeeUser;
+        this.user = user;
     }
 
     public Long getContactId() {
@@ -94,11 +94,11 @@ public abstract class Contact {
     }
 
     public MrCoffeeUser getUser() {
-        return mrCoffeeUser;
+        return user;
     }
 
     public void setUser(MrCoffeeUser mrCoffeeUser) {
-        this.mrCoffeeUser = mrCoffeeUser;
+        this.user = mrCoffeeUser;
     }
 
     public Map<String, Address> getAddresses() {
