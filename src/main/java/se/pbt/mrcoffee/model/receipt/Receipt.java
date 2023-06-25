@@ -10,6 +10,7 @@ import se.pbt.mrcoffee.model.product.Product;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "receipt")
@@ -117,4 +118,24 @@ public class Receipt {
     public void addProduct(Product product) {
         products.add(product);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receipt receipt = (Receipt) o;
+        return Objects.equals(receiptId, receipt.receiptId) &&
+                Objects.equals(totalAmount, receipt.totalAmount) &&
+                Objects.equals(discountCode, receipt.discountCode) &&
+                Objects.equals(discountAmount, receipt.discountAmount) &&
+                Objects.equals(orderNumber, receipt.orderNumber) &&
+                Objects.equals(createdAt, receipt.createdAt) &&
+                Objects.equals(products, receipt.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(receiptId, totalAmount, discountCode, discountAmount, orderNumber, createdAt, products);
+    }
+
 }
