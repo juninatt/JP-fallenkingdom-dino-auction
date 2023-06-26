@@ -57,6 +57,13 @@
 			<version>3.0.2</version>
 		</dependency>
 
+		<!-- Security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+
 		<!-- Test Dependencies -->
 
 		<!-- Spring Boot Starter Test for testing Spring Boot applications -->
