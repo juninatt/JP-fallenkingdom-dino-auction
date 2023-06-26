@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.contact.Contact;
 
+import java.util.Set;
+
 /**
  * Represents a user in the system.
  */
@@ -23,6 +25,15 @@ public abstract class MrCoffeeUser {
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
     /**
      * Represents the contact information associated with this user.
@@ -54,12 +65,9 @@ public abstract class MrCoffeeUser {
         this.contact = contact;
     }
 
+
     public Long getUserId() {
         return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getUsername() {
