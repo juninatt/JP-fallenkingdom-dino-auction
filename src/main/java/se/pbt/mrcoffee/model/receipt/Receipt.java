@@ -45,8 +45,7 @@ public class Receipt {
      */
     @OneToMany(
             mappedBy = "receipt",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
+            fetch = FetchType.EAGER
     )
     private List<Product> products;
 
