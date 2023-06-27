@@ -86,6 +86,10 @@ public abstract class MrCoffeeUser {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     public Contact getContact() {
         return contact;
     }
