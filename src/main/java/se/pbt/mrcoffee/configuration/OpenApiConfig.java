@@ -24,6 +24,19 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     /**
+     * GroupedOpenApi bean for the user-related API endpoints.
+     *
+     * @return GroupedOpenApi instance for the user API.
+     */
+    @Bean
+    public GroupedOpenApi userApi() {
+        return GroupedOpenApi.builder()
+                .group("users")
+                .packagesToScan("se.pbt.mrcoffee.controller.user")
+                .build();
+    }
+
+    /**
      * GroupedOpenApi bean for the address-related API endpoints.
      *
      * @return GroupedOpenApi instance for the address API.
