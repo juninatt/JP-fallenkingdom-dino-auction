@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import se.pbt.mrcoffee.model.user.MrCoffeeUser;
-import se.pbt.mrcoffee.model.user.Role;
+import se.pbt.mrcoffee.model.user.security.Role;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.model.user;
+package se.pbt.mrcoffee.model.user.security;
 
 import jakarta.persistence.*;
 

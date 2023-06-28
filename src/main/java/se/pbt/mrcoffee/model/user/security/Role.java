@@ -1,6 +1,7 @@
-package se.pbt.mrcoffee.model.user;
+package se.pbt.mrcoffee.model.user.security;
 
 import jakarta.persistence.*;
+import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
 import java.util.HashSet;
 import java.util.Set;
