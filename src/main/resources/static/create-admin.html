@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create User</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        });
+
+        function createUser() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var email = $("#email").val();
+
+            var user = {
+                "username": username,
+                "password": password,
+                "email": email
+            };
+
+            // Send the user object to your 'createUser' endpoint using AJAX
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/users",
+                data: JSON.stringify(user),
+                success: function(response) {
+                    console.log("User created successfully:", response);
+                    // Handle the success response here
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error creating user:", error);
+                    // Handle the error response here
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>Create User</h1>
+<form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <button type="button" onclick="createUser()">Create User</button>
+</form>
+</body>
+</html>
