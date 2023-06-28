@@ -1,9 +1,12 @@
 package se.pbt.mrcoffee.dataloader;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.repository.coffee.CoffeeRepository;
+import se.pbt.mrcoffee.model.user.Admin;
+import se.pbt.mrcoffee.repository.product.CoffeeRepository;
+import se.pbt.mrcoffee.repository.user.UserRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,8 +14,11 @@ import java.util.List;
 @Component
 class DataLoader {
     private final CoffeeRepository coffeeRepository;
-    public DataLoader(CoffeeRepository coffeeRepository) {
+
+    private final UserRepository userRepository;
+    public DataLoader(CoffeeRepository coffeeRepository, UserRepository userRepository) {
         this.coffeeRepository = coffeeRepository;
+        this.userRepository = userRepository;
     }
 
     @PostConstruct
@@ -39,5 +45,9 @@ class DataLoader {
                 new Coffee("Kenya AA", "Kenyan Specialty Coffee", BigDecimal.valueOf(15.25), "Kenya",
                         "Medium", "Wine-like acidity and fruity", "High")
         ));
+
+
+        var passWordEncoder = new BCryptPasswordEncoder();
+        userRepository.save(new Admin("admin", passWordEncoder.encode("admin")));
     }
 }
