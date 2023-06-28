@@ -32,7 +32,7 @@ public class SecurityConfigTest {
     @Test
     @WithMockUser(username = "user", roles = {"GUEST"})
     public void userCannotAccessRoot() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/address"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
@@ -55,9 +55,9 @@ public class SecurityConfigTest {
 
     @Test
     public void unauthenticatedUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/coffee"))
                 .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
     }
 }
 
