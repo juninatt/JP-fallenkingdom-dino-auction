@@ -1,0 +1,63 @@
+body {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.greeting {
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.sub-heading a {
+  color: olive;
+}
+
+
+.handwriting {
+  font-family: 'Dancing Script', cursive;
+}
+
+.sub-heading {
+  font-size: 20px;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-color: #000;
+  }
+  50% {
+    background-color: #fff;
+  }
+  100% {
+    background-color: #000;
+  }
+}
+
+@keyframes textAnimation {
+  0% {
+    color: white;
+  }
+  50% {
+    color: #ff9b00;
+  }
+  100% {
+    color: white;
+  }
+}
+
