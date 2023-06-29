@@ -1,9 +1,12 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api/v1
 
 spring:
   application:
     name: Mr-Coffe
+
   activemq:
       broker-url: tcp://localhost:61616
       user: admin
