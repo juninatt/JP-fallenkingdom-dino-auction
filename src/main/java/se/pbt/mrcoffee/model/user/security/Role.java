@@ -17,7 +17,7 @@ public class Role {
     @Column(unique = true)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     private Set<MrCoffeeUser> users = new HashSet<>();
 
     @ManyToMany

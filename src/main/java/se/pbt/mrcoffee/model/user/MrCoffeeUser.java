@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.contact.Contact;
 import se.pbt.mrcoffee.model.user.security.Role;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -28,13 +29,13 @@ public abstract class MrCoffeeUser {
     private String password;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     /**
      * Represents the contact information associated with this user.
