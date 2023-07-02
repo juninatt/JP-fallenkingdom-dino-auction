@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.dto;
+package se.pbt.mrcoffee.dto.request;
 
 /**
  * Data Transfer Object for transferring Address data.

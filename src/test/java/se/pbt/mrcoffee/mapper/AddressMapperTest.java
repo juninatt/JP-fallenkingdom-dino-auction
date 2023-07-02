@@ -2,7 +2,7 @@ package se.pbt.mrcoffee.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import se.pbt.mrcoffee.dto.AddressDTO;
+import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.model.adress.Address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
