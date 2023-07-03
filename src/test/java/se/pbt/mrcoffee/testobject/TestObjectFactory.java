@@ -47,8 +47,8 @@ public class TestObjectFactory {
     /**
      * @return A {@link AddressDTO} object with pre-set field values
      */
-    public static Address createAddressDTO() {
-        return new Address(
+    public static AddressDTO createAddressDTO() {
+        return new AddressDTO(
                 "Elm Street",
                 1,
                 1,

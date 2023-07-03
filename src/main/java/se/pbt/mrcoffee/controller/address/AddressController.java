@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import se.pbt.mrcoffee.annotation.GlobalApiResponses;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
-import se.pbt.mrcoffee.mapper.AddressMapper;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.service.address.AddressService;
 
@@ -30,35 +29,33 @@ public class AddressController {
     }
 
     /**
-     * Retrieves all {@link Address} objects stored in the database.
+     * Retrieves a list of all stored {@link Address} objects in the database.
+     * Each address is transformed into an {@link AddressResponseDTO} instance to  hide potentially sensitive details.
      *
-     * @return A ResponseEntity containing a list of all addresses.
+     * @return A ResponseEntity containing a list of {@link AddressResponseDTO}
+     *         The HTTP status code is 200 (OK) if the operation is successful.
      */
     @GetMapping
     @Operation(summary = "Retrieve all addresses", description = "Retrieve a list of all addresses from the database")
     @GlobalApiResponses(schemaImplementation = Address.class)
-    public ResponseEntity<List<Address>> getAllAddresses() {
-        List<Address> addresses = addressService.getAllAddresses();
+    public ResponseEntity<List<AddressResponseDTO>> getAllAddresses() {
+        List<AddressResponseDTO> addresses = addressService.getAllAddresses();
         return ResponseEntity.ok(addresses);
     }
 
     /**
      * Retrieves {@link Address} by its ID and returns a DTO representation of the address.
      *
-     * @param id The ID of the address to retrieve.
+     * @param addressId The ID of the address to retrieve.
      * @return A ResponseEntity containing an {@link AddressResponseDTO} that represents the requested address,
      *         or a 404 status if the address does not exist.
      */
     @GetMapping("/{id}")
     @Operation(summary = "Retrieve address by ID", description = "Retrieve a specific address from the database based on the address ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
-    public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable long id) {
-        var requestedAddress = addressService.getAddressById(id);
-        if (requestedAddress != null) {
-            return ResponseEntity.ok(AddressMapper.INSTANCE.addressToAddressResponseDTO(requestedAddress));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable long addressId) {
+        var retrievedAddress = addressService.getAddressById(addressId);
+        return ResponseEntity.ok(retrievedAddress);
     }
 
     /**
@@ -71,10 +68,8 @@ public class AddressController {
     @Operation(summary = "Create a new address", description = "Create a new address and persist it to the database")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
     public ResponseEntity<AddressResponseDTO> createAddress(@RequestBody AddressDTO addressDetails) {
-        var newAddress = AddressMapper.INSTANCE.addressDTOToAddress(addressDetails);
-        addressService.createAddress(newAddress);
-        var createdAddressResponse = AddressMapper.INSTANCE.addressToAddressResponseDTO(newAddress);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAddressResponse);
+        var savedAddress = addressService.createAddress(addressDetails);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAddress);
     }
 
     /**
@@ -82,35 +77,30 @@ public class AddressController {
      *
      * @param id The ID of the address to update.
      * @param addressDetails The new details for the address.
-     * @return A ResponseEntity containing {@link AddressResponseDTO}, or a 404 status if the address does not exist.
+     * @return A ResponseEntity containing {@link AddressResponseDTO},
+     *         or a 404 status if the address does not exist.
      */
     @PutMapping("/{id}")
     @Operation(summary = "Update address by ID",  description = "Update an existing address in the database by its ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
     public ResponseEntity<AddressResponseDTO> updateAddress(@PathVariable long id, @RequestBody AddressDTO addressDetails) {
-        var updatedAddress = addressService.updateAddress(id, AddressMapper.INSTANCE.addressDTOToAddress(addressDetails));
-        if (updatedAddress != null) {
-            return ResponseEntity.ok(AddressMapper.INSTANCE.addressToAddressResponseDTO(updatedAddress));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        var addressToUpdate = addressService.updateAddress(id, addressDetails);
+        return ResponseEntity.ok(addressToUpdate);
     }
 
     /**
      * Deletes {@link Address} from the database by its ID.
      *
      * @param id the ID of the address to delete.
-     * @return A ResponseEntity with no content if the deletion was successful, or a 404 status if the address does not exist.
+     * @return A ResponseEntity with no content if the deletion was successful,
+     *         or a 404 status if the address does not exist.
      */
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a address by ID")
     @GlobalApiResponses
     public ResponseEntity<Void> deleteAddress(@PathVariable long id) {
-        boolean deleted = addressService.deleteAddress(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        addressService.deleteAddress(id);
+        return ResponseEntity.noContent().build();
+
     }
 }

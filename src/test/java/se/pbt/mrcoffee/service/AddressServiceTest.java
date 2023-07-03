@@ -6,14 +6,20 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import se.pbt.mrcoffee.dto.request.AddressDTO;
+import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
+import se.pbt.mrcoffee.exception.AddressNotFoundException;
+import se.pbt.mrcoffee.mapper.AddressMapper;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.repository.address.AddressRepository;
 import se.pbt.mrcoffee.service.address.AddressService;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 @DisplayName("AddressService:")
@@ -36,22 +42,35 @@ class AddressServiceTest {
     class CreateAddressTest {
 
         @Test
-        @DisplayName("Creates a new address")
-        void createAddress_ShouldCreateNewAddress() {
-            // Create a test object
-            var address = TestObjectFactory.createAddress();
+        @DisplayName("Creates a new address and stores it in database")
+        void createAddress_createsNewAddressInDatabase() {
+            // Create a DTO holding the values for the address
+            var addressDetails = TestObjectFactory.createAddressDTO();
+
+            // Call the method to be tested
+            addressService.createAddress(addressDetails);
+
+            // Assert a new address was persisted to database
+            assertEquals(1, addressRepository.findAll().size());
+        }
+
+        @Test
+        @DisplayName("Returns response object with same values as input object")
+        void createAddress_returnsResponseDTO_withCorrectFieldValues() {
+            // Create a DTO holding the values for the address
+            var addressDetails = TestObjectFactory.createAddressDTO();
 
             // Call the method to be tested and assign the returned value
-            var result = addressService.createAddress(address);
+            var result = addressService.createAddress(addressDetails);
 
             // Assert the fields of the returned object is same as test object
             assertNotNull(result);
-            assertNotNull(result.getAddressId());
-            assertEquals(address.getStreet(), result.getStreet());
-            assertEquals(address.getStreetNumber(), result.getStreetNumber());
-            assertEquals(address.getCity(), result.getCity());
-            assertEquals(address.getPostalCode(), result.getPostalCode());
-            assertEquals(address.getCountry(), result.getCountry());
+            assertNotNull(result.addressId());
+            assertEquals(addressDetails.street(), result.street());
+            assertEquals(addressDetails.streetNumber(), result.streetNumber());
+            assertEquals(addressDetails.city(), result.city());
+            assertEquals(addressDetails.postalCode(), result.postalCode());
+            assertEquals(addressDetails.country(), result.country());
         }
     }
 
@@ -61,7 +80,7 @@ class AddressServiceTest {
     class GetAllAddressesTest {
 
         @Test
-        @DisplayName("Returns all addresses")
+        @DisplayName("Returns representation of all addresses")
         void getAllAddresses_ShouldReturnAllAddresses() {
             // Create test objects and add to database
             var addresses = new ArrayList<Address>();
@@ -72,11 +91,16 @@ class AddressServiceTest {
             // Call tested method and assign return value
             var result = addressService.getAllAddresses();
 
+            // Create a list of expected AddressResponseDTO objects
+            List<AddressResponseDTO> expected = addresses.stream()
+                    .map(AddressMapper.INSTANCE::addressToAddressResponseDTO)
+                    .toList();
+
+
             // Assert that returned list contains the expected values
             assertEquals(addresses.size(), result.size());
-            assertTrue(result.containsAll(addresses));
+            assertTrue(result.containsAll(expected));
         }
-
     }
 
 
@@ -85,20 +109,20 @@ class AddressServiceTest {
     class GetAddressByIdTest {
 
         @Test
-        @DisplayName("Returns the address with the given ID")
+        @DisplayName("Returns an address representation with the same ID as address it represents")
         void getAddressById_ShouldReturnAddressWithGivenId() {
             // Create a test object and save it to the database
             var address = TestObjectFactory.createAddress();
             addressRepository.save(address);
 
-            var id = address.getAddressId();
+            var storedAddressId = address.getAddressId();
 
             // Call the method to be tested with the id of the stored object
-            var result = addressService.getAddressById(id);
+            var response = addressService.getAddressById(storedAddressId);
 
-            // Assert the returned object is the test object
-            assertNotNull(result);
-            assertEquals(address, result);
+            // Assert the returned object has same ID as the test object
+            assertNotNull(response);
+            assertEquals(address.getAddressId(), response.addressId());
         }
     }
 
@@ -108,38 +132,41 @@ class AddressServiceTest {
     class UpdateAddressTest {
 
         @Test
-        @DisplayName("Updates an existing address")
+        @DisplayName("Updates an existing address if matching ID is found in database")
         void updateAddress_ShouldUpdateExistingAddress() {
-            // Create a test object and save it to the database
+            // Create an object to be updated and save it to the database
             var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
             var id = address.getAddressId();
 
-            // Create a new address containing the updated data
-            var updatedAddress = new Address("Updated Street", 456, 1, "Updated City", "67890", "Updated Country");
+            // Create a new address details to update the existing address with
+            var newAddressDetails = new AddressDTO("Updated Street", 456, 1, "Updated City", "67890", "Updated Country");
 
-            // Call the tested method with test objects ID and address with updated data and assign returned value
-            var result = addressService.updateAddress(id, updatedAddress);
+            // Call the tested method with test objects ID and address details and assign returned value
+            var result = addressService.updateAddress(id, newAddressDetails);
 
             // Assert the returned value is not null and contains the updated data
             assertNotNull(result);
-            assertEquals(id, result.getAddressId());
-            assertEquals(updatedAddress.getStreet(), result.getStreet());
-            assertEquals(updatedAddress.getStreetNumber(), result.getStreetNumber());
-            assertEquals(updatedAddress.getCity(), result.getCity());
-            assertEquals(updatedAddress.getPostalCode(), result.getPostalCode());
-            assertEquals(updatedAddress.getCountry(), result.getCountry());
+            assertEquals(id, result.addressId());
+            assertEquals(newAddressDetails.street(), result.street());
+            assertEquals(newAddressDetails.streetNumber(), result.streetNumber());
+            assertEquals(newAddressDetails.city(), result.city());
+            assertEquals(newAddressDetails.postalCode(), result.postalCode());
+            assertEquals(newAddressDetails.country(), result.country());
         }
 
         @Test
-        @DisplayName("Returns null when no address exists with the given ID")
-        void updateAddress_ShouldReturnNullWhenNoAddressWithGivenIdExists() {
-            // Call the tested method with invalid ID and assign return value
-            var result = addressService.updateAddress(666L, TestObjectFactory.createAddress());
+        @DisplayName("Throws AddressNotFoundException when no address exists with the given ID")
+        void updateAddress_throwsAddressNotFoundException_whenNoAddressWithGivenIdExists() {
+            // Create a test object
+            var address = TestObjectFactory.createAddressDTO();
 
-            // Assert returned value is null
-            assertNull(result);
+            // Assert exception is thrown when no matching ID is found
+            assertThrows(AddressNotFoundException.class, () -> {
+                // Act
+                addressService.updateAddress(666L, address);
+            });
         }
     }
 
@@ -149,30 +176,39 @@ class AddressServiceTest {
 
 
         @Test
-        @DisplayName("Deletes an existing address")
-        void deleteAddress_ShouldDeleteExistingAddress() {
+        @DisplayName("Successfully deletes object with corresponding ID from database")
+        void deleteAddress_deletesExistingAddress_whenIdIsFoundInDatabase() {
             // Create a test object and save it to the database
             var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
             var id = address.getAddressId();
 
-            // Call the tested method and assign the returned value
-            var result = addressService.deleteAddress(id);
+            // Call the method to test
+            addressService.deleteAddress(id);
 
-            // Assert the returned value is true and that the objects is gone from database
-            assertTrue(result);
+            // Assert the object is gone from database
             assertFalse(addressRepository.existsById(id));
         }
 
         @Test
-        @DisplayName("Returns false when no address exists with the given ID")
-        void deleteAddress_ShouldReturnFalseWhenNoAddressWithGivenIdExists() {
-            // Call tested method and assign return value
-            var result = addressService.deleteAddress(666L);
-
-            // Assert the returned value is null
-            assertFalse(result);
+        @DisplayName("Throws AddressNotFoundException when no address with given ID exists")
+        void deleteAddress_ThrowsAddressNotFoundException_WhenIdNotFoundInDatabase() {
+            // Call the tested method with invalid ID
+            assertThrows(AddressNotFoundException.class, () -> addressService.deleteAddress(666L));
         }
+
+        @Test
+        @DisplayName("Checks if delete method is invoked once")
+        void deleteAddress_RepositoryDeleteMethodInvokedOnce_WhenValidId() {
+            // Create a test object and save it to the database
+            var address = TestObjectFactory.createAddress();
+            address = addressRepository.save(address);
+
+            // Call the tested method
+            addressService.deleteAddress(address.getAddressId());
+
+            // Verify that delete method is called once
+            assertFalse(addressRepository.existsById(address.getAddressId()));        }
     }
 }

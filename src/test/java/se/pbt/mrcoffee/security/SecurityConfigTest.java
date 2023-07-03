@@ -270,16 +270,14 @@ public class SecurityConfigTest {
         }
 
         @Test
-        @DisplayName("Admin accessing PUT /address with no matching address returns status 201 Created")
+        @DisplayName("Admin accessing PUT /address with no matching address returns status 404 Not Found")
         @WithMockUser(username = "admin", password = "admin" ,roles = {"ADMIN"})
-        public void  admin_callingPutAddress_withNoAddressInDatabase_returnStatusCreated() throws Exception {
-
-            // TODO: Add tests for result after PUT and decide on functionality in service layer
-
-            var updatedAddress = TestObjectFactory.createAddress();
+        public void  admin_callingPutAddress_withNoAddressInDatabase_returnStatusNotFound() throws Exception {
+            // Create an object and convert to Json to serve as request body
+            var updatedAddress = TestObjectFactory.createAddressResponseDTO(1L);
             var updatedAddressJson  = objectMapper.writeValueAsString(updatedAddress);
 
-            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + updatedAddress.getAddressId())
+            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + updatedAddress.addressId())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(updatedAddressJson))
                     .andDo(print())
