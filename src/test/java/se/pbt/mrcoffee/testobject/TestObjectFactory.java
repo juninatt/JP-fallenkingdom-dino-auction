@@ -1,6 +1,8 @@
 package se.pbt.mrcoffee.testobject;
 
 import se.pbt.mrcoffee.model.adress.Address;
+import se.pbt.mrcoffee.dto.request.AddressDTO;
+import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
 import se.pbt.mrcoffee.model.product.Coffee;
@@ -33,6 +35,35 @@ public class TestObjectFactory {
      */
     public static Address createAddress() {
         return new Address(
+                "Elm Street",
+                1,
+                1,
+                "Göteborg",
+                "12345",
+                "Sweden"
+        );
+    }
+
+    /**
+     * @return A {@link AddressDTO} object with pre-set field values
+     */
+    public static Address createAddressDTO() {
+        return new Address(
+                "Elm Street",
+                1,
+                1,
+                "Göteborg",
+                "12345",
+                "Sweden"
+        );
+    }
+
+    /**
+     * @return A {@link AddressResponseDTO} object with pre-set field values
+     */
+    public static AddressResponseDTO createAddressResponseDTO(long id) {
+        return new AddressResponseDTO(
+                id,
                 "Elm Street",
                 1,
                 1,
