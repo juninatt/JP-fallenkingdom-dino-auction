@@ -93,7 +93,7 @@ class AddressServiceTest {
 
             // Create a list of expected AddressResponseDTO objects
             List<AddressResponseDTO> expected = addresses.stream()
-                    .map(AddressMapper.INSTANCE::addressToAddressResponseDTO)
+                    .map(AddressMapper.INSTANCE::toResponseDTO)
                     .toList();
 
 

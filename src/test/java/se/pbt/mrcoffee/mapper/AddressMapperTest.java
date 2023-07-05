@@ -20,7 +20,7 @@ public class AddressMapperTest {
         address.setPostalCode("12345");
         address.setCountry("Sample Country");
 
-        AddressDTO addressDTO = AddressMapper.INSTANCE.addressToAddressDTO(address);
+        AddressDTO addressDTO = AddressMapper.INSTANCE.toAddressDTO(address);
 
         assertEquals(address.getStreet(), addressDTO.street());
         assertEquals(address.getStreetNumber(), addressDTO.streetNumber());
@@ -34,7 +34,7 @@ public class AddressMapperTest {
     public void testAddressDTOToAddress() {
         var addressDTO = new AddressDTO("Main St", 123, 4, "Sample City", "12345", "Sample Country");
 
-        var address = AddressMapper.INSTANCE.addressDTOToAddress(addressDTO);
+        var address = AddressMapper.INSTANCE.toAddress(addressDTO);
 
         assertEquals(addressDTO.street(), address.getStreet());
         assertEquals(addressDTO.streetNumber(), address.getStreetNumber());

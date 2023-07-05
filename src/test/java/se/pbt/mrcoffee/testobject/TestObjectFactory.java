@@ -1,5 +1,7 @@
 package se.pbt.mrcoffee.testobject;
 
+import se.pbt.mrcoffee.dto.request.CustomerContactDTO;
+import se.pbt.mrcoffee.enums.CustomerLevel;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
@@ -7,6 +9,7 @@ import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.model.receipt.Receipt;
+import se.pbt.mrcoffee.model.user.Customer;
 
 import java.math.BigDecimal;
 
@@ -28,6 +31,13 @@ public class TestObjectFactory {
                 "Bitter",
                 "Intense"
         );
+    }
+
+    public static Customer createCustomer() {
+        return new Customer(
+                "JamesGosling",
+                "JamesGosling",
+                CustomerLevel.VIP);
     }
 
     /**
@@ -78,12 +88,22 @@ public class TestObjectFactory {
      */
     public static CustomerContact createCustomerContact() {
         return new CustomerContact(
-                "petter@coffee.se",
+                "james.gosling@coffee.se",
                 "0735 666 666",
                 "Apartment",
                 null,
                 "Petter",
                 "Bergström"
+        );
+    }
+
+    public static CustomerContactDTO createCustomerContactDTO() {
+        return new CustomerContactDTO(
+                "James",
+                "Gosling",
+                "james.gosling@coffee.se",
+                "0735 666 666",
+                "Apartment"
         );
     }
 
