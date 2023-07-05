@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.contact.Contact;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "address")
@@ -40,13 +40,13 @@ public class Address {
      * Represents the mapping of the contact information associated with this address.
      * The mapping is defined as a many-to-many relationship using a join table.
      */
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_address",
             joinColumns = @JoinColumn(name = "address_id"),
             inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
-    private final Map<String, Contact> contacts = new HashMap<>();
+    private final Set<Contact> contacts = new HashSet<>();
 
     public Address() {
     }
@@ -119,12 +119,13 @@ public class Address {
         this.country = country;
     }
 
-    public Map<String, Contact> getContacts() {
+    public Set<Contact> getContacts() {
         return contacts;
     }
 
-    public void addContact(String identifier, Contact contact) {
-        contacts.put(identifier, contact);
+    public void addContact(Contact contact) {
+        contacts.add(contact);
+        contact.getAddresses().add(this);
     }
 
     @Override

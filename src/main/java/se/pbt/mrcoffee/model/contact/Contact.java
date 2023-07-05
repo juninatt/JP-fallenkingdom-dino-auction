@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a users contact information
@@ -43,13 +43,13 @@ public abstract class Contact {
      * Represents the mapping of {@link Address} entities associated with this contact information.
      * The mapping is defined as a many-to-many relationship using a join table.
      */
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_address",
             joinColumns = @JoinColumn(name = "contact_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
     )
-    private final Map<String, Address> addresses = new HashMap<>();
+    private final Set<Address> addresses = new HashSet<>();
 
     public Contact() {}
 
@@ -101,12 +101,14 @@ public abstract class Contact {
         this.user = mrCoffeeUser;
     }
 
-    public Map<String, Address> getAddresses() {
+    public Set<Address>getAddresses() {
         return addresses;
     }
 
-    public void addAddress(String identifier, Address address) {
-        addresses.put(identifier, address);
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+        address.getContacts().add(this);  // assuming Address class has a getContacts method
     }
+
 }
 

@@ -28,7 +28,7 @@ public class AddressService {
      */
     public List<AddressResponseDTO> getAllAddresses() {
         return addressRepository.findAll().stream()
-                .map(AddressMapper.INSTANCE::addressToAddressResponseDTO)
+                .map(AddressMapper.INSTANCE::toResponseDTO)
                 .toList();
     }
 
@@ -41,7 +41,7 @@ public class AddressService {
      */
     public AddressResponseDTO getAddressById(long id) {
         return addressRepository.findById(id)
-                .map(AddressMapper.INSTANCE::addressToAddressResponseDTO)
+                .map(AddressMapper.INSTANCE::toResponseDTO)
                 .orElseThrow(() -> new AddressNotFoundException("No address with ID: " + id + " could be found."));
     }
 
@@ -52,8 +52,8 @@ public class AddressService {
      * @return A {@link AddressResponseDTO} that represents the newly created step.
      */
     public AddressResponseDTO createAddress(AddressDTO addressDetails) {
-        var savedAddress = addressRepository.save(AddressMapper.INSTANCE.addressDTOToAddress(addressDetails));
-        return AddressMapper.INSTANCE.addressToAddressResponseDTO(savedAddress);
+        var savedAddress = addressRepository.save(AddressMapper.INSTANCE.toAddress(addressDetails));
+        return AddressMapper.INSTANCE.toResponseDTO(savedAddress);
     }
 
     /**
@@ -74,7 +74,7 @@ public class AddressService {
             addressToUpdate.setPostalCode(addressDetails.postalCode());
             addressToUpdate.setCountry(addressDetails.country());
             var updatedAddress = addressRepository.save(addressToUpdate);
-            return AddressMapper.INSTANCE.addressToAddressResponseDTO(updatedAddress);
+            return AddressMapper.INSTANCE.toResponseDTO(updatedAddress);
     }
 
     /**
