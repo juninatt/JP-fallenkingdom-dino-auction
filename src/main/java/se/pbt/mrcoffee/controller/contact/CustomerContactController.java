@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.pbt.mrcoffee.dto.response.CustomerContactResponseDTO;
+import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.service.contact.CustomerContactService;
 
 import java.util.List;
@@ -20,44 +22,32 @@ public class CustomerContactController {
     }
 
     @GetMapping
-    public ResponseEntity<List<se.pbt.mrcoffee.model.contact.CustomerContact>> getAllPrivateCustomerContacts() {
-        List<se.pbt.mrcoffee.model.contact.CustomerContact> contacts = contactService.getAllPrivateCustomerContacts();
+    public ResponseEntity<List<CustomerContactResponseDTO>> getAllPrivateCustomerContacts() {
+        List<CustomerContactResponseDTO> contacts = contactService.getAllCustomerContacts();
         return ResponseEntity.ok(contacts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<se.pbt.mrcoffee.model.contact.CustomerContact> getPrivateCustomerContactById(@PathVariable long id) {
-        se.pbt.mrcoffee.model.contact.CustomerContact contact = contactService.getPrivateCustomerContactById(id);
-        if (contact != null) {
-            return ResponseEntity.ok(contact);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CustomerContactResponseDTO> getCustomerContactById(@PathVariable long contactId) {
+        var contactDetails = contactService.getCustomerContactById(contactId);
+            return ResponseEntity.ok(contactDetails);
     }
 
     @PostMapping
-    public ResponseEntity<se.pbt.mrcoffee.model.contact.CustomerContact> createPrivateCustomerContact(@RequestBody se.pbt.mrcoffee.model.contact.CustomerContact contact) {
-        se.pbt.mrcoffee.model.contact.CustomerContact createdContact = contactService.createPrivateCustomerContact(contact);
+    public ResponseEntity<CustomerContactResponseDTO> createPrivateCustomerContact(@RequestBody CustomerContact contactDetails) {
+        var createdContact = contactService.createCustomerContact(contactDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdContact);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<se.pbt.mrcoffee.model.contact.CustomerContact> updatePrivateCustomerContact(@PathVariable long id, @RequestBody se.pbt.mrcoffee.model.contact.CustomerContact contact) {
-        se.pbt.mrcoffee.model.contact.CustomerContact updatedContact = contactService.updatePrivateCustomerContact(id, contact);
-        if (updatedContact != null) {
-            return ResponseEntity.ok(updatedContact);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CustomerContactResponseDTO> updatePrivateCustomerContact(@PathVariable long contactId, @RequestBody CustomerContact contactDetails) {
+        var updatedContact = contactService.updateCustomerContact(contactId, contactDetails);
+        return ResponseEntity.ok(updatedContact);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePrivateCustomerContact(@PathVariable long id) {
-        boolean deleted = contactService.deletePrivateCustomerContact(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletePrivateCustomerContact(@PathVariable long contactId) {
+        contactService.deleteCustomerContact(contactId);
+        return ResponseEntity.noContent().build();
     }
 }

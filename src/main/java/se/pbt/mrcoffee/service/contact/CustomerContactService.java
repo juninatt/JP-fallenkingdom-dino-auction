@@ -2,12 +2,14 @@ package se.pbt.mrcoffee.service.contact;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.pbt.mrcoffee.dto.response.CustomerContactResponseDTO;
+import se.pbt.mrcoffee.exception.CustomerContactNotFoundException;
+import se.pbt.mrcoffee.mapper.CustomerContactMapper;
 import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.repository.contact.CustomerContactRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerContactService {
@@ -21,43 +23,40 @@ public class CustomerContactService {
         this.jmsMessageProducer = jmsMessageProducer;
     }
 
-    public List<CustomerContact> getAllPrivateCustomerContacts() {
-        return contactRepository.findAll();
+    public List<CustomerContactResponseDTO> getAllCustomerContacts() {
+        return contactRepository.findAll().stream()
+                .map(CustomerContactMapper.INSTANCE::toCustomerContactResponseDTO)
+                .toList();
     }
 
-    public CustomerContact getPrivateCustomerContactById(long id) {
-        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
-        return optionalContact.orElse(null);
+    public CustomerContactResponseDTO getCustomerContactById(long contactId) {
+        var retrievedContactDetails = contactRepository.findById(contactId)
+                .orElseThrow(CustomerContactNotFoundException::new);
+        return CustomerContactMapper.INSTANCE.toCustomerContactResponseDTO(retrievedContactDetails);
     }
 
-    public CustomerContact createPrivateCustomerContact(CustomerContact contact) {
-        CustomerContact createdContact = contactRepository.save(contact);
-        jmsMessageProducer.sendMessage("myQueue", "Private customer contact created: " + createdContact.getEmail());
-        return createdContact;
+    public CustomerContactResponseDTO createCustomerContact(CustomerContact contactDetails) {
+        var createdContact = contactRepository.save(contactDetails);
+        return CustomerContactMapper.INSTANCE.toCustomerContactResponseDTO(createdContact);
     }
 
-    public CustomerContact updatePrivateCustomerContact(long id, CustomerContact contact) {
-        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
-        if (optionalContact.isPresent()) {
-            CustomerContact existingContact = optionalContact.get();
-            existingContact.setEmail(contact.getEmail());
-            existingContact.setPhoneNumber(contact.getPhoneNumber());
-            // Update other properties as needed
-            jmsMessageProducer.sendMessage("myQueue", "Private customer contact updated: " + existingContact.getEmail());
-            return contactRepository.save(existingContact);
-        } else {
-            return null;
-        }
+    public CustomerContactResponseDTO updateCustomerContact(long contactId, CustomerContact contactDetails) {
+        var contactToUpdate = contactRepository.findById(contactId)
+                .orElseThrow(CustomerContactNotFoundException::new);
+
+        contactToUpdate.setFirstName(contactDetails.getFirstName());
+        contactToUpdate.setLastName(contactDetails.getLastName());
+        contactToUpdate.setEmail(contactDetails.getEmail());
+        contactToUpdate.setPhoneNumber(contactDetails.getPhoneNumber());
+        contactToUpdate.setAdditionalInfo(contactDetails.getAdditionalInfo());
+
+        var updateContact = contactRepository.save(contactToUpdate);
+        return CustomerContactMapper.INSTANCE.toCustomerContactResponseDTO(updateContact);
     }
 
-    public boolean deletePrivateCustomerContact(long id) {
-        Optional<CustomerContact> optionalContact = contactRepository.findById(id);
-        if (optionalContact.isPresent()) {
-            contactRepository.delete(optionalContact.get());
-            jmsMessageProducer.sendMessage("myQueue", "Private customer contact deleted: " + id);
-            return true;
-        } else {
-            return false;
-        }
+    public void deleteCustomerContact(long contactId) {
+        var cantactToDelete = contactRepository.findById(contactId)
+                .orElseThrow(CustomerContactNotFoundException::new);
+        contactRepository.delete(cantactToDelete);
     }
 }
