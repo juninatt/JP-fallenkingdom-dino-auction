@@ -22,12 +22,10 @@ public class Customer extends MrCoffeeUser {
     public Customer(
             @NotBlank String username,
             @NotBlank String password,
-            CustomerLevel customerLevel,
-            List<Purchase> purchases
+            CustomerLevel customerLevel
     ) {
         super(username, password);
         this.customerLevel = customerLevel;
-        this.purchases = purchases;
     }
 
     public CustomerLevel getCustomerLevel() {
