@@ -26,9 +26,9 @@ public class SupplierContactController {
         return ResponseEntity.ok(supplierContacts);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SupplierContact> getSupplierContactById(@PathVariable long id) {
-        SupplierContact supplierContact = supplierContactService.getSupplierContactById(id);
+    @GetMapping("/{contactId}")
+    public ResponseEntity<SupplierContact> getSupplierContactById(@PathVariable long contactId) {
+        SupplierContact supplierContact = supplierContactService.getSupplierContactById(contactId);
         if (supplierContact != null) {
             return ResponseEntity.ok(supplierContact);
         } else {
@@ -42,9 +42,9 @@ public class SupplierContactController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSupplierContact);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SupplierContact> updateSupplierContact(@PathVariable long id, @RequestBody SupplierContact supplierContact) {
-        SupplierContact updatedSupplierContact = supplierContactService.updateSupplierContact(id, supplierContact);
+    @PutMapping("/{contactId}")
+    public ResponseEntity<SupplierContact> updateSupplierContact(@PathVariable long contactId, @RequestBody SupplierContact supplierContact) {
+        SupplierContact updatedSupplierContact = supplierContactService.updateSupplierContact(contactId, supplierContact);
         if (updatedSupplierContact != null) {
             return ResponseEntity.ok(updatedSupplierContact);
         } else {
@@ -52,9 +52,9 @@ public class SupplierContactController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSupplierContact(@PathVariable long id) {
-        boolean deleted = supplierContactService.deleteSupplierContact(id);
+    @DeleteMapping("/{contactId}")
+    public ResponseEntity<Void> deleteSupplierContact(@PathVariable long contactId) {
+        boolean deleted = supplierContactService.deleteSupplierContact(contactId);
         if (deleted) {
             return ResponseEntity.noContent().build();
         } else {
