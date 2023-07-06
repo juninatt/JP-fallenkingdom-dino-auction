@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.integrationtest.exception.handler;
+package se.pbt.mrcoffee.unittest.exception.handler;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

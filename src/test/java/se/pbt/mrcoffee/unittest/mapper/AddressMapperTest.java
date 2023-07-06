@@ -1,14 +1,12 @@
-package se.pbt.mrcoffee.integrationtest.mapper;
+package se.pbt.mrcoffee.unittest.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.mapper.AddressMapper;
 import se.pbt.mrcoffee.model.adress.Address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class AddressMapperTest {
 
     @Test
@@ -21,7 +19,7 @@ public class AddressMapperTest {
         address.setPostalCode("12345");
         address.setCountry("Sample Country");
 
-        AddressDTO addressDTO = AddressMapper.INSTANCE.toAddressDTO(address);
+        var addressDTO = AddressMapper.INSTANCE.toAddressDTO(address);
 
         assertEquals(address.getStreet(), addressDTO.street());
         assertEquals(address.getStreetNumber(), addressDTO.streetNumber());

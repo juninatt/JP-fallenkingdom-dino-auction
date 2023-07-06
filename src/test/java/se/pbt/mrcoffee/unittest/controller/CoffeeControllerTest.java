@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.integrationtest.controller;
+package se.pbt.mrcoffee.unittest.controller;
 
 import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;

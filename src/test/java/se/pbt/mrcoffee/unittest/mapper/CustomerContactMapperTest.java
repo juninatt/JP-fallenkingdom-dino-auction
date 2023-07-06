@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.integrationtest.mapper;
+package se.pbt.mrcoffee.unittest.mapper;
 
 import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.Test;
@@ -12,9 +12,7 @@ public class CustomerContactMapperTest {
 
     @Test
     public void toCustomerContactDTO() {
-        var testUser = TestObjectFactory.createCustomer();
         var customerContact = TestObjectFactory.createCustomerContact();
-        customerContact.setUser(testUser);
 
         var customerContactDTO = mapper.toCustomerContactDTO(customerContact);
 
@@ -40,18 +38,14 @@ public class CustomerContactMapperTest {
 
     @Test
     void toCustomerContactResponseDTO_ShouldReturnCorrectDTO() {
-        // Arrange
-        var contact = TestObjectFactory.createCustomerContact();
+        var customerContact = TestObjectFactory.createCustomerContact();
 
-        // Act
-        var dto = mapper.toCustomerContactResponseDTO(contact);
 
-        // Assert
-        assertEquals(contact.getEmail(), dto.email());
-        assertEquals(contact.getPhoneNumber(), dto.phoneNumber());
-        assertEquals(contact.getAdditionalInfo(), dto.additionalInfo());
+        var responseDTO = mapper.toCustomerContactResponseDTO(customerContact);
 
-        // Assert address mapping
-        assertEquals(contact.getAddresses().size(), dto.addresses().size());
+        assertEquals(customerContact.getEmail(), responseDTO.email());
+        assertEquals(customerContact.getPhoneNumber(), responseDTO.phoneNumber());
+        assertEquals(customerContact.getAdditionalInfo(), responseDTO.additionalInfo());
+        assertEquals(customerContact.getAddresses().size(), responseDTO.addresses().size());
     }
 }

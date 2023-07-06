@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.integrationtest.service;
+package se.pbt.mrcoffee.integrationtest.service.address;
 
 import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
