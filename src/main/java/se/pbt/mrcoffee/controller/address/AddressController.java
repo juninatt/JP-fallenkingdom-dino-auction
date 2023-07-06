@@ -50,7 +50,7 @@ public class AddressController {
      * @return A ResponseEntity containing an {@link AddressResponseDTO} that represents the requested address,
      *         or a 404 status if the address does not exist.
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{addressId}")
     @Operation(summary = "Retrieve address by ID", description = "Retrieve a specific address from the database based on the address ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
     public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable long addressId) {
@@ -75,31 +75,31 @@ public class AddressController {
     /**
      * Updates {@link Address} in database by its ID.
      *
-     * @param id The ID of the address to update.
+     * @param addressId The ID of the address to update.
      * @param addressDetails The new details for the address.
      * @return A ResponseEntity containing {@link AddressResponseDTO},
      *         or a 404 status if the address does not exist.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/{addressId}")
     @Operation(summary = "Update address by ID",  description = "Update an existing address in the database by its ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
-    public ResponseEntity<AddressResponseDTO> updateAddress(@PathVariable long id, @RequestBody AddressDTO addressDetails) {
-        var addressToUpdate = addressService.updateAddress(id, addressDetails);
+    public ResponseEntity<AddressResponseDTO> updateAddress(@PathVariable long addressId, @RequestBody AddressDTO addressDetails) {
+        var addressToUpdate = addressService.updateAddress(addressId, addressDetails);
         return ResponseEntity.ok(addressToUpdate);
     }
 
     /**
      * Deletes {@link Address} from the database by its ID.
      *
-     * @param id the ID of the address to delete.
+     * @param addressId the ID of the address to delete.
      * @return A ResponseEntity with no content if the deletion was successful,
      *         or a 404 status if the address does not exist.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{addressId}")
     @Operation(summary = "Delete a address by ID")
     @GlobalApiResponses
-    public ResponseEntity<Void> deleteAddress(@PathVariable long id) {
-        addressService.deleteAddress(id);
+    public ResponseEntity<Void> deleteAddress(@PathVariable long addressId ) {
+        addressService.deleteAddress(addressId);
         return ResponseEntity.noContent().build();
 
     }
