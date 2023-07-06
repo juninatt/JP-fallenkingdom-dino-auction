@@ -6,11 +6,12 @@
 #### Change entity fields from int to Integer, long to Long etc
 
 -[ ] Address
--[ ] Contacts
+-[ ] CustomerContact
+-[ ] SupplierContact
 -[ ] Receipt
 -[ ] Products
 -[ ] User
-- 
+
 --------------------------------------------------------------
 
 #### Change field 'streetNumber' in Address.java + DTO:s to String
@@ -25,3 +26,12 @@ Street numbers often have "22B" as a number and this must be covered.
 - [ ] Add clear documentation
 
 ---------------------------------------------------------------
+
+### Add and implement DTO:s for controller and service layer
+
+- [x] Address
+- [x] CustomerContact
+- [ ] SupplierContact
+- [ ] Receipt
+- [ ] Products
+- [ ] Users
