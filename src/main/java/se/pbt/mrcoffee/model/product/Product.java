@@ -27,7 +27,7 @@ public abstract class Product {
     @NotBlank(message = "Price is required")
     private BigDecimal price;
 
-    @Column(nullable = false, updatable = false)
+    @Column(columnDefinition = "TIMESTAMP(0)", nullable = false, updatable = false)
     private final LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,7 +39,7 @@ public abstract class Product {
      * Default constructor for the Product class.
      * Sets the creation timestamp to the current date and time.
      */
-    protected Product() { createdAt = LocalDateTime.now(); }
+    protected Product() { createdAt = LocalDateTime.now().withNano(0); }
 
     /**
      * Parameterized constructor for the Product class.
@@ -52,7 +52,7 @@ public abstract class Product {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.createdAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now().withNano(0);
     }
 
     public Long getId() {
