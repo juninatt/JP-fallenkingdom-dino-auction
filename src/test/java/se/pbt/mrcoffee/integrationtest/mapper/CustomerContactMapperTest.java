@@ -1,7 +1,8 @@
-package se.pbt.mrcoffee.mapper;
+package se.pbt.mrcoffee.integrationtest.mapper;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.Test;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.mapper.CustomerContactMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

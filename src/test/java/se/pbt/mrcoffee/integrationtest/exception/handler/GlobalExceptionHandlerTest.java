@@ -1,9 +1,10 @@
-package se.pbt.mrcoffee.exception.handler;
+package se.pbt.mrcoffee.integrationtest.exception.handler;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
+import se.pbt.mrcoffee.exception.handler.GlobalExceptionHandler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

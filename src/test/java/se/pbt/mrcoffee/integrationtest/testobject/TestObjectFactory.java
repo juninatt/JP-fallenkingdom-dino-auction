@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee.testobject;
+package se.pbt.mrcoffee.integrationtest.testobject;
 
 import se.pbt.mrcoffee.dto.request.CustomerContactDTO;
 import se.pbt.mrcoffee.enums.CustomerLevel;

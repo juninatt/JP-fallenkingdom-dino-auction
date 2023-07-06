@@ -1,5 +1,6 @@
-package se.pbt.mrcoffee.service.contact;
+package se.pbt.mrcoffee.integrationtest.service.contact;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -9,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.dto.response.CustomerContactResponseDTO;
 import se.pbt.mrcoffee.exception.CustomerContactNotFoundException;
 import se.pbt.mrcoffee.repository.contact.CustomerContactRepository;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.service.contact.CustomerContactService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,7 @@
-package se.pbt.mrcoffee.security;
+package se.pbt.mrcoffee.integrationtest.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import se.pbt.mrcoffee.repository.address.AddressRepository;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.repository.receipt.ReceiptRepository;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 

@@ -1,4 +1,4 @@
-package se.pbt.mrcoffee;
+package se.pbt.mrcoffee.integrationtest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

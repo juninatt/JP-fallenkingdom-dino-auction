@@ -1,10 +1,11 @@
-package se.pbt.mrcoffee.service.contact;
+package se.pbt.mrcoffee.integrationtest.service.contact;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.repository.contact.SupplierContactRepository;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.service.contact.SupplierContactService;
 
 import java.util.List;
 

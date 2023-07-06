@@ -1,5 +1,6 @@
-package se.pbt.mrcoffee.service;
+package se.pbt.mrcoffee.integrationtest.service;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,7 +14,6 @@ import se.pbt.mrcoffee.mapper.AddressMapper;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.repository.address.AddressRepository;
 import se.pbt.mrcoffee.service.address.AddressService;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.ArrayList;
 import java.util.List;

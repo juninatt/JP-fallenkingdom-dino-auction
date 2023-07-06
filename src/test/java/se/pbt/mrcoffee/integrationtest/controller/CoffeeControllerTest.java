@@ -1,5 +1,6 @@
-package se.pbt.mrcoffee.controller;
+package se.pbt.mrcoffee.integrationtest.controller;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import se.pbt.mrcoffee.controller.product.CoffeeController;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.service.product.CoffeeService;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.Collections;
 import java.util.List;

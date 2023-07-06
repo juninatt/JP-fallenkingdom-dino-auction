@@ -1,5 +1,6 @@
-package se.pbt.mrcoffee.service.receipt;
+package se.pbt.mrcoffee.integrationtest.service.receipt;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import se.pbt.mrcoffee.model.receipt.Receipt;
 import se.pbt.mrcoffee.repository.receipt.ReceiptRepository;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.service.receipt.ReceiptService;
 
 import java.math.BigDecimal;
 

@@ -1,5 +1,6 @@
-package se.pbt.mrcoffee.service;
+package se.pbt.mrcoffee.integrationtest.service;
 
+import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -11,7 +12,6 @@ import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.service.product.CoffeeService;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.List;
 import java.util.Optional;
