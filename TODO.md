@@ -35,3 +35,14 @@ Street numbers often have "22B" as a number and this must be covered.
 - [ ] Receipt
 - [ ] Products
 - [ ] Users
+
+--------------------------------------------------------------
+
+### Move validation via annotations from entities to DTO:s
+
+- [ ] Address
+- [ ] CustomerContact
+- [ ] SupplierContact
+- [ ] Receipt
+- [ ] Products
+- [ ] Users
