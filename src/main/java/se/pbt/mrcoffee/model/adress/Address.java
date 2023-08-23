@@ -2,6 +2,7 @@ package se.pbt.mrcoffee.model.adress;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.contact.Contact;
 
@@ -9,19 +10,31 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Represents an address within the system.
+ * <p>
+ * An Address object includes the street, street number, optional apartment number,
+ * city, postal code, and country. It can be associated with various entities that require
+ * address details, such as customers or suppliers.
+ * <p>
+ * Validations are included to ensure that essential fields are provided, and certain fields
+ * are constrained in length.
+ * <p>
+ * The class includes a relationship to {@link Contact} and the mapping is
+ * defined with JPA annotations.
+ */
 @Entity
 @Table(name = "address")
 public class Address {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
+    private Long id;
 
     @NotBlank(message = "Street is required")
     @Size(max = 30, message = "Street can't be more than 30 characters")
     private String street;
 
-    @NotBlank(message = "Street number is required")
+    @NotNull(message = "Street number is required")
     private int streetNumber;
 
     private int apartmentNumber;
@@ -36,10 +49,6 @@ public class Address {
     @Size(max = 20, message = "Country can't be more than 20 characters")
     private String country;
 
-    /**
-     * Represents the mapping of the contact information associated with this address.
-     * The mapping is defined as a many-to-many relationship using a join table.
-     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_address",
@@ -48,8 +57,7 @@ public class Address {
     )
     private final Set<Contact> contacts = new HashSet<>();
 
-    public Address() {
-    }
+    public Address() {}
 
     public Address(
             @NotBlank String street,
@@ -67,8 +75,20 @@ public class Address {
         this.country = country;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    /**
+     * Connects this address to a users contact information.
+     *
+     * @param contactInformation A {@link Contact} object containing contact information of the user in.
+     */
+    public void addContact(Contact contactInformation) {
+        contacts.add(contactInformation);
+        contactInformation.getAddresses().add(this);
+    }
+
+    // Getters and setters
+
+    public Long getId() {
+        return id;
     }
 
     public String getStreet() {
@@ -123,10 +143,7 @@ public class Address {
         return contacts;
     }
 
-    public void addContact(Contact contact) {
-        contacts.add(contact);
-        contact.getAddresses().add(this);
-    }
+    // Overridden methods
 
     @Override
     public boolean equals(Object o) {
@@ -135,7 +152,7 @@ public class Address {
         Address address = (Address) o;
         return streetNumber == address.streetNumber &&
                 apartmentNumber == address.apartmentNumber &&
-                Objects.equals(addressId, address.addressId) &&
+                Objects.equals(id, address.id) &&
                 Objects.equals(street, address.street) &&
                 Objects.equals(city, address.city) &&
                 Objects.equals(postalCode, address.postalCode) &&
@@ -144,7 +161,7 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressId, street, streetNumber, apartmentNumber, city, postalCode, country);
+        return Objects.hash(id, street, streetNumber, apartmentNumber, city, postalCode, country);
     }
 }
 

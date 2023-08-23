@@ -55,11 +55,11 @@ class CustomerContactServiceTest {
             var testContact = contactService.createCustomerContact(TestObjectFactory.createCustomerContact());
 
             // Fetch object from database
-            var result = contactRepository.findById(testContact.contactId())
+            var result = contactRepository.findById(testContact.id())
                     .orElseThrow(CustomerContactNotFoundException::new);
 
             // Assert that the object in the database is equal to created object
-            assertEquals(testContact.contactId(), result.getContactId());
+            assertEquals(testContact.id(), result.getId());
         }
     }
 
@@ -108,7 +108,7 @@ class CustomerContactServiceTest {
         void getCustomerContactById_validId_returnsContact() {
             // Create test object and save to database
             var testContact = TestObjectFactory.createCustomerContact();
-            var id = contactRepository.save(testContact).getContactId();
+            var id = contactRepository.save(testContact).getId();
 
             // Call method to be tested and assign returned value to result variable
             var result = contactService.getCustomerContactById(id);
@@ -146,7 +146,7 @@ class CustomerContactServiceTest {
             updatedContact.setEmail("updatedEmail@test.com");
 
             // Call method to test and assign returned value to result variable
-            var result = contactService.updateCustomerContact(originalContact.getContactId(), updatedContact);
+            var result = contactService.updateCustomerContact(originalContact.getId(), updatedContact);
 
             // Assert result is not null, is of correct class and field is updated
             assertNotNull(result);
@@ -181,7 +181,7 @@ class CustomerContactServiceTest {
 
 
             // Call method to test
-            contactService.deleteCustomerContact(existingContact.getContactId());
+            contactService.deleteCustomerContact(existingContact.getId());
 
             // Assert the object was deleted from database
             assertEquals(0, contactRepository.findAll().size());

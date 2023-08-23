@@ -103,12 +103,12 @@ class ReceiptServiceTest {
             var createdReceipt = receiptService.createReceipt(receipt);
 
             // Retrieve the receipt from the database
-            var savedReceipt = receiptRepository.findById(createdReceipt.getReceiptId())
+            var savedReceipt = receiptRepository.findById(createdReceipt.getId())
                     .orElse(null);
 
             // Assert that the saved receipt exists in the database
             assertNotNull(savedReceipt);
-            assertEquals(createdReceipt.getReceiptId(), savedReceipt.getReceiptId());
+            assertEquals(createdReceipt.getId(), savedReceipt.getId());
             assertEquals(receipt.getTotalAmount(), savedReceipt.getTotalAmount());
         }
 
@@ -143,7 +143,7 @@ class ReceiptServiceTest {
             receipt.setDiscountCode("DISCOUNT123");
 
             // Update the receipt using the service
-            var updatedReceipt = receiptService.updateReceipt(receipt.getReceiptId(), receipt);
+            var updatedReceipt = receiptService.updateReceipt(receipt.getId(), receipt);
 
             // Assert that the receipt is updated with the new data
             assertNotNull(updatedReceipt);
@@ -180,7 +180,7 @@ class ReceiptServiceTest {
             receiptRepository.save(receipt);
 
             // Delete the receipt using the service
-            boolean deleted = receiptService.deleteReceipt(receipt.getReceiptId());
+            boolean deleted = receiptService.deleteReceipt(receipt.getId());
 
             // Assert that the receipt is deleted successfully
             assertTrue(deleted);

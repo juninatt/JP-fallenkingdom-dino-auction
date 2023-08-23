@@ -8,7 +8,14 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
- * Represents a coffee product in the system, extending the Product base class.
+ * Represents a specific type of product: coffee.
+ * <p>
+ * The Coffee class extends the {@link Product} base class, specializing it with attributes specific to coffee products,
+ * such as origin, roast level, flavor notes, and caffeine content. These attributes provide detailed information
+ * about the particular coffee product.
+ * <p>
+ * Constraints are placed on the attributes to ensure that they are provided and conform to specific size limits.
+ * This class can be used to represent various types of coffee products within the system.
  */
 @Entity
 public class Coffee extends Product {
@@ -48,6 +55,7 @@ public class Coffee extends Product {
         this.caffeineContent = caffeineContent;
     }
 
+    // Getters and setters
 
     public String getOrigin() {
         return origin;

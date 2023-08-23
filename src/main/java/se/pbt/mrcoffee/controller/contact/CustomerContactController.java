@@ -36,7 +36,7 @@ public class CustomerContactController {
     @GetMapping
     @Operation(summary = "Retrieve all customer contacts", description = "Retrieve a list of all customer contacts from the database")
     @GlobalApiResponses(schemaImplementation = CustomerContact.class)
-    public ResponseEntity<List<CustomerContactResponseDTO>> getAllPrivateCustomerContacts() {
+    public ResponseEntity<List<CustomerContactResponseDTO>> getAllCustomerContacts() {
         List<CustomerContactResponseDTO> contacts = contactService.getAllCustomerContacts();
         return ResponseEntity.ok(contacts);
     }
@@ -44,15 +44,15 @@ public class CustomerContactController {
     /**
      * Retrieves {@link CustomerContact} by its ID and returns a DTO representation of the contact.
      *
-     * @param contactId The ID of the contact to retrieve.
+     * @param id The ID of the contact to retrieve.
      * @return A ResponseEntity containing a {@link CustomerContactResponseDTO} that represents the requested contact,
      *         or a 404 status if the contact does not exist.
      */
-    @GetMapping("/{contactId}")
+    @GetMapping("/{id}")
     @Operation(summary = "Retrieve contact by ID", description = "Retrieve a specific contact from the database based on the contact ID")
     @GlobalApiResponses(schemaImplementation = CustomerContactResponseDTO.class)
-    public ResponseEntity<CustomerContactResponseDTO> getCustomerContactById(@PathVariable long contactId) {
-        var contactDetails = contactService.getCustomerContactById(contactId);
+    public ResponseEntity<CustomerContactResponseDTO> getCustomerContactById(@PathVariable long id) {
+        var contactDetails = contactService.getCustomerContactById(id);
             return ResponseEntity.ok(contactDetails);
     }
 
@@ -65,7 +65,7 @@ public class CustomerContactController {
     @PostMapping
     @Operation(summary = "Create a new customer contact", description = "Create a new customer contact and persist it to the database")
     @GlobalApiResponses(schemaImplementation = CustomerContactResponseDTO.class)
-    public ResponseEntity<CustomerContactResponseDTO> createPrivateCustomerContact(@RequestBody CustomerContact contactDetails) {
+    public ResponseEntity<CustomerContactResponseDTO> createCustomerContact(@RequestBody CustomerContact contactDetails) {
         var createdContact = contactService.createCustomerContact(contactDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdContact);
     }
@@ -73,31 +73,31 @@ public class CustomerContactController {
     /**
      * Updates {@link CustomerContact} in database by its ID.
      *
-     * @param contactId The ID of the contact to update.
+     * @param id The ID of the contact to update.
      * @param contactDetails The new details for the contact.
      * @return A ResponseEntity containing {@link CustomerContactResponseDTO},
      *         or a 404 status if the contact does not exist```java
      */
-    @PutMapping("/{contactId}")
+    @PutMapping("/{id}")
     @Operation(summary = "Update contact by ID",  description = "Update an existing contact in the database by its ID")
     @GlobalApiResponses(schemaImplementation = CustomerContactResponseDTO.class)
-    public ResponseEntity<CustomerContactResponseDTO> updatePrivateCustomerContact(@PathVariable long contactId, @RequestBody CustomerContact contactDetails) {
-        var updatedContact = contactService.updateCustomerContact(contactId, contactDetails);
+    public ResponseEntity<CustomerContactResponseDTO> updateCustomerContact(@PathVariable long id, @RequestBody CustomerContact contactDetails) {
+        var updatedContact = contactService.updateCustomerContact(id, contactDetails);
         return ResponseEntity.ok(updatedContact);
     }
 
     /**
      * Deletes {@link CustomerContact} from the database by its ID.
      *
-     * @param contactId the ID of the contact to delete.
+     * @param id the ID of the contact to delete.
      * @return A ResponseEntity with no content if the deletion was successful,
      *         or a 404 status if the contact does not exist.
      */
-    @DeleteMapping("/{contactId}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete a contact by ID")
     @GlobalApiResponses
-    public ResponseEntity<Void> deletePrivateCustomerContact(@PathVariable long contactId) {
-        contactService.deleteCustomerContact(contactId);
+    public ResponseEntity<Void> deleteCustomerContact(@PathVariable long id) {
+        contactService.deleteCustomerContact(id);
         return ResponseEntity.noContent().build();
     }
 }

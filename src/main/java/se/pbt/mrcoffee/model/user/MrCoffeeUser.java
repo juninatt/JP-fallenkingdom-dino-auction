@@ -18,7 +18,7 @@ public abstract class MrCoffeeUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @NotBlank(message = "Username is required")
     @Size(min = 5, message = "Username must be at least 5 characters")
@@ -68,8 +68,8 @@ public abstract class MrCoffeeUser {
     }
 
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {

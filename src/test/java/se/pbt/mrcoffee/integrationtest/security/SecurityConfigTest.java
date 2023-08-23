@@ -262,7 +262,7 @@ public class SecurityConfigTest {
 
             var addressJson  = objectMapper.writeValueAsString(storedAddress);
 
-            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + storedAddress.getAddressId())
+            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + storedAddress.getId())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(addressJson))
                     .andDo(print())
@@ -277,7 +277,7 @@ public class SecurityConfigTest {
             var updatedAddress = TestObjectFactory.createAddressResponseDTO(1L);
             var updatedAddressJson  = objectMapper.writeValueAsString(updatedAddress);
 
-            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + updatedAddress.addressId())
+            mockMvc.perform(MockMvcRequestBuilders.put("/address/" + updatedAddress.id())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(updatedAddressJson))
                     .andDo(print())
@@ -308,7 +308,7 @@ public class SecurityConfigTest {
         public void admin_callingDeleteAddress_returnStatusOk() throws Exception {
             var storedAddress = TestObjectFactory.createAddress();
             addressRepository.save(storedAddress);
-            mockMvc.perform(MockMvcRequestBuilders.delete("/address/" + storedAddress.getAddressId()))
+            mockMvc.perform(MockMvcRequestBuilders.delete("/address/" + storedAddress.getId()))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().is(204));
         }
@@ -331,7 +331,7 @@ public class SecurityConfigTest {
         public void admin_callingDeleteReceipt_returnStatusOk() throws Exception {
             var storedReceipt = TestObjectFactory.createReceipt();
             receiptRepository.save(storedReceipt);
-            mockMvc.perform(MockMvcRequestBuilders.delete("/receipt/" + storedReceipt.getReceiptId()))
+            mockMvc.perform(MockMvcRequestBuilders.delete("/receipt/" + storedReceipt.getId()))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().is(204));
         }

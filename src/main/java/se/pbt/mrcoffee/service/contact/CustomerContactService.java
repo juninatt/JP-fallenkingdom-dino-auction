@@ -54,8 +54,8 @@ public class CustomerContactService {
         return CustomerContactMapper.INSTANCE.toCustomerContactResponseDTO(updateContact);
     }
 
-    public void deleteCustomerContact(long contactId) {
-        var cantactToDelete = contactRepository.findById(contactId)
+    public void deleteCustomerContact(long id) {
+        var cantactToDelete = contactRepository.findById(id)
                 .orElseThrow(CustomerContactNotFoundException::new);
         contactRepository.delete(cantactToDelete);
     }

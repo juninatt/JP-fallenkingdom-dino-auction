@@ -2,6 +2,7 @@ package se.pbt.mrcoffee.model.product;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import se.pbt.mrcoffee.model.receipt.Receipt;
 
 import java.math.BigDecimal;
@@ -9,6 +10,12 @@ import java.time.LocalDateTime;
 
 /**
  * Represents a product in the system.
+ * <p>
+ * This abstract class defines the common properties for all products, including name,
+ * description, price, and creation timestamp.
+ * <p>
+ * Products are associated with a {@link Receipt}, representing the purchase transaction where
+ * the product was included.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,7 +31,7 @@ public abstract class Product {
 
     private String description;
 
-    @NotBlank(message = "Price is required")
+    @NotNull(message = "Price is required")
     private BigDecimal price;
 
     @Column(columnDefinition = "TIMESTAMP(0)", nullable = false, updatable = false)
@@ -54,6 +61,8 @@ public abstract class Product {
         this.price = price;
         createdAt = LocalDateTime.now().withNano(0);
     }
+
+    // Getter and setters
 
     public Long getId() {
         return id;

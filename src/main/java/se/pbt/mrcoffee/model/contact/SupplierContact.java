@@ -9,9 +9,14 @@ import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 
 import java.util.Objects;
 
-
 /**
  * Represents contact information of a supplier.
+ * <p>
+ * This class extends the {@link Contact} base class and includes additional details
+ * specific to a supplier, such as the company name and industry.
+ * <p>
+ * These details are essential for differentiating and managing suppliers within
+ * the system.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -33,6 +38,8 @@ public class SupplierContact extends Contact {
         this.industry = industry;
     }
 
+    // Getters and setters
+
     public String getCompanyName() {
         return companyName;
     }
@@ -49,6 +56,7 @@ public class SupplierContact extends Contact {
         this.industry = industry;
     }
 
+    // Overridden methods
 
     @Override
     public boolean equals(Object o) {

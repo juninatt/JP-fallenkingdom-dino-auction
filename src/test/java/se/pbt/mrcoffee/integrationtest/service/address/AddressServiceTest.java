@@ -65,7 +65,7 @@ class AddressServiceTest {
 
             // Assert the fields of the returned object is same as test object
             assertNotNull(result);
-            assertNotNull(result.addressId());
+            assertNotNull(result.id());
             assertEquals(addressDetails.street(), result.street());
             assertEquals(addressDetails.streetNumber(), result.streetNumber());
             assertEquals(addressDetails.city(), result.city());
@@ -115,14 +115,14 @@ class AddressServiceTest {
             var address = TestObjectFactory.createAddress();
             addressRepository.save(address);
 
-            var storedAddressId = address.getAddressId();
+            var storedAddressId = address.getId();
 
             // Call the method to be tested with the id of the stored object
             var response = addressService.getAddressById(storedAddressId);
 
             // Assert the returned object has same ID as the test object
             assertNotNull(response);
-            assertEquals(address.getAddressId(), response.addressId());
+            assertEquals(address.getId(), response.id());
         }
     }
 
@@ -138,7 +138,7 @@ class AddressServiceTest {
             var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
-            var id = address.getAddressId();
+            var id = address.getId();
 
             // Create a new address details to update the existing address with
             var newAddressDetails = new AddressDTO("Updated Street", 456, 1, "Updated City", "67890", "Updated Country");
@@ -148,7 +148,7 @@ class AddressServiceTest {
 
             // Assert the returned value is not null and contains the updated data
             assertNotNull(result);
-            assertEquals(id, result.addressId());
+            assertEquals(id, result.id());
             assertEquals(newAddressDetails.street(), result.street());
             assertEquals(newAddressDetails.streetNumber(), result.streetNumber());
             assertEquals(newAddressDetails.city(), result.city());
@@ -182,7 +182,7 @@ class AddressServiceTest {
             var address = TestObjectFactory.createAddress();
             address = addressRepository.save(address);
 
-            var id = address.getAddressId();
+            var id = address.getId();
 
             // Call the method to test
             addressService.deleteAddress(id);
@@ -206,9 +206,9 @@ class AddressServiceTest {
             address = addressRepository.save(address);
 
             // Call the tested method
-            addressService.deleteAddress(address.getAddressId());
+            addressService.deleteAddress(address.getId());
 
             // Verify that delete method is called once
-            assertFalse(addressRepository.existsById(address.getAddressId()));        }
+            assertFalse(addressRepository.existsById(address.getId()));        }
     }
 }

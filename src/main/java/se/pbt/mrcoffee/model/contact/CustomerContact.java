@@ -10,7 +10,11 @@ import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 import java.util.Objects;
 
 /**
- * Represents contact information for a customer.
+ * Represents contact information specifically for a customer within the system.
+ * <p>
+ * The CustomerContact class extends the {@link Contact} class and adds customer-specific details,
+ * including the first and last name of the customer. These additional fields are subject to
+ * validation constraints to ensure that they are provided and within specific size limits.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -40,6 +44,7 @@ public class CustomerContact extends Contact {
         this.lastName = lastName;
     }
 
+    // Getters and setters
 
     public String getFirstName() {
         return firstName;
@@ -56,6 +61,8 @@ public class CustomerContact extends Contact {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    // Overridden methods
 
     @Override
     public boolean equals(Object o) {

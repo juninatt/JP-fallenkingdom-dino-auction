@@ -60,14 +60,14 @@ public class AddressControllerTest {
     }
 
     @Test
-    @DisplayName("GET /address/{addressId} - Returns Address with given ID")
+    @DisplayName("GET /address/{id} - Returns Address with given ID")
     void getAddressById() throws Exception {
         // Arrange: Create and store an address
         var address = TestObjectFactory.createAddressDTO();
         var storedAddress = addressService.createAddress(address);
 
         // Act and Assert: Perform GET request and validate the response
-        mockMvc.perform(get("/address/" + storedAddress.addressId()))
+        mockMvc.perform(get("/address/" + storedAddress.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(address)));
     }
@@ -86,7 +86,7 @@ public class AddressControllerTest {
     }
 
     @Test
-    @DisplayName("PUT /address/{addressId} - Updates existing Address")
+    @DisplayName("PUT /address/{id} - Updates existing Address")
     void updateAddress() throws Exception {
         // Arrange: Create and store an address
         var address = TestObjectFactory.createAddressDTO();
@@ -104,21 +104,21 @@ public class AddressControllerTest {
 
 
         // Act and Assert: Perform PUT request and validate the response
-        mockMvc.perform(put("/address/" + storedAddress.addressId())
+        mockMvc.perform(put("/address/" + storedAddress.id())
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(updatedAddress)))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("DELETE /address/{addressId} - Deletes existing Address")
+    @DisplayName("DELETE /address/{id} - Deletes existing Address")
     void deleteAddress() throws Exception {
         // Arrange: Create and store an address
         var address = TestObjectFactory.createAddressDTO();
         var storedAddress = addressService.createAddress(address);
 
         // Act and Assert: Perform DELETE request and validate the response
-        mockMvc.perform(delete("/address/" + storedAddress.addressId()))
+        mockMvc.perform(delete("/address/" + storedAddress.id()))
                 .andExpect(status().isNoContent());
     }
 }

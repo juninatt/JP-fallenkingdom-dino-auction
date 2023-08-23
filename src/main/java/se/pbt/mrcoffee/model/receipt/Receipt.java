@@ -13,13 +13,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a receipt for a purchase within the system.
+ * <p>
+ * The Receipt class contains details about the purchase, such as total amount,
+ * any applied discount codes and amounts, order number, and creation time.
+ * <p>
+ * A receipt is associated with a list of {@link Product} objects that were part of the purchase,
+ * and a link to the corresponding {@link Purchase} entity.
+ */
 @Entity
 @Table(name = "receipts")
 public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long receiptId;
+    private Long id;
 
     @NotBlank(message = "Total amount is required")
     @DecimalMin(value = "0", message = "Total amount cant be below 0")
@@ -38,11 +47,6 @@ public class Receipt {
     @NotNull
     private final LocalDateTime createdAt;
 
-    /**
-     * Represents the list of products associated with this Receipt.
-     * The relationship is defined as a one-to-many mapping, where Receipt is the owner side.
-     * The products are eagerly loaded, and any operations performed on Receipt will be cascaded to the associated products.
-     */
     @OneToMany(
             mappedBy = "receipt",
             fetch = FetchType.EAGER
@@ -52,6 +56,7 @@ public class Receipt {
     @OneToOne
     @JoinColumn(name = "purchase_id")
     private Purchase purchase;
+
 
     public Receipt() {
         createdAt = LocalDateTime.now();
@@ -70,9 +75,10 @@ public class Receipt {
         this.createdAt = LocalDateTime.now();
     }
 
+    // Getters and setters
 
-    public Long getReceiptId() {
-        return receiptId;
+    public Long getId() {
+        return id;
     }
 
     public BigDecimal getTotalAmount() {
@@ -123,12 +129,14 @@ public class Receipt {
         products.add(product);
     }
 
+    // Overridden methods
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Receipt receipt = (Receipt) o;
-        return Objects.equals(receiptId, receipt.receiptId) &&
+        return Objects.equals(id, receipt.id) &&
                 Objects.equals(totalAmount, receipt.totalAmount) &&
                 Objects.equals(discountCode, receipt.discountCode) &&
                 Objects.equals(discountAmount, receipt.discountAmount) &&
@@ -139,7 +147,6 @@ public class Receipt {
 
     @Override
     public int hashCode() {
-        return Objects.hash(receiptId, totalAmount, discountCode, discountAmount, orderNumber, createdAt, products);
+        return Objects.hash(id, totalAmount, discountCode, discountAmount, orderNumber, createdAt, products);
     }
-
 }

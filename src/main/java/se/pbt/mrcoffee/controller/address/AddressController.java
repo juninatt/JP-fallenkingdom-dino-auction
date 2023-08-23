@@ -46,15 +46,15 @@ public class AddressController {
     /**
      * Retrieves {@link Address} by its ID and returns a DTO representation of the address.
      *
-     * @param addressId The ID of the address to retrieve.
+     * @param id The ID of the address to retrieve.
      * @return A ResponseEntity containing an {@link AddressResponseDTO} that represents the requested address,
      *         or a 404 status if the address does not exist.
      */
-    @GetMapping("/{addressId}")
+    @GetMapping("/{id}")
     @Operation(summary = "Retrieve address by ID", description = "Retrieve a specific address from the database based on the address ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
-    public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable long addressId) {
-        var retrievedAddress = addressService.getAddressById(addressId);
+    public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable long id) {
+        var retrievedAddress = addressService.getAddressById(id);
         return ResponseEntity.ok(retrievedAddress);
     }
 
@@ -75,31 +75,31 @@ public class AddressController {
     /**
      * Updates {@link Address} in database by its ID.
      *
-     * @param addressId The ID of the address to update.
+     * @param id The ID of the address to update.
      * @param addressDetails The new details for the address.
      * @return A ResponseEntity containing {@link AddressResponseDTO},
      *         or a 404 status if the address does not exist.
      */
-    @PutMapping("/{addressId}")
+    @PutMapping("/{id}")
     @Operation(summary = "Update address by ID",  description = "Update an existing address in the database by its ID")
     @GlobalApiResponses(schemaImplementation = AddressResponseDTO.class)
-    public ResponseEntity<AddressResponseDTO> updateAddress(@PathVariable long addressId, @RequestBody AddressDTO addressDetails) {
-        var addressToUpdate = addressService.updateAddress(addressId, addressDetails);
+    public ResponseEntity<AddressResponseDTO> updateAddress(@PathVariable long id, @RequestBody AddressDTO addressDetails) {
+        var addressToUpdate = addressService.updateAddress(id, addressDetails);
         return ResponseEntity.ok(addressToUpdate);
     }
 
     /**
      * Deletes {@link Address} from the database by its ID.
      *
-     * @param addressId the ID of the address to delete.
+     * @param id the ID of the address to delete.
      * @return A ResponseEntity with no content if the deletion was successful,
      *         or a 404 status if the address does not exist.
      */
-    @DeleteMapping("/{addressId}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete a address by ID")
     @GlobalApiResponses
-    public ResponseEntity<Void> deleteAddress(@PathVariable long addressId ) {
-        addressService.deleteAddress(addressId);
+    public ResponseEntity<Void> deleteAddress(@PathVariable long id ) {
+        addressService.deleteAddress(id);
         return ResponseEntity.noContent().build();
 
     }

@@ -10,7 +10,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a users contact information
+ * Represents a user's contact information within the system.
+ * <p>
+ * A Contact object includes an email, phone number, and optional additional information.
+ * It also has associated user details and may be linked to multiple addresses.
+ * <p>
+ * This abstract class can be extended to define specific types of contacts, such as customer or supplier contacts.
+ * Validations are included to ensure that essential fields are provided, and certain fields are constrained in length.
+ * <p>
+ * The class includes relationships to {@link MrCoffeeUser} and {@link Address}, and the mappings are
+ * defined with JPA annotations.
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -18,7 +27,7 @@ public abstract class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contactId;
+    private Long id;
 
     @NotBlank(message = "Email is required")
     @Size(max = 256, message = "Email address is to long")
@@ -31,18 +40,9 @@ public abstract class Contact {
     @Size(max = 255, message = "Additional information cant have more than 255 characters")
     private String additionalInfo;
 
-    /**
-     * Represents the associated {@link MrCoffeeUser} for this contact information.
-     * The relationship is defined as a one-to-one mapping using a foreign key
-     * where the user is the owner.
-     */
     @OneToOne(mappedBy = "contact")
     private MrCoffeeUser user;
 
-    /**
-     * Represents the mapping of {@link Address} entities associated with this contact information.
-     * The mapping is defined as a many-to-many relationship using a join table.
-     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contact_address",
@@ -65,8 +65,20 @@ public abstract class Contact {
         this.user = user;
     }
 
-    public Long getContactId() {
-        return contactId;
+    /**
+     * Connects this contact information to an address.
+     *
+     * @param address A {@link Address} object containing the adress information
+     */
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+        address.getContacts().add(this);
+    }
+
+    // Getters and setters
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -104,11 +116,5 @@ public abstract class Contact {
     public Set<Address>getAddresses() {
         return addresses;
     }
-
-    public void addAddress(Address address) {
-        this.addresses.add(address);
-        address.getContacts().add(this);  // assuming Address class has a getContacts method
-    }
-
 }
 

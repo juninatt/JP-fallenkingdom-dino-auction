@@ -65,7 +65,7 @@ public class CustomerContactControllerTest {
 
 
         // Act and Assert: Perform GET request and validate the response
-        mockMvc.perform(get("/customer-contact/" + storedContact.contactId()))
+        mockMvc.perform(get("/customer-contact/" + storedContact.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(storedContact)));
     }
@@ -100,21 +100,21 @@ public class CustomerContactControllerTest {
         );
 
         // Act and Assert: Perform PUT request and validate the response
-        mockMvc.perform(put("/customer-contact/" + storedContact.contactId())
+        mockMvc.perform(put("/customer-contact/" + storedContact.id())
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(updatedContact)))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("DELETE /customer-contact/{contactId} - Deletes existing Customer Contact")
+    @DisplayName("DELETE /customer-contact/{id} - Deletes existing Customer Contact")
     void deletePrivateCustomerContact() throws Exception {
         // Arrange: Create and store a customer contact
         var contact = TestObjectFactory.createCustomerContact();
         var storedContact = contactService.createCustomerContact(contact);
 
         // Act and Assert: Perform DELETE request and validate the response
-        mockMvc.perform(delete("/customer-contact/" + storedContact.contactId()))
+        mockMvc.perform(delete("/customer-contact/" + storedContact.id()))
                 .andExpect(status().isNoContent());
     }
 }

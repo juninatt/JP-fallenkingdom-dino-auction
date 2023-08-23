@@ -63,7 +63,7 @@ public class SupplierContactControllerTest {
         var storedContact = supplierContactService.createSupplierContact(supplierContact);
 
         // Act and Assert: Perform GET request and validate the response
-        mockMvc.perform(get("/supplier-contacts/" + storedContact.getContactId()))
+        mockMvc.perform(get("/supplier-contacts/" + storedContact.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(storedContact)));
     }
@@ -99,7 +99,7 @@ public class SupplierContactControllerTest {
         );
 
         // Act and Assert: Perform PUT request and validate the response
-        mockMvc.perform(put("/supplier-contacts/" + storedContact.getContactId())
+        mockMvc.perform(put("/supplier-contacts/" + storedContact.getId())
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(updatedSupplierContact)))
                 .andExpect(status().isOk());
@@ -113,7 +113,7 @@ public class SupplierContactControllerTest {
         var storedContact = supplierContactService.createSupplierContact(supplierContact);
 
         // Act and Assert: Perform DELETE request and validate the response
-        mockMvc.perform(delete("/supplier-contacts/" + storedContact.getContactId()))
+        mockMvc.perform(delete("/supplier-contacts/" + storedContact.getId()))
                 .andExpect(status().isNoContent());
     }
 }
