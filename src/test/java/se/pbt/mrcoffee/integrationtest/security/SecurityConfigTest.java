@@ -1,7 +1,7 @@
 package se.pbt.mrcoffee.integrationtest.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

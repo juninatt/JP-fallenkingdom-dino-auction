@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
 import se.pbt.mrcoffee.repository.contact.SupplierContactRepository;
 import se.pbt.mrcoffee.service.contact.SupplierContactService;

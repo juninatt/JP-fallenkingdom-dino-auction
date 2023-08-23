@@ -1,6 +1,7 @@
-package se.pbt.mrcoffee.integrationtest.testobject;
+package se.pbt.mrcoffee.testobject;
 
 import se.pbt.mrcoffee.dto.request.CustomerContactDTO;
+import se.pbt.mrcoffee.dto.request.SupplierContactDTO;
 import se.pbt.mrcoffee.enums.CustomerLevel;
 import se.pbt.mrcoffee.model.adress.Address;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
@@ -119,6 +120,16 @@ public class TestObjectFactory {
                 "Nespresso",
                 "Coffee"
         );
+    }
+
+    public static SupplierContactDTO createSupplierContactDTO() {
+        return new SupplierContactDTO(
+                "email@example.com",
+                "1234567890",
+                "info",
+                "Company Name",
+                "Industry");
+
     }
 
     public static Receipt createReceipt() {

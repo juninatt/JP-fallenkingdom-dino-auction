@@ -11,13 +11,14 @@ public class AddressMapperTest {
 
     @Test
     public void testAddressToAddressDTO() {
-         var address = new Address();
-        address.setStreet("Main St");
-        address.setStreetNumber(123);
-        address.setApartmentNumber(4);
-        address.setCity("Sample City");
-        address.setPostalCode("12345");
-        address.setCountry("Sample Country");
+         var address = new Address(
+                 "Main St",
+                 123,
+                 4,
+                 "Sample City",
+                 "12345",
+                 "Sample Country"
+         );
 
         var addressDTO = AddressMapper.INSTANCE.toAddressDTO(address);
 
@@ -31,7 +32,13 @@ public class AddressMapperTest {
 
     @Test
     public void testAddressDTOToAddress() {
-        var addressDTO = new AddressDTO("Main St", 123, 4, "Sample City", "12345", "Sample Country");
+        var addressDTO = new AddressDTO(
+                "Main St",
+                123,
+                4,
+                "Sample City",
+                "12345",
+                "Sample Country");
 
         var address = AddressMapper.INSTANCE.toAddress(addressDTO);
 

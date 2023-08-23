@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import se.pbt.mrcoffee.dto.request.CustomerContactDTO;
-import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import se.pbt.mrcoffee.repository.contact.CustomerContactRepository;
 import se.pbt.mrcoffee.service.contact.CustomerContactService;
 

@@ -1,6 +1,6 @@
 package se.pbt.mrcoffee.integrationtest.service.product;
 
-import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

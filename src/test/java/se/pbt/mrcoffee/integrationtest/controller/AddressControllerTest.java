@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
-import se.pbt.mrcoffee.integrationtest.testobject.TestObjectFactory;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import se.pbt.mrcoffee.repository.address.AddressRepository;
 import se.pbt.mrcoffee.service.address.AddressService;
 
