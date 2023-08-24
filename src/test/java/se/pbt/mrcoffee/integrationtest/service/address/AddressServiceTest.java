@@ -209,6 +209,7 @@ class AddressServiceTest {
             addressService.deleteAddress(address.getId());
 
             // Verify that delete method is called once
-            assertFalse(addressRepository.existsById(address.getId()));        }
+            assertFalse(addressRepository.existsById(address.getId()));
+        }
     }
 }

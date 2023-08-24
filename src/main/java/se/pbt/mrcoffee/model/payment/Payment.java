@@ -42,7 +42,9 @@ public class Payment {
      *
      * @param purchase The purchase associated with the payment.
      */
-    public Payment(Purchase purchase) {
+    public Payment(String status, String paymentMethod, Purchase purchase) {
+        this.status = status;
+        this.paymentMethod = paymentMethod;
         this.purchase = purchase;
     }
 

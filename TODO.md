@@ -31,9 +31,9 @@ Street numbers often have "22B" as a number and this must be covered.
 
 - [x] Address
 - [x] CustomerContact
-- [ ] SupplierContact
-- [ ] Receipt
-- [ ] Products
+- [x] SupplierContact
+- [x] Receipt
+- [x] Products
 - [ ] Users
 
 --------------------------------------------------------------
