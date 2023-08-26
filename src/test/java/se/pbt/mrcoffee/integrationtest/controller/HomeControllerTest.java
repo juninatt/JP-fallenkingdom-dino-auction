@@ -26,6 +26,6 @@ public class HomeControllerTest {
         // Act and Assert: Perform GET request and validate the response
         mockMvc.perform(get("/home"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("homepage.html"));
+                .andExpect(view().name("home.html"));
     }
 }

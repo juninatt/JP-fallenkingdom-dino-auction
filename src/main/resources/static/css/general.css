@@ -1,3 +1,4 @@
+/* Styling for the entire body, setting background color, removing margins and paddings */
 body {
   background-color: #000;
   margin: 0;
@@ -5,6 +6,7 @@ body {
   overflow: hidden;
 }
 
+/* Flexbox container to align child elements in the center */
 .container {
   display: flex;
   flex-direction: column;
@@ -13,51 +15,30 @@ body {
   height: 100vh;
 }
 
+/* Styling for the greeting text, aligning center with white color */
 .greeting {
   text-align: center;
   color: white;
 }
 
+/* Main header styling, using custom cursive font and size */
 h1 {
   font-family: 'Dancing Script', cursive;
   font-size: 50px;
   margin-bottom: 20px;
 }
 
+/* Coloring for links inside the sub-heading */
 .sub-heading a {
   color: olive;
 }
 
-
+/* Special cursive handwriting styling for specific elements */
 .handwriting {
   font-family: 'Dancing Script', cursive;
 }
 
+/* Sub-heading font size adjustment */
 .sub-heading {
   font-size: 20px;
 }
-
-@keyframes backgroundAnimation {
-  0% {
-    background-color: #000;
-  }
-  50% {
-    background-color: #fff;
-  }
-  100% {
-    background-color: #000;
-  }
-}
-
-@keyframes textAnimation {
-  0% {
-    color: white;
-  }
-  50% {
-    color: #ff9b00;
-  }
-  100% {
-    color: white;
-  }
-}
-

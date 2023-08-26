@@ -26,10 +26,13 @@ Follow these steps to install and set up the MrCoffee application:
 ## Accessing the Application
 To access the application, use the following credentials:
 
+http://localhost:8080/api/v1/login
+
 Username: admin
 Password: admin
 
-After successful login, you will be able to access all available endpoints.
+After successful login, you will be able to access all available endpoints,
+and a list of current inventory.
 
 ## API Documentation
 Once logged in, a link to the Swagger API documentation will be available. 

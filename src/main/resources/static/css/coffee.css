@@ -1,0 +1,64 @@
+/* Container that holds the coffee items list */
+#coffee-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+/* Styling individual coffee card */
+.coffee-card {
+  border: 1px solid olive;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  background-color: #202020;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styling for the coffee buttons */
+.coffee-action-button {
+  font-family: 'Dancing Script', cursive;
+  background-color: olive;
+  color: white;
+  border: 2px solid #ffffff;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 10px auto;
+  display: block;
+  transition: 0.3s;
+}
+
+.coffee-card button:hover {
+  background-color: #baba76;
+}
+
+/* Flex row for displaying details */
+.details-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Individual item styling in the details row */
+.details-item {
+  margin-right: 20px;
+}
+
+/* Styling for the label and value in details */
+.detail-label, .detail-value {
+  margin-right: 5px;
+}
+
+/* Styling for the extended details section, hidden by default */
+.extended-details {
+  display: none;
+}
+
+/* Styling for visible extended details section */
+.extended-details.visible {
+  display: block;
+}
