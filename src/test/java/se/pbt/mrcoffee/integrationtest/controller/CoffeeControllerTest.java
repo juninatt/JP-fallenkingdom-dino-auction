@@ -9,16 +9,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
-import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.service.product.CoffeeService;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -42,80 +41,145 @@ public class CoffeeControllerTest {
         coffeeRepository.deleteAll();
     }
 
+
     @Test
-    @DisplayName("GET /coffee - Returns List of All Coffees")
-    void getAllCoffees() throws Exception {
-        // Create a coffee object
-        var coffee = TestObjectFactory.createCoffee();
+    @DisplayName("GET /coffee - Returns list of all coffees")
+    void testEndPoint_getCoffee() throws Exception {
+        // Assert initial state of the database
+        assertEquals(0, coffeeRepository.count(), "The database should initially be empty");
 
-        // Store the coffee object in the database
-        coffeeService.createCoffee(coffee);
+        // Create and store a CoffeeDTO object for testing
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+        var createdCoffee = coffeeService.createCoffee(coffeeDTO);
 
-        // Perform a GET request to the "/coffee" endpoint and verify the response
+        // Verify that the coffee object was correctly stored
+        assertEquals(1, coffeeRepository.count(), "There should be one coffee entry in the database");
+
+        // Fetch the stored coffee objects and validate their properties
+        var storedCoffees = coffeeRepository.findAll();
+        var storedCoffee = storedCoffees.iterator().next();
+        assertEquals(createdCoffee.getName(), storedCoffee.getName(), "The stored coffee should have the expected name");
+
+        // Perform the GET request and validate the response
         mockMvc.perform(get("/coffee"))
-                .andExpect(status().isOk()) // Verify that the response status is 200 OK
-                .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(coffee)))); // Verify that the response body contains the expected coffee object
+                .andExpect(status().isOk())  // (200 OK)
+                .andExpect(header().string("Content-Type", "application/json"))
+                .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(coffeeDTO))));
+
+        // Assert the state of the database remains consistent after the operation
+        assertEquals(1, coffeeRepository.count(), "The database should still contain one coffee entry");
     }
 
+
     @Test
-    @DisplayName("GET /coffee/{id} - Returns Coffee with given ID")
-    void getCoffeeById() throws Exception {
-        // Create a coffee object
-        var coffee = TestObjectFactory.createCoffee();
+    @DisplayName("GET /coffee/{id} - Returns coffee with given ID")
+    void testEndPoint_getCoffeeById() throws Exception {
+        // Assert initial state of database
+        assertEquals(0, coffeeRepository.count(), "The database should initially be empty");
 
-        // Store the coffee object in the database and get the generated ID
-        var storedCoffee = coffeeService.createCoffee(coffee);
+        // Create and store a CoffeeDTO object to test on
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+        var createdCoffee = coffeeService.createCoffee(coffeeDTO);
 
-        // Perform a GET request to the "/coffee/{id}" endpoint with the generated ID and verify the response
-        mockMvc.perform(get("/coffee/" + storedCoffee.getId()))
-                .andExpect(status().isOk()) // Verify that the response status is 200 OK
-                .andExpect(content().json(objectMapper.writeValueAsString(coffee))); // Verify that the response body contains the expected coffee object
+        // Verify that the Coffee object was correctly stored
+        assertEquals(1, coffeeRepository.count(), "There should be one coffee entry in the database");
+
+        // Fetch the stored Coffee object and validate its properties
+        var storedCoffees = coffeeRepository.findAll();
+        var storedCoffee = storedCoffees.iterator().next();
+        assertEquals(coffeeDTO.flavorNotes(), storedCoffee.getFlavorNotes(), "The stored coffee should have the expected flavor notes");
+
+        // Perform GET request and validate response
+        mockMvc.perform(get("/coffee/" + createdCoffee.getId()))
+                .andExpect(status().isOk())  // (200 OK)
+                .andExpect(header().string("Content-Type", "application/json"))
+                .andExpect(content().json(objectMapper.writeValueAsString(coffeeDTO)));
+
+        // Assert that the database remains in the expected state after the operation
+        assertEquals(1, coffeeRepository.count(), "The database should still contain one coffee entry");
     }
 
+
+
     @Test
-    @DisplayName("POST /coffee - Creates new Coffee")
+    @DisplayName("POST /coffee - Creates and stores new Coffee object to database")
     void createCoffee() throws Exception {
-        // Create a new coffee object and add properties
-        Coffee coffee = new Coffee();
+        // Assert the initial state of the database
+        assertEquals(0, coffeeRepository.count(), "The database should be empty initially");
 
-        // Perform a POST request to the "/coffee" endpoint with the coffee object and verify the response
+        // Create a CoffeeDTO object for the POST request
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+
+        // Perform a POST request to create a new Coffee object
         mockMvc.perform(post("/coffee")
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(coffee)))
-                .andExpect(status().isCreated()); // Verify that the response status is 201 Created
+                        .content(objectMapper.writeValueAsString(coffeeDTO)))
+                .andExpect(status().isCreated());  // (201 Created)
+
+        // Assert that a coffee object has been stored
+        assertEquals(1, coffeeRepository.count(), "There should be one coffee entry in the database");
+
+        // Fetch the stored coffee from the database
+        var storedCoffees = coffeeRepository.findAll();
+        var storedCoffee = storedCoffees.iterator().next();
+
+        // Assert that the stored coffee has the expected properties
+        assertEquals(coffeeDTO.flavorNotes(), storedCoffee.getFlavorNotes(), "The stored coffee should have the expected flavor notes");
     }
+
 
     @Test
-    @DisplayName("PUT /coffee/{id} - Updates existing Coffee")
+    @DisplayName("PUT /coffee/{id} - Updates existing Coffee object")
     void updateCoffee() throws Exception {
-        // Create a coffee object
-        var coffee = TestObjectFactory.createCoffee();
+        // Assert the database state before any operation
+        assertEquals(0, coffeeRepository.count(), "The database should be empty initially");
 
-        // Store the coffee object in the database
-        var storedCoffee = coffeeService.createCoffee(coffee);
+        // Create and stores a coffee object
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+        var storedCoffee = coffeeService.createCoffee(coffeeDTO);
+
+        // Assert that one coffee object has been stored
+        assertEquals(1, coffeeRepository.count(), "One coffee should be stored");
 
         // Create an updated coffee object
-        var updatedCoffee = TestObjectFactory.createCoffee();
-        updatedCoffee.setFlavorNotes("Disgusting");
+        var updatingDTO = TestObjectFactory.createCoffeeDTO();
 
-        // Perform a PUT request to the "/coffee/{id}" endpoint with the updated coffee object and verify the response
+        // Perform a PUT request to update the coffee object
         mockMvc.perform(put("/coffee/" + storedCoffee.getId())
                         .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(updatedCoffee)))
-                .andExpect(status().isOk()); // Verify that the response status is 200 OK
+                        .content(objectMapper.writeValueAsString(updatingDTO)))
+                .andExpect(status().isOk());  // (200 OK)
+
+        // Fetch the updated coffee from the database
+        var fetchedUpdatedCoffee = coffeeService.getCoffeeById(storedCoffee.getId());
+
+        // Assert that the coffee object has been updated
+        assertEquals(updatingDTO.flavorNotes(), fetchedUpdatedCoffee.getFlavorNotes(), "The coffee flavor notes should be updated");
+
+        // Assert that the database still has only one record
+        assertEquals(1, coffeeRepository.count(), "There should still be one coffee stored");
     }
+
 
     @Test
     @DisplayName("DELETE /coffee/{id} - Deletes existing Coffee")
     void deleteCoffee() throws Exception {
-        // Create a coffee object
-        var coffee = TestObjectFactory.createCoffee();
+        // Assert the database state before any operation
+        assertEquals(0, coffeeRepository.count(), "The database should be empty initially");
 
-        // Store the coffee object in the database
-        var storedCoffee = coffeeService.createCoffee(coffee);
+        // Create and store a coffee object
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+        var storedCoffee = coffeeService.createCoffee(coffeeDTO);
 
-        // Perform a DELETE request to the "/coffee/{id}" endpoint with the generated ID and verify theresponse
+        // Assert that the coffee object has been stored
+        assertEquals(1, coffeeRepository.count(), "One coffee should be stored");
+
+        // Perform a DELETE request with the generated ID and verify the response
         mockMvc.perform(delete("/coffee/" + storedCoffee.getId()))
-                .andExpect(status().isNoContent()); // Verify that the response status is 204 No Content
+                .andExpect(status().isNoContent());  // (204 No Content)
+
+        // Assert the state of the database after the DELETE operation
+        assertEquals(0, coffeeRepository.count(), "The database should be empty after the delete operation");
     }
+
 }

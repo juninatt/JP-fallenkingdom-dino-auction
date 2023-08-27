@@ -1,9 +1,7 @@
 package se.pbt.mrcoffee.integrationtest.service.product;
 
-import se.pbt.mrcoffee.testobject.TestObjectFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +10,7 @@ import se.pbt.mrcoffee.messaging.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.service.product.CoffeeService;
+import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@DisplayName("CoffeeService:")
+@DisplayName("CoffeeService integration tests")
 class CoffeeServiceTest {
 
     @Autowired
@@ -32,9 +31,9 @@ class CoffeeServiceTest {
     @Autowired
     private CoffeeService coffeeService;
 
-
     @BeforeEach
     void setup() {
+        // Reset the database and populate with test data
         coffeeRepository.deleteAll();
         coffeeRepository.saveAll(List.of(
                 TestObjectFactory.createCoffee(),
@@ -46,105 +45,82 @@ class CoffeeServiceTest {
     }
 
 
-    @Nested
-    @DisplayName("getAllCoffees():")
-    class GetAllCoffeesTests {
+    @Test
+    @DisplayName("Returns a list of coffee objects")
+    void shouldReturnListContainingCoffeeInstances() {
+        // Invoke the service method
+        var result = coffeeService.getAllCoffees();
 
-        @Nested
-        @DisplayName("Returns:")
-        class GetAllCoffeesReturnTest {
-
-            @Test
-            @DisplayName("Returns list of objects of class Coffe.java")
-            void getAllCoffees_validInput_returnsObjectsOfClassCoffe() {
-                // Call method to test
-                var result = coffeeService.getAllCoffees();
-
-                // Assert all objects in returned list are of class Coffee.java
-                assertNotNull(result);
-                result.forEach(
-                        coffee -> assertEquals(Coffee.class, coffee.getClass()));
-            }
-
-            @Test
-            @DisplayName("Returns list of correct size")
-            void getAllCoffees_validInput_returnsListOfCorrectSize() {
-                // Call method to test
-                var result = coffeeService.getAllCoffees();
-
-                // Assert returned list is of expected size
-                assertNotNull(result);
-                assertEquals(result.size(), result.size());
-            }
-
-        }
-
-        @Nested
-        @DisplayName("Throws")
-        class GetAllCoffeesThrowsTest {
-
-            @Test
-            @DisplayName("Throws CoffeeNotFoundException when no objects are found in database")
-            void getAllCoffees_returnEmptyList() {
-                // Empty database
-                coffeeRepository.deleteAll();
-                assertTrue(coffeeRepository.findAll().isEmpty());
-
-                // Call method to test and assert for NullPointerException
-                assertThrows(CoffeeNotFoundException.class, () -> coffeeService.getAllCoffees());
-            }
-        }
+        // Verify each returned object is of Coffee type
+        assertNotNull(result);
+        result.forEach(coffee -> assertEquals(Coffee.class, coffee.getClass()));
     }
 
-    @Nested
-    @DisplayName("updateCoffee():")
-    class UpdateCoffeeTests {
+    @Test
+    @DisplayName("Returns a list of expected size")
+    void shouldReturnListWithExpectedSize() {
+        // Invoke the service method
+        var result = coffeeService.getAllCoffees();
 
-        @Test
-        @DisplayName("Returns updated Coffee when Coffee exists")
-        void updateCoffee_validInput_returnsUpdatedCoffee() {
-            // Arrange
-            long coffeeId = 1L;
-            String updatedName = "Updated Coffee";
-            Coffee updatedCoffee = new Coffee();
-            updatedCoffee.setName(updatedName);
+        // Verify the size of the returned list
+        assertNotNull(result);
+        assertEquals(5, result.size());
+    }
 
-            Coffee existingCoffee = TestObjectFactory.createCoffee();
-            CoffeeRepository coffeeRepository = mock(CoffeeRepository.class);
-            when(coffeeRepository.findById(coffeeId)).thenReturn(Optional.of(existingCoffee));
-            when(coffeeRepository.save(existingCoffee)).thenReturn(existingCoffee);
+    @Test
+    @DisplayName("Throws CoffeeNotFoundException when no coffee object is found")
+    void shouldThrowCoffeeNotFoundException() {
+        // Clear the database
+        coffeeRepository.deleteAll();
+        assertTrue(coffeeRepository.findAll().isEmpty());
 
-            JmsMessageProducer jmsMessageProducer = mock(JmsMessageProducer.class);
+        // Expect exception when invoking the service method
+        assertThrows(CoffeeNotFoundException.class, () -> coffeeService.getAllCoffees());
+            }
 
-            CoffeeService coffeeService = new CoffeeService(coffeeRepository, jmsMessageProducer);
+    @Test
+    @DisplayName("Returns updated coffee when the coffee exists")
+    void shouldReturnUpdatedCoffeeWhenCoffeeExists() {
+        // Set up the context with mock objects
+        long coffeeId = 1L;
+        var coffeeDTO = TestObjectFactory.createCoffeeDTO();
+        var existingCoffee = TestObjectFactory.createCoffee();
 
-            // Act
-            Coffee result = coffeeService.updateCoffee(coffeeId, updatedCoffee);
+        // Use mocks for external dependencies in order to test JMS Messanger
+        CoffeeRepository coffeeRepositoryMock = mock(CoffeeRepository.class);
+        when(coffeeRepositoryMock.findById(coffeeId)).thenReturn(Optional.of(existingCoffee));
+        when(coffeeRepositoryMock.save(existingCoffee)).thenReturn(existingCoffee);
 
-            // Assert
-            assertNotNull(result);
-            assertEquals(updatedName, result.getName());
-            verify(jmsMessageProducer).sendMessage("myQueue", "Coffee updated: " + updatedName);
+        JmsMessageProducer jmsMessageProducerMock = mock(JmsMessageProducer.class);
+
+        CoffeeService coffeeServiceMock = new CoffeeService(coffeeRepositoryMock, jmsMessageProducerMock);
+
+        // Invoke the service method for update
+        Coffee result = coffeeServiceMock.updateCoffee(coffeeId, coffeeDTO);
+
+        // Verify coffee is updated and correct jms message was sent
+        assertNotNull(result);
+        assertEquals(coffeeDTO.name(), result.getName());
+        verify(jmsMessageProducerMock).sendMessage("myQueue", "Coffee updated: " + result.getName());
         }
 
-        @Test
-        @DisplayName("Returns null when Coffee does not exist")
-        void updateCoffee_coffeeNotFound_returnsNull() {
-            // Arrange
-            long nonExistingCoffeeId = 999L;
-            CoffeeRepository coffeeRepository = mock(CoffeeRepository.class);
-            when(coffeeRepository.findById(nonExistingCoffeeId)).thenReturn(Optional.empty());
+    @Test
+    @DisplayName("Returns null when no coffee object is found")
+    void shouldReturnNullWhenCoffeeDoesNotExist() {
+        // Mock the repository to return empty. Mocking necessary to test JMS Messanger
+        long nonExistingCoffeeId = 999L;
+        CoffeeRepository coffeeRepositoryMock = mock(CoffeeRepository.class);
+        when(coffeeRepositoryMock.findById(nonExistingCoffeeId)).thenReturn(Optional.empty());
 
-            JmsMessageProducer jmsMessageProducer = mock(JmsMessageProducer.class);
+        JmsMessageProducer jmsMessageProducerMock = mock(JmsMessageProducer.class);
 
-            CoffeeService coffeeService = new CoffeeService(coffeeRepository, jmsMessageProducer);
+        CoffeeService coffeeServiceMock = new CoffeeService(coffeeRepositoryMock, jmsMessageProducerMock);
 
-            // Act
-            Coffee result = coffeeService.updateCoffee(nonExistingCoffeeId, new Coffee());
+        // Invoke the service method
+        Coffee result = coffeeServiceMock.updateCoffee(nonExistingCoffeeId, TestObjectFactory.createCoffeeDTO());
 
-            // Assert
-            assertNull(result);
-            verifyNoInteractions(jmsMessageProducer);
-        }
+        // Verify result and no interactions with the message producer
+        assertNull(result);
+        verifyNoInteractions(jmsMessageProducerMock);
     }
 }

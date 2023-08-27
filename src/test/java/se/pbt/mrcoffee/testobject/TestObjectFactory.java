@@ -1,11 +1,8 @@
 package se.pbt.mrcoffee.testobject;
 
-import se.pbt.mrcoffee.dto.request.CustomerContactDTO;
-import se.pbt.mrcoffee.dto.request.PurchaseDTO;
-import se.pbt.mrcoffee.dto.request.SupplierContactDTO;
+import se.pbt.mrcoffee.dto.request.*;
 import se.pbt.mrcoffee.enums.CustomerLevel;
 import se.pbt.mrcoffee.model.adress.Address;
-import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
@@ -36,6 +33,21 @@ public class TestObjectFactory {
                 "Dark",
                 "Bitter",
                 "Intense"
+        );
+    }
+
+    /**
+     * @return A {@link Coffee} object with pre-set field values
+     */
+    public static CoffeeDTO createCoffeeDTO() {
+        return new CoffeeDTO(
+                "Americano",
+                "Black",
+                "Intense",
+                "America",
+                "Dark",
+                "Bitter",
+                BigDecimal.valueOf(9.99)
         );
     }
 
