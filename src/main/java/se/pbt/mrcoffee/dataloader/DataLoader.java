@@ -3,8 +3,10 @@ package se.pbt.mrcoffee.dataloader;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import se.pbt.mrcoffee.factory.UserFactory;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.model.user.Admin;
+import se.pbt.mrcoffee.model.user.security.Role;
+import se.pbt.mrcoffee.repository.RoleRepository;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.repository.user.UserRepository;
 
@@ -16,13 +18,31 @@ class DataLoader {
     private final CoffeeRepository coffeeRepository;
 
     private final UserRepository userRepository;
-    public DataLoader(CoffeeRepository coffeeRepository, UserRepository userRepository) {
+    private final RoleRepository roleRepository;
+
+    public DataLoader(CoffeeRepository coffeeRepository, UserRepository userRepository,
+                      RoleRepository roleRepository) {
         this.coffeeRepository = coffeeRepository;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostConstruct
     public void loadData() {
+        loadTestStorage();
+        var passWordEncoder = new BCryptPasswordEncoder();
+        setTestUser(passWordEncoder);
+    }
+
+    private void setTestUser(BCryptPasswordEncoder passWordEncoder) {
+        var adminRole = new Role("ROLE_ADMIN");
+        roleRepository.save(adminRole);
+        var userFactory = new UserFactory(roleRepository);
+        var practiceUser = userFactory.createAdmin("admin", passWordEncoder.encode("admin"));
+        userRepository.save(practiceUser);
+    }
+
+    private void loadTestStorage() {
         coffeeRepository.saveAll(List.of(
                 new Coffee("Café Cereza", "Delicious Cereza Coffee", BigDecimal.valueOf(9.99), "Colombia", "Medium",
                         "Rich and fruity", "Medium"),
@@ -45,9 +65,5 @@ class DataLoader {
                 new Coffee("Kenya AA", "Kenyan Specialty Coffee", BigDecimal.valueOf(15.25), "Kenya",
                         "Medium", "Wine-like acidity and fruity", "High")
         ));
-
-
-        var passWordEncoder = new BCryptPasswordEncoder();
-        userRepository.save(new Admin("admin", passWordEncoder.encode("admin")));
     }
 }

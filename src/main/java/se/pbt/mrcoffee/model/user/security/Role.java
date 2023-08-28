@@ -15,7 +15,7 @@ public class Role {
     private Long roleId;
 
     @Column(unique = true)
-    private String roleName;
+    private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     private Set<MrCoffeeUser> users = new HashSet<>();
@@ -28,18 +28,28 @@ public class Role {
     )
     private Set<Permission> permissions;
 
+    /**
+     * No-args constructor for JPA
+     */
+    public Role() {
+    }
 
+    public Role(String name) {
+        this.name = name;
+    }
+
+    //Getters and setters
 
     public Long getRoleId() {
         return roleId;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<MrCoffeeUser> getUsers() {

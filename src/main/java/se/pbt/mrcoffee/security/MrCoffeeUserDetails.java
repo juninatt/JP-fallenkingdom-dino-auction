@@ -38,13 +38,11 @@ public class MrCoffeeUserDetails implements UserDetails {
 
         // Iterate over the user's roles and add them as authorities
         for (Role role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
         return authorities;
     }
-
-
 
     @Override
     public String getPassword() {

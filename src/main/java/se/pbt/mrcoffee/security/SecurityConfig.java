@@ -19,6 +19,13 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Defines security rules for HTTP requests.
+     *
+     * @param http The HttpSecurity object.
+     * @return The SecurityFilterChain.
+     * @throws Exception Any exception that may occur during configuration.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -32,9 +39,14 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/home", true)
                         .permitAll());
 
-        return http.csrf(AbstractHttpConfigurer::disable).build();
+        return http.build();
     }
 
+    /**
+     * Provides a password encoder bean.
+     *
+     * @return A BCryptPasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

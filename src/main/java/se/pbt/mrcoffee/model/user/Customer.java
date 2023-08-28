@@ -7,6 +7,10 @@ import se.pbt.mrcoffee.model.purchase.Purchase;
 
 import java.util.List;
 
+/**
+ * Represents a Customer in the system.
+ * Manages customer-specific attributes and purchase history.
+ */
 @Entity
 @Table(name = "customers")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,16 +21,22 @@ public class Customer extends MrCoffeeUser {
     @OneToMany(mappedBy = "customer")
     private List<Purchase> purchases;
 
+    /**
+     * No-args constructor for JPA operations.
+     */
     public Customer() {}
 
-    public Customer(
-            @NotBlank String username,
-            @NotBlank String password,
-            CustomerLevel customerLevel
-    ) {
+    public Customer(@NotBlank String username, @NotBlank String password, CustomerLevel customerLevel) {
         super(username, password);
         this.customerLevel = customerLevel;
     }
+
+    public void addPurchase(Purchase purchase) {
+        purchases.add(purchase);
+        purchase.setCustomer(this);
+    }
+
+    // Getters and setters
 
     public CustomerLevel getCustomerLevel() {
         return customerLevel;
@@ -42,9 +52,5 @@ public class Customer extends MrCoffeeUser {
 
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
-    }
-
-    public void addPurchase(Purchase purchase) {
-        purchases.add(purchase);
     }
 }

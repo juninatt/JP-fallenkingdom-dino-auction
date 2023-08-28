@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import se.pbt.mrcoffee.model.contact.Contact;
 import se.pbt.mrcoffee.model.user.security.Role;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public abstract class MrCoffeeUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private final Set<Role> roles = new HashSet<>();
 
     /**
      * Represents the contact information associated with this user.
@@ -46,27 +47,47 @@ public abstract class MrCoffeeUser {
     private Contact contact;
 
 
+    /**
+     * No-args constructor for JPA operations.
+     */
     protected MrCoffeeUser() {
     }
 
-    public MrCoffeeUser(
-            @NotBlank String username,
-            @NotBlank String password
-    ) {
+    public MrCoffeeUser(@NotBlank String username, @NotBlank String password) {
         this.username = username;
         this.password = password;
     }
 
-    public MrCoffeeUser(
-            @NotBlank String username,
-            @NotBlank String password,
-            Contact contact
-    ) {
+    public MrCoffeeUser(@NotBlank String username, @NotBlank String password, Contact contact) {
         this.username = username;
         this.password = password;
         this.contact = contact;
     }
 
+    /**
+     * Adds a {@link Role} to this user and updates the corresponding set of users in the Role entity.
+     * This operation ensures that the relationship between User and Role entities is kept in sync.
+     *
+     * @param role The role to be added to this user.
+     */
+    public void addRole(Role role) {
+        roles.add(role);
+        role.getUsers().add(this);
+    }
+
+    /**
+     * Removes a {@link Role} from this user and updates the corresponding set of users in the Role entity.
+     * This operation ensures that the relationship between User and Role entities is kept in sync.
+     *
+     * @param role The role to be removed from this user.
+     */
+    public void removeRole(Role role) {
+        roles.remove(role);
+        role.getUsers().remove(this);
+    }
+
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -89,8 +110,9 @@ public abstract class MrCoffeeUser {
     }
 
     public Set<Role> getRoles() {
-        return roles;
+        return Collections.unmodifiableSet(roles);
     }
+
 
     public Contact getContact() {
         return contact;
