@@ -1,6 +1,6 @@
 # MrCoffee Project
 
-The MrCoffee project is a Java-based application that simulates a coffee maker machine with purchase orders, utilizing Spring Boot, Maven, and H2 database.
+The MrCoffee project is a Java-based application that simulates a coffee maker machine with order orders, utilizing Spring Boot, Maven, and H2 database.
 It provides functionalities for managing coffee products, placing orders, processing payments, and generating invoices.
 
 ## Features

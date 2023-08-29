@@ -8,7 +8,7 @@
              <span class="details-item"><span class="details-label">Price:</span> <span class="detail-value">$${coffee.price}</span></span>
          </div>
          <div class="quantity-selector-row">
-             <input type="number" class="quantity-selector" min="1" max="10" value="1" data-coffee-id="${coffee.id}">
+             <input type="number" class="quantity-selector" min="1" max="10" value="0" data-coffee-id="${coffee.id}">
          </div>
      `;
      return essentialDetails;
@@ -66,4 +66,29 @@
              coffeeContainer.appendChild(coffeeCard);
          });
      });
+
+// Function to handle 'Continue' button click
+async function onContinueClick() {
+console.log(selectedQuantities);
+    try {
+        const response = await fetch('/api/v1/orders/summary', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(selectedQuantities)
+        });
+
+        const data = await response.json();
+        console.log("Server response:", data);
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+
+
+// Add click event listener to the 'Continue' button
+document.getElementById('continue-button').addEventListener('click', onContinueClick);
+
+
 

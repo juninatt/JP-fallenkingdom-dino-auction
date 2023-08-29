@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import se.pbt.mrcoffee.dto.response.CustomerContactResponseDTO;
 import se.pbt.mrcoffee.exception.CustomerContactNotFoundException;
 import se.pbt.mrcoffee.mapper.ContactMapper;
-import se.pbt.mrcoffee.messaging.JmsMessageProducer;
+import se.pbt.mrcoffee.jms.JmsMessageProducer;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.repository.contact.CustomerContactRepository;
 

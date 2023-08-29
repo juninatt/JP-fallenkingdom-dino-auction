@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
-import se.pbt.mrcoffee.messaging.JmsMessageProducer;
+import se.pbt.mrcoffee.jms.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.service.product.CoffeeService;

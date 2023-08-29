@@ -11,9 +11,9 @@ import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
 import se.pbt.mrcoffee.exception.AddressNotFoundException;
 import se.pbt.mrcoffee.mapper.AddressMapper;
-import se.pbt.mrcoffee.model.adress.Address;
-import se.pbt.mrcoffee.repository.address.AddressRepository;
-import se.pbt.mrcoffee.service.address.AddressService;
+import se.pbt.mrcoffee.model.contact.Address;
+import se.pbt.mrcoffee.repository.contact.AddressRepository;
+import se.pbt.mrcoffee.service.contact.AddressService;
 
 import java.util.ArrayList;
 import java.util.List;

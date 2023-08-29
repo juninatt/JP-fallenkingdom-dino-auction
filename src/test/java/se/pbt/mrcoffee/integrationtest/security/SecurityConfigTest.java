@@ -13,9 +13,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import se.pbt.mrcoffee.repository.address.AddressRepository;
+import se.pbt.mrcoffee.repository.contact.AddressRepository;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
-import se.pbt.mrcoffee.repository.receipt.ReceiptRepository;
+import se.pbt.mrcoffee.repository.order.ReceiptRepository;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -168,15 +168,6 @@ public class SecurityConfigTest {
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().isOk());
         }
-
-        @Test
-        @DisplayName("Guest accessing GET /receipt returns status 200 Ok")
-        @WithMockUser(authorities = {"GUEST"})
-        public void guest_callingGetReceipt_returnsStatusOk() throws Exception {
-            mockMvc.perform(MockMvcRequestBuilders.get("/receipt"))
-                    .andDo(print())
-                    .andExpect(MockMvcResultMatchers.status().isOk());
-        }
     }
 
     @Nested
@@ -197,15 +188,6 @@ public class SecurityConfigTest {
         @WithMockUser(username = "admin", authorities = {"ADMIN"})
         public void admin_callingGetCoffee_returnStatusOk() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.get("/coffee"))
-                    .andDo(print())
-                    .andExpect(MockMvcResultMatchers.status().isOk());
-        }
-
-        @Test
-        @DisplayName("Admin accessing GET /receipt returns status 200 Ok")
-        @WithMockUser(username = "admin", authorities = {"ADMIN"})
-        public void admin_callingGetReceipt_returnStatusOk() throws Exception {
-            mockMvc.perform(MockMvcRequestBuilders.get("/receipt"))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().isOk());
         }
@@ -234,21 +216,6 @@ public class SecurityConfigTest {
             mockMvc.perform(MockMvcRequestBuilders.post("/coffee")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(coffeeJson))
-                    .andDo(print())
-                    .andExpect(MockMvcResultMatchers.status().isCreated());
-        }
-
-        @Test
-        @DisplayName("Admin accessing POST /receipt returns status 201 Created")
-        @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-        public void admin_callingPostReceipt_returnStatusCreated() throws Exception {
-            // Create an object and convert to Json to serve as request body
-            var receipt = TestObjectFactory.createReceipt();
-            var receiptJson = objectMapper.writeValueAsString(receipt);
-
-            mockMvc.perform(MockMvcRequestBuilders.post("/receipt")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(receiptJson))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().isCreated());
         }
@@ -321,17 +288,6 @@ public class SecurityConfigTest {
             coffeeRepository.save(storedCoffee);
 
             mockMvc.perform(MockMvcRequestBuilders.delete("/coffee/" + storedCoffee.getId()))
-                    .andDo(print())
-                    .andExpect(MockMvcResultMatchers.status().is(204));
-        }
-
-        @Test
-        @DisplayName("Admin accessing DELETE /receipt returns status 204 Deleted")
-        @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-        public void admin_callingDeleteReceipt_returnStatusOk() throws Exception {
-            var storedReceipt = TestObjectFactory.createReceipt();
-            receiptRepository.save(storedReceipt);
-            mockMvc.perform(MockMvcRequestBuilders.delete("/receipt/" + storedReceipt.getId()))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status().is(204));
         }

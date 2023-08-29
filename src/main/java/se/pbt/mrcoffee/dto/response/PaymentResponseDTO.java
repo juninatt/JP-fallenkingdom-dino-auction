@@ -1,6 +1,6 @@
 package se.pbt.mrcoffee.dto.response;
 
-import se.pbt.mrcoffee.model.payment.Payment;
+import se.pbt.mrcoffee.model.order.Payment;
 
 /**
  * Represents the response data for a {@link Payment} made for a purchase.

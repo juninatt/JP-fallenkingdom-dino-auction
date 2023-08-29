@@ -1,6 +1,6 @@
 package se.pbt.mrcoffee.dto.response;
 
-import se.pbt.mrcoffee.model.receipt.Receipt;
+import se.pbt.mrcoffee.model.order.Receipt;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

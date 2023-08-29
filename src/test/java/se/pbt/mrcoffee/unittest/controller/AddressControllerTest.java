@@ -10,8 +10,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import se.pbt.mrcoffee.controller.address.AddressController;
-import se.pbt.mrcoffee.service.address.AddressService;
+import se.pbt.mrcoffee.controller.contact.AddressController;
+import se.pbt.mrcoffee.service.contact.AddressService;
 import se.pbt.mrcoffee.testobject.TestObjectFactory;
 
 import java.util.Arrays;

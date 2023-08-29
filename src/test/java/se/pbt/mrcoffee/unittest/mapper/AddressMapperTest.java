@@ -3,7 +3,7 @@ package se.pbt.mrcoffee.unittest.mapper;
 import org.junit.jupiter.api.Test;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.mapper.AddressMapper;
-import se.pbt.mrcoffee.model.adress.Address;
+import se.pbt.mrcoffee.model.contact.Address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

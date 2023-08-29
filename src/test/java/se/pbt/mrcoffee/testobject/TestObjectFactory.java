@@ -2,14 +2,14 @@ package se.pbt.mrcoffee.testobject;
 
 import se.pbt.mrcoffee.dto.request.*;
 import se.pbt.mrcoffee.enums.CustomerLevel;
-import se.pbt.mrcoffee.model.adress.Address;
+import se.pbt.mrcoffee.model.contact.Address;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
 import se.pbt.mrcoffee.model.contact.CustomerContact;
 import se.pbt.mrcoffee.model.contact.SupplierContact;
-import se.pbt.mrcoffee.model.payment.Payment;
+import se.pbt.mrcoffee.model.order.Payment;
 import se.pbt.mrcoffee.model.product.Coffee;
-import se.pbt.mrcoffee.model.purchase.Purchase;
-import se.pbt.mrcoffee.model.receipt.Receipt;
+import se.pbt.mrcoffee.model.order.Order;
+import se.pbt.mrcoffee.model.order.Receipt;
 import se.pbt.mrcoffee.model.user.Customer;
 
 import java.math.BigDecimal;
@@ -179,24 +179,13 @@ public class TestObjectFactory {
     // Purchase objects
 
     /**
-     * @return A {@link Purchase} object with pre-set field values
+     * @return A {@link Order} object with pre-set field values
      */
-    public static Purchase createPurchase() {
-        return new Purchase(
+    public static Order createPurchase() {
+        return new Order(
                 createReceipt(),
                 createPayment(),
                 createCustomer()
-        );
-    }
-
-    /**
-     * @return A {@link PurchaseDTO} object with pre-set field values
-     */
-    public static PurchaseDTO createPurchaseDTO() {
-        return new PurchaseDTO(
-                1L,
-                1L,
-                1L
         );
     }
 

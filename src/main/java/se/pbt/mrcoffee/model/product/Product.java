@@ -3,7 +3,7 @@ package se.pbt.mrcoffee.model.product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import se.pbt.mrcoffee.model.receipt.Receipt;
+import se.pbt.mrcoffee.model.order.Receipt;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@ package se.pbt.mrcoffee.model.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import se.pbt.mrcoffee.enums.CustomerLevel;
-import se.pbt.mrcoffee.model.purchase.Purchase;
+import se.pbt.mrcoffee.model.order.Order;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Customer extends MrCoffeeUser {
     private CustomerLevel customerLevel;
 
     @OneToMany(mappedBy = "customer")
-    private List<Purchase> purchases;
+    private List<Order> orders;
 
     /**
      * No-args constructor for JPA operations.
@@ -31,9 +31,9 @@ public class Customer extends MrCoffeeUser {
         this.customerLevel = customerLevel;
     }
 
-    public void addPurchase(Purchase purchase) {
-        purchases.add(purchase);
-        purchase.setCustomer(this);
+    public void addPurchase(Order order) {
+        orders.add(order);
+        order.setCustomer(this);
     }
 
     // Getters and setters
@@ -46,11 +46,11 @@ public class Customer extends MrCoffeeUser {
         this.customerLevel = customerLevel;
     }
 
-    public List<Purchase> getPurchases() {
-        return purchases;
+    public List<Order> getPurchases() {
+        return orders;
     }
 
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
+    public void setPurchases(List<Order> orders) {
+        this.orders = orders;
     }
 }

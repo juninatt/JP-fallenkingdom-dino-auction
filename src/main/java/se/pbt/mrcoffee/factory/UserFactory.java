@@ -6,7 +6,7 @@ import se.pbt.mrcoffee.model.user.Admin;
 import se.pbt.mrcoffee.model.user.Customer;
 import se.pbt.mrcoffee.model.user.MrCoffeeUser;
 import se.pbt.mrcoffee.model.user.security.Role;
-import se.pbt.mrcoffee.repository.RoleRepository;
+import se.pbt.mrcoffee.repository.user.RoleRepository;
 
 /**
  * Factory class responsible for creating different types of {@link MrCoffeeUser}.

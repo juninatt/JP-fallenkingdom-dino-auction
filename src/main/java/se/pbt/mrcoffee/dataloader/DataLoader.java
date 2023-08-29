@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import se.pbt.mrcoffee.factory.UserFactory;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.model.user.security.Role;
-import se.pbt.mrcoffee.repository.RoleRepository;
+import se.pbt.mrcoffee.repository.user.RoleRepository;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 import se.pbt.mrcoffee.repository.user.UserRepository;
 

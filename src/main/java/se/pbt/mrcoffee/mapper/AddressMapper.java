@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import se.pbt.mrcoffee.dto.request.AddressDTO;
 import se.pbt.mrcoffee.dto.response.AddressResponseDTO;
-import se.pbt.mrcoffee.model.adress.Address;
+import se.pbt.mrcoffee.model.contact.Address;
 
 /**
  * Mapper interface for Address-related objects.

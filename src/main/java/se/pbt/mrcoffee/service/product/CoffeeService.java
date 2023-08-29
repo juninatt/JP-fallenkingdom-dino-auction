@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import se.pbt.mrcoffee.dto.request.CoffeeDTO;
 import se.pbt.mrcoffee.exception.CoffeeNotFoundException;
 import se.pbt.mrcoffee.mapper.ProductMapper;
-import se.pbt.mrcoffee.messaging.JmsMessageProducer;
+import se.pbt.mrcoffee.jms.JmsMessageProducer;
 import se.pbt.mrcoffee.model.product.Coffee;
 import se.pbt.mrcoffee.repository.product.CoffeeRepository;
 

@@ -3,7 +3,7 @@ package se.pbt.mrcoffee.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import se.pbt.mrcoffee.model.payment.Payment;
+import se.pbt.mrcoffee.model.order.Payment;
 
 /**
  * Data Transfer Object representing the details of a paymen{@link Payment}.

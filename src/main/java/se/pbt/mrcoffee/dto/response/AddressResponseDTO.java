@@ -1,6 +1,6 @@
 package se.pbt.mrcoffee.dto.response;
 
-import se.pbt.mrcoffee.model.adress.Address;
+import se.pbt.mrcoffee.model.contact.Address;
 
 /**
  * Data Transfer Object representing the response for {@link Address} information.
