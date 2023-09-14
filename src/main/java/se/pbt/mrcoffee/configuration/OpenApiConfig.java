@@ -7,7 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration class for OpenAPI documentation. See {@link <a href="http://localhost:8080/swagger-ui/index.html">https://example.com</a>}
+ * Manages OpenAPI documentation settings.
+ * <p>
+ * The API documentation can be accessed at
+ * {@link <a href="http://localhost:8080/swagger-ui/index.html">Swagger UI</a>}.
+ * </p>
  */
 @Configuration
 @OpenAPIDefinition(
@@ -24,9 +28,9 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     /**
-     * GroupedOpenApi bean for the user-related API endpoints.
+     * Configures API documentation for user-related endpoints.
      *
-     * @return GroupedOpenApi instance for the user API.
+     * @return A {@link GroupedOpenApi} object containing user API configurations.
      */
     @Bean
     public GroupedOpenApi userApi() {
@@ -37,9 +41,9 @@ public class OpenApiConfig {
     }
 
     /**
-     * GroupedOpenApi bean for the address-related API endpoints.
+     * Configures API documentation for order-related endpoints.
      *
-     * @return GroupedOpenApi instance for the address API.
+     * @return A {@link GroupedOpenApi} object containing order API configurations.
      */
     @Bean
     public GroupedOpenApi addressApi() {
@@ -50,9 +54,9 @@ public class OpenApiConfig {
     }
 
     /**
-     * GroupedOpenApi bean for the contact-related API endpoints.
+     * Configures API documentation for contact-related endpoints.
      *
-     * @return GroupedOpenApi instance for the contact API.
+     * @return A {@link GroupedOpenApi} object containing contact API configurations.
      */
     @Bean
     public GroupedOpenApi contactApi() {
@@ -63,28 +67,15 @@ public class OpenApiConfig {
     }
 
     /**
-     * GroupedOpenApi bean for the product-related API endpoints.
+     * Configures API documentation for product-related endpoints.
      *
-     * @return GroupedOpenApi instance for the product API.
+     * @return A {@link GroupedOpenApi} object containing product API configurations.
      */
     @Bean
     public GroupedOpenApi productApi() {
         return GroupedOpenApi.builder()
                 .group("product")
                 .packagesToScan("se.pbt.mrcoffee.controller.product")
-                .build();
-    }
-
-    /**
-     * GroupedOpenApi bean for the receipt-related API endpoints.
-     *
-     * @return GroupedOpenApi instance for the receipt API.
-     */
-    @Bean
-    public GroupedOpenApi receiptApi() {
-        return GroupedOpenApi.builder()
-                .group("receipt")
-                .packagesToScan("se.pbt.mrcoffee.controller.receipt")
                 .build();
     }
 }
