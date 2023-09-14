@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // TODO: Document end points in JSON
 // TODO: Implement Thymeleaf
-
 // TODO: Add validation before object creation
-// TODO: Remove calls to ContactService in CustomerContactControllerTest
 // TODO: Introduce constants for appropriate fields (for ex payment method in Payment)
 @SpringBootApplication
 public class MrCoffeeApplication {
