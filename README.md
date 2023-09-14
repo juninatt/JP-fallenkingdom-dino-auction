@@ -33,7 +33,7 @@ Please check the [Help Guide](HELP.md) for detailed instructions on how to insta
 ## Configuration
 
 The MrCoffee application is pre-configured with default settings for the H2 database and JMS integration with Apache ActiveMQ. 
-However, if you need to modify the configuration, you can do so in the application.properties file located in the src/main/resources directory.
+However, if you need to modify the configuration, you can do so in the application.yml file located in the src/main/resources directory.
 
 Ensure that you update the JMS connection details in the configuration file to match your Apache ActiveMQ installation.
 
