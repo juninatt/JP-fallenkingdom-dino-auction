@@ -34,7 +34,7 @@ public class OrderService {
 
 
     public OrderPreviewDTO getOrderPreview(HashMap<Long, Integer> orderedProducts) {
-        HashMap<Coffee, Integer> previewCoffee = new HashMap<>();
+        HashMap<String, Integer> previewCoffee = new HashMap<>();
         BigDecimal totalPrice;
 
         totalPrice = orderedProducts.entrySet().stream()
@@ -45,7 +45,7 @@ public class OrderService {
                     Coffee coffee = coffeeRepository.findById(id)
                             .orElseThrow(() -> new CoffeeNotFoundException("Coffee with ID: " + id + " not found"));
 
-                    previewCoffee.put(coffee, quantity);
+                    previewCoffee.put(coffee.getName(), quantity);
 
                     return coffee.getPrice().multiply(BigDecimal.valueOf(quantity));
                 })
