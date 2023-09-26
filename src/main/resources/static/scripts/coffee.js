@@ -56,11 +56,13 @@
  // Object to hold selected quantities
  const selectedQuantities = {};
 
- // Fetch coffee data and populate the DOM
+// Fetch coffee data from the server
  fetch('/api/v1/coffee')
      .then(response => response.json())
      .then(data => {
+        // Grab the container where coffee cards will be appended
          const coffeeContainer = document.getElementById('coffee-list');
+        // Loop through each coffee and create its card for display
          data.forEach(coffee => {
              const coffeeCard = createCoffeeCard(coffee, selectedQuantities);
              coffeeContainer.appendChild(coffeeCard);
@@ -69,8 +71,8 @@
 
 // Function to handle 'Continue' button click
 async function onContinueClick() {
-console.log(selectedQuantities);
     try {
+       // Sending the selected quantities to the server to get the order summary
         const response = await fetch('/api/v1/orders/summary', {
             method: 'POST',
             headers: {
@@ -80,11 +82,35 @@ console.log(selectedQuantities);
         });
 
         const data = await response.json();
-        console.log("Server response:", data);
+
+        // Updating the modal with order details received from the server
+        const orderList = document.getElementById('orderPreviewList');
+        orderList.innerHTML = '';
+
+        // Iterate over the 'products' object in the returned data
+        for (let coffee of Object.keys(data.products)) {
+            const quantity = data.products[coffee];
+            const li = document.createElement('li');
+            li.textContent = `${coffee.name} (x${quantity}): ${coffee.price}`;
+            orderList.appendChild(li);
+        }
+        document.getElementById('orderTotalPrice').textContent = `$${data.totalSum}`;
+
+        // Showing the modal with the order details
+        document.getElementById('orderPreviewModal').style.display = 'block';
+
     } catch (error) {
         console.log("Error:", error);
     }
 }
+
+
+
+// Close modal when the 'Close' button is clicked
+document.getElementById('closeModalBtn').addEventListener('click', function() {
+    document.getElementById('orderPreviewModal').style.display = 'none';
+});
+
 
 
 // Add click event listener to the 'Continue' button
