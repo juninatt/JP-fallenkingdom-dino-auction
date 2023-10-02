@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J.D.M</title>
+  <!-- Linking general and page-specific styles -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<!-- Container for the main content -->
+<div class="container index">
+  <!-- Greeting section -->
+  <div class="greeting">
+    <h1><span class="handwriting">
+      <span>Jurassic</span>
+      <span>Dark</span>
+      <br>
+      <span>Markets</span>
+    </span></h1>
+
+    <p class="sub-heading">API end point documentation: <a href="http://localhost:8080/api/v1/swagger-ui/index.html">Swagger UI</a></p>
+    <a href="../selection/selection.html" class="dinosaur-link">Explore Our Dinosaur Selection</a>
+  </div>
+</div>
+<!-- Script links for functionality -->
+<script src="index.js"></script>
+<script>
+  window.addEventListener("load", function() {
+    setTimeout(function() {
+      document.body.classList.add("loaded");
+    });
+  });
+</script>
+</body>
+</html>

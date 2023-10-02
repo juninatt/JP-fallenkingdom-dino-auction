@@ -1,0 +1,79 @@
+/* Import a custom Google Font for a darker, business-like aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
+/* --- Global Styles --- */
+
+/* Set background color and remove default margins and padding for all body elements */
+body {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* --- Layout & Container Styles --- */
+
+/* Center align content within a flexbox container */
+.container.index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* --- Text & Typography Styles --- */
+
+/* General styles for the greeting section */
+.greeting {
+  text-align: center;
+  color: white;
+}
+
+/* Style for h1 elements, used for main title */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Specific style for the main title text */
+.handwriting {
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 4em;
+  line-height: 1em;
+  text-align: center;
+}
+
+/* Sub-heading styles, including link */
+.sub-heading {
+  font-size: 20px;
+  color: olive;
+}
+
+.sub-heading a {
+  color: inherit;
+}
+
+/* Set default font size for 'Dark' and 'Markets' */
+.handwriting span:nth-child(2) {
+  font-size: 68px;
+}
+
+.handwriting span:nth-child(4) {
+    font-size: 88px;
+}
+
+/* Fade-in effect setup for each word */
+.handwriting span {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+/* Delay fade-in for 'Jurassic' */
+.handwriting span:nth-child(1) {
+  transition-delay: 2.5s;
+}
+
+/* Apply fade-in effect when body has 'loaded' class */
+body.loaded .handwriting span {
+  opacity: 1;
+}

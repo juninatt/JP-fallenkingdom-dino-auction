@@ -1,16 +1,16 @@
 # Help Guide
 
-This guide provides the necessary steps to install and run the MrCoffee application.
+This guide provides the necessary steps to install and run the DinoAuction application.
 
 ## Prerequisites
-Before running the MrCoffee application, ensure that you have the following prerequisites:
+Before running the DinoAuction application, ensure that you have the following prerequisites:
 
 - Java Development Kit (JDK) - Version 20 or later.
 - Apache Maven - Build and dependency management tool.
 - Apache ActiveMQ - JMS provider for message queuing and JMS integration.
 
 ## Installation and Setup
-Follow these steps to install and set up the MrCoffee application:
+Follow these steps to install and set up the DinoAuction application:
 
 1. Download and install Apache ActiveMQ from the official website (https://activemq.apache.org/).
 2. Start the Apache ActiveMQ server by opening the command prompt and navigating to the 'bin' folder in the activemq folder.
@@ -18,7 +18,7 @@ Follow these steps to install and set up the MrCoffee application:
          
        activemq.bat start
 
-3. Clone the MrCoffee project from the GitHub repository: https://github.com/juninatt/mrcoffee.
+3. Clone the DinoAuction project from the GitHub repository: https://github.com/juninatt/dinoauction.
 4. Open a terminal or command prompt and navigate to the project directory.
 5. Build the project using Maven by running the command: mvn clean install.
 6. Start the application by running the command: mvn spring-boot:run.
@@ -28,7 +28,7 @@ To access the application, use the following credentials:
 
 http://localhost:8080/api/v1/login
 
-Username: admin
+Username: admin   
 Password: admin
 
 After successful login, you will be able to access all available endpoints,

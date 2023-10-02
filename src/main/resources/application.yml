@@ -5,9 +5,9 @@ server:
 
 spring:
   application:
-    name: Mr-Coffe
+    name: DinoAuction
 
   activemq:
       broker-url: tcp://localhost:61616
-      user: admin
-      password: secret
+      user: ${ACTIVEMQ_USER}
+      password: ${ACTIVEMQ_PASSWORD}
