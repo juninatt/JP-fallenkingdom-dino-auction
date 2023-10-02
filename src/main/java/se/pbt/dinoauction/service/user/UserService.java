@@ -2,7 +2,7 @@ package se.pbt.dinoauction.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.model.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.AppUser;
 import se.pbt.dinoauction.repository.user.UserRepository;
 
 import java.util.List;

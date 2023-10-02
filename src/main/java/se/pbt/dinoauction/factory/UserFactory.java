@@ -1,10 +1,10 @@
 package se.pbt.dinoauction.factory;
 
 import se.pbt.dinoauction.exception.RoleNotFoundException;
-import se.pbt.dinoauction.model.user.Organizer;
-import se.pbt.dinoauction.model.user.Participant;
-import se.pbt.dinoauction.model.user.AppUser;
-import se.pbt.dinoauction.model.user.security.Role;
+import se.pbt.dinoauction.model.entity.user.Organizer;
+import se.pbt.dinoauction.model.entity.user.Participant;
+import se.pbt.dinoauction.model.entity.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.security.Role;
 import se.pbt.dinoauction.repository.user.RoleRepository;
 
 /**

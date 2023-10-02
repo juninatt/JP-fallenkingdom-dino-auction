@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
 import se.pbt.dinoauction.jms.JmsMessageProducer;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
 import se.pbt.dinoauction.service.DinosaurService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;

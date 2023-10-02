@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.model.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.AppUser;
 import se.pbt.dinoauction.repository.user.UserRepository;
 import se.pbt.dinoauction.security.AppUserDetails;
 

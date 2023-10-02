@@ -1,9 +1,9 @@
-package se.pbt.dinoauction.dto;
+package se.pbt.dinoauction.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 
 import java.math.BigDecimal;
 

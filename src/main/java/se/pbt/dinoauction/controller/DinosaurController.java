@@ -3,8 +3,8 @@ package se.pbt.dinoauction.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.pbt.dinoauction.dto.DinosaurDTO;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.service.DinosaurService;
 
 import java.util.List;

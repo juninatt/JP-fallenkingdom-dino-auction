@@ -1,9 +1,9 @@
-package se.pbt.dinoauction.model.user;
+package se.pbt.dinoauction.model.entity.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import se.pbt.dinoauction.model.user.security.Role;
+import se.pbt.dinoauction.model.entity.user.security.Role;
 
 import java.util.Collections;
 import java.util.HashSet;

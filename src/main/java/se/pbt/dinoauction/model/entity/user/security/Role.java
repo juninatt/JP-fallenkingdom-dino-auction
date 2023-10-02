@@ -1,7 +1,7 @@
-package se.pbt.dinoauction.model.user.security;
+package se.pbt.dinoauction.model.entity.user.security;
 
 import jakarta.persistence.*;
-import se.pbt.dinoauction.model.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.AppUser;
 
 import java.util.HashSet;
 import java.util.Set;

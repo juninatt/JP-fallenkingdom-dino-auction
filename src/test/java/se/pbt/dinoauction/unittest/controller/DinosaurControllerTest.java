@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import se.pbt.dinoauction.controller.DinosaurController;
-import se.pbt.dinoauction.dto.DinosaurDTO;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.service.DinosaurService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;
 

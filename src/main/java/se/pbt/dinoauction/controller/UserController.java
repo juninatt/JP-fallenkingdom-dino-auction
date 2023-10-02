@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.pbt.dinoauction.model.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.AppUser;
 import se.pbt.dinoauction.service.user.UserService;
 
 import java.util.List;

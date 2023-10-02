@@ -2,10 +2,10 @@ package se.pbt.dinoauction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.dto.TransactionPreviewDTO;
+import se.pbt.dinoauction.model.dto.TransactionPreviewDTO;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
-import se.pbt.dinoauction.model.transaction.Transaction;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.transaction.Transaction;
 import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
 
 import java.math.BigDecimal;

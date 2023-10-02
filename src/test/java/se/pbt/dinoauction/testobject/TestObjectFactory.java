@@ -1,13 +1,13 @@
 package se.pbt.dinoauction.testobject;
 
-import se.pbt.dinoauction.dto.ContactDTO;
-import se.pbt.dinoauction.dto.DinosaurDTO;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
-import se.pbt.dinoauction.model.contact.Contact;
-import se.pbt.dinoauction.model.transaction.DropCoordinates;
-import se.pbt.dinoauction.model.transaction.Payment;
-import se.pbt.dinoauction.model.transaction.Transaction;
-import se.pbt.dinoauction.model.user.Participant;
+import se.pbt.dinoauction.model.dto.ContactDTO;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.contact.Contact;
+import se.pbt.dinoauction.model.entity.transaction.DropCoordinates;
+import se.pbt.dinoauction.model.entity.transaction.Payment;
+import se.pbt.dinoauction.model.entity.transaction.Transaction;
+import se.pbt.dinoauction.model.entity.user.Participant;
 
 import java.math.BigDecimal;
 

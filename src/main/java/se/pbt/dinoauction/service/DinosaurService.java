@@ -2,11 +2,11 @@ package se.pbt.dinoauction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.dto.DinosaurDTO;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
 import se.pbt.dinoauction.mapper.DinosaurMapper;
 import se.pbt.dinoauction.jms.JmsMessageProducer;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
 
 import java.util.List;

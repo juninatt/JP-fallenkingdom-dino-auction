@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.model.auctionitem;
+package se.pbt.dinoauction.model.entity.auctionitem;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

@@ -1,7 +1,7 @@
 package se.pbt.dinoauction.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import se.pbt.dinoauction.model.user.security.Role;
+import se.pbt.dinoauction.model.entity.user.security.Role;
 
 import java.util.Optional;
 

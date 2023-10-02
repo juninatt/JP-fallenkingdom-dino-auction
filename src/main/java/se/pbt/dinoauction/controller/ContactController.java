@@ -3,8 +3,8 @@ package se.pbt.dinoauction.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.pbt.dinoauction.dto.ContactDTO;
-import se.pbt.dinoauction.model.contact.Contact;
+import se.pbt.dinoauction.model.dto.ContactDTO;
+import se.pbt.dinoauction.model.entity.contact.Contact;
 import se.pbt.dinoauction.service.ContactService;
 
 import java.util.List;

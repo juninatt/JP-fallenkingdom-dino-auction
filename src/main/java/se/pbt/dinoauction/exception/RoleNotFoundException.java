@@ -2,7 +2,7 @@ package se.pbt.dinoauction.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import se.pbt.dinoauction.model.user.security.Role;
+import se.pbt.dinoauction.model.entity.user.security.Role;
 
 /**
  * Exception thrown when a specified {@link Role} is not found.

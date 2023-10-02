@@ -2,7 +2,7 @@ package se.pbt.dinoauction.repository.auctionitem;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package se.pbt.dinoauction.model.transaction;
+package se.pbt.dinoauction.model.entity.transaction;
 
 import jakarta.persistence.*;
-import se.pbt.dinoauction.model.auctionitem.AuctionItem;
-import se.pbt.dinoauction.model.user.Participant;
+import se.pbt.dinoauction.model.entity.auctionitem.AuctionItem;
+import se.pbt.dinoauction.model.entity.user.Participant;
 
 import java.util.List;
 

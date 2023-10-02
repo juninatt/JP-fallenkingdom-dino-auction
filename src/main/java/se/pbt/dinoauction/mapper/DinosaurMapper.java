@@ -2,8 +2,8 @@ package se.pbt.dinoauction.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import se.pbt.dinoauction.dto.DinosaurDTO;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 
 /**
  * Mapper interface for {@link Dinosaur}-related objects.

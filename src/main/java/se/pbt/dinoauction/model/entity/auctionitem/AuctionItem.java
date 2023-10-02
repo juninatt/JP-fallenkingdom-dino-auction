@@ -1,9 +1,9 @@
-package se.pbt.dinoauction.model.auctionitem;
+package se.pbt.dinoauction.model.entity.auctionitem;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import se.pbt.dinoauction.model.transaction.Transaction;
+import se.pbt.dinoauction.model.entity.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

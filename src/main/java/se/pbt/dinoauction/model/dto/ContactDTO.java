@@ -1,9 +1,9 @@
-package se.pbt.dinoauction.dto;
+package se.pbt.dinoauction.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import se.pbt.dinoauction.model.contact.Contact;
-import se.pbt.dinoauction.model.user.Participant;
+import se.pbt.dinoauction.model.entity.contact.Contact;
+import se.pbt.dinoauction.model.entity.user.Participant;
 
 /**
  * A ContactDTO for the {@link Contact} class used  for transferring contact information between different parts of the application.

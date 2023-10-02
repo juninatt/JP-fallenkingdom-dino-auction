@@ -1,9 +1,9 @@
-package se.pbt.dinoauction.model.user;
+package se.pbt.dinoauction.model.entity.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import se.pbt.dinoauction.model.contact.Contact;
-import se.pbt.dinoauction.model.transaction.Transaction;
+import se.pbt.dinoauction.model.entity.contact.Contact;
+import se.pbt.dinoauction.model.entity.transaction.Transaction;
 
 import java.util.List;
 

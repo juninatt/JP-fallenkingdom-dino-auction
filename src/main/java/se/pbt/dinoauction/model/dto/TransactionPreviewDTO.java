@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.dto;
+package se.pbt.dinoauction.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

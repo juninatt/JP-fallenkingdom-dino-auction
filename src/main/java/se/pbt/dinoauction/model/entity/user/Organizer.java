@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.model.user;
+package se.pbt.dinoauction.model.entity.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;

@@ -2,8 +2,8 @@ package se.pbt.dinoauction.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import se.pbt.dinoauction.dto.ContactDTO;
-import se.pbt.dinoauction.model.contact.Contact;
+import se.pbt.dinoauction.model.dto.ContactDTO;
+import se.pbt.dinoauction.model.entity.contact.Contact;
 
 
 /**

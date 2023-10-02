@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.model.user.security;
+package se.pbt.dinoauction.model.entity.user.security;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

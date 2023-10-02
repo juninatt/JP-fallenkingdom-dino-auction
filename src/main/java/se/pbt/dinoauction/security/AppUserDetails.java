@@ -3,8 +3,8 @@ package se.pbt.dinoauction.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import se.pbt.dinoauction.model.user.AppUser;
-import se.pbt.dinoauction.model.user.security.Role;
+import se.pbt.dinoauction.model.entity.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.security.Role;
 
 import java.util.Collection;
 import java.util.HashSet;

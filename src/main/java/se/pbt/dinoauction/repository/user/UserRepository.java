@@ -2,7 +2,7 @@ package se.pbt.dinoauction.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import se.pbt.dinoauction.model.user.AppUser;
+import se.pbt.dinoauction.model.entity.user.AppUser;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package se.pbt.dinoauction.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import se.pbt.dinoauction.model.auctionitem.Dinosaur;
+import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 
 /**
  * Exception thrown when a specified {@link Dinosaur} is not found.

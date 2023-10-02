@@ -2,9 +2,9 @@ package se.pbt.dinoauction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.dto.ContactDTO;
+import se.pbt.dinoauction.model.dto.ContactDTO;
 import se.pbt.dinoauction.mapper.ContactMapper;
-import se.pbt.dinoauction.model.contact.Contact;
+import se.pbt.dinoauction.model.entity.contact.Contact;
 import se.pbt.dinoauction.repository.contact.ContactRepository;
 
 import java.util.List;

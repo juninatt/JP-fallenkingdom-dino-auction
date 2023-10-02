@@ -2,7 +2,7 @@ package se.pbt.dinoauction.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import se.pbt.dinoauction.model.contact.Contact;
+import se.pbt.dinoauction.model.entity.contact.Contact;
 
 /**
  * Exception thrown when specified {@link Contact} is not found.

@@ -2,7 +2,7 @@ package se.pbt.dinoauction.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import se.pbt.dinoauction.model.transaction.Transaction;
+import se.pbt.dinoauction.model.entity.transaction.Transaction;
 
 /**
  * Exception thrown when a specified {@link Transaction} is not found.

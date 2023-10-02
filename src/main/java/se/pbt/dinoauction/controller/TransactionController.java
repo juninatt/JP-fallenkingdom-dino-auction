@@ -1,7 +1,7 @@
 package se.pbt.dinoauction.controller;
 
 import org.springframework.web.bind.annotation.*;
-import se.pbt.dinoauction.dto.TransactionPreviewDTO;
+import se.pbt.dinoauction.model.dto.TransactionPreviewDTO;
 import se.pbt.dinoauction.service.TransactionService;
 
 import java.util.HashMap;

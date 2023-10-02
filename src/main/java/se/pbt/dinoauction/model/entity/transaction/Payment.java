@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.model.transaction;
+package se.pbt.dinoauction.model.entity.transaction;
 
 import jakarta.persistence.*;
 
