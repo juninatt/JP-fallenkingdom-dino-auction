@@ -173,8 +173,8 @@ class DinosaurControllerTest {
                     .andExpect(jsonPath("$.description", is(testDinosaur.getDescription())))
                     .andExpect(jsonPath("$.species", is(testDinosaur.getSpecies())))
                     .andExpect(jsonPath("$.gender", is(testDinosaur.getGender())))
-                    .andExpect(jsonPath("$.kgWeight", is(testDinosaur.getKgWeight())))
-                    .andExpect(jsonPath("$.dollarPrice", is(equalTo(1))));
+                    .andExpect(jsonPath("$.weightInKg", is(testDinosaur.getWeightInKg())))
+                    .andExpect(jsonPath("$.priceInDollar", is(equalTo(1))));
             // Verify that the service method was called exactly once
             verify(dinosaurService, times(1)).createDinosaur(any(DinosaurDTO.class));
         }
@@ -240,7 +240,7 @@ class DinosaurControllerTest {
                     .andExpect(jsonPath("$.description", is(testDinosaur.getDescription())))
                     .andExpect(jsonPath("$.species", is(testDinosaur.getSpecies())))
                     .andExpect(jsonPath("$.gender", is(testDinosaur.getGender())))
-                    .andExpect(jsonPath("$.kgWeight", is(testDinosaur.getKgWeight())));
+                    .andExpect(jsonPath("$.weightInKg", is(testDinosaur.getWeightInKg())));
         }
 
         @Test

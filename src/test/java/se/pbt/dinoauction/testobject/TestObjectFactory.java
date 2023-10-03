@@ -25,11 +25,11 @@ public class TestObjectFactory {
         return new Dinosaur(
                 "DinoName",
                 "Species",
-                BigDecimal.ONE,
-                "Species",
-                "Gender",
+                "Non-binary",
                 2,
-                12
+                12,
+                "Cute",
+                BigDecimal.ONE
         );
     }
 
@@ -40,11 +40,12 @@ public class TestObjectFactory {
         return new DinosaurDTO(
                 "SkyScream",
                 "Pteranodon",
-                "Shimmering emerald feathers and an impressive wingspan of over 25 feet.",
                 "Female",
-                15000,
                 2,
-                BigDecimal.valueOf(15_000_000_000L)
+                15,
+                "Shimmering emerald feathers and an impressive wingspan of over 25 feet.",
+                BigDecimal.valueOf(15_000_000_000L),
+                null
         );
     }
 

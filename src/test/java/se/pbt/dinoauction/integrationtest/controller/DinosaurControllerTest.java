@@ -63,7 +63,7 @@ public class DinosaurControllerTest {
             mockMvc.perform(get("/dinosaurs"))
                     .andExpect(status().isOk())  // (200 OK)
                     .andExpect(header().string("Content-Type", "application/json"))
-                    .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(dinosaurDTO))));
+                    .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(testDinosaur))));
 
             // Assert the state of the database remains consistent after the operation
             assertDatabase(1, "The database should still contain one coffee entry");
@@ -86,7 +86,7 @@ public class DinosaurControllerTest {
             mockMvc.perform(get("/dinosaurs/" + testDinosaur.getId()))
                     .andExpect(status().isOk())  // (200 OK)
                     .andExpect(header().string("Content-Type", "application/json"))
-                    .andExpect(content().json(objectMapper.writeValueAsString(dinosaurDTO)));
+                    .andExpect(content().json(objectMapper.writeValueAsString(testDinosaur)));
 
             // Assert that the database remains in the expected state after the operation
             assertDatabase(1, "The database should still contain one Dinosaur entry");

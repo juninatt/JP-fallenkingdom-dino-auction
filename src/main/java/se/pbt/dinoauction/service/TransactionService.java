@@ -39,7 +39,7 @@ public class TransactionService {
 
                     previewCoffee.put(dinosaur.getName(), quantity);
 
-                    return dinosaur.getDollarPrice().multiply(BigDecimal.valueOf(quantity));
+                    return dinosaur.getPriceInDollar().multiply(BigDecimal.valueOf(quantity));
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 

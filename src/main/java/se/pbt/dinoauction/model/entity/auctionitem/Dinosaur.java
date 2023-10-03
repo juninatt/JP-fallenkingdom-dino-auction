@@ -9,8 +9,8 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 /**
- * Represents an entity class for a Dinosaur, extending AuctionItem.
- * Holds details like species, gender, and weight of the Dinosaur.
+ * Represents an entity class for a Dinosaur which extends {@link AuctionItem}.
+ * This entity contains various attributes to describe a dinosaur, such as its species, gender, age, and weight.
  */
 @Entity
 @Table(name = "dinosaurs")
@@ -23,10 +23,10 @@ public class Dinosaur extends AuctionItem {
     private String gender;
 
     @NotNull(message = "Aeg is required")
-    private double age;
+    private double ageInYears;
 
     @Positive(message = "Weight is required")
-    private int kgWeight;
+    private int weightInKg;
 
     /**
      * No-args constructor for JPA operations.
@@ -35,23 +35,13 @@ public class Dinosaur extends AuctionItem {
         super();
     }
 
-    /**
-     * Parameterized constructor.
-     *
-     * @param name        Name of the dinosaur.
-     * @param description Description of the dinosaur.
-     * @param price       Auction price.
-     * @param species     Species name.
-     * @param gender      Gender.
-     * @param kgWeight    Weight in kilograms.
-     */
-    public Dinosaur(String name, String description, BigDecimal price,
-                    String species, String gender, double age, int kgWeight) {
-        super(name, description, price);
+    public Dinosaur(String name, String species, String gender, double ageInYears, int weightInKg,
+                    String description, BigDecimal priceInDollar) {
+        super(name, description, priceInDollar);
         this.species = species;
         this.gender = gender;
-        this.age = age;
-        this.kgWeight = kgWeight;
+        this.ageInYears = ageInYears;
+        this.weightInKg = weightInKg;
     }
 
     // Getters and setters
@@ -72,19 +62,19 @@ public class Dinosaur extends AuctionItem {
         this.gender = gender;
     }
 
-    public double getAge() {
-        return age;
+    public double getAgeInYears() {
+        return ageInYears;
     }
 
-    public void setAge(double age) {
-        this.age = age;
+    public void setAgeInYears(double ageInYears) {
+        this.ageInYears = ageInYears;
     }
 
-    public int getKgWeight() {
-        return kgWeight;
+    public int getWeightInKg() {
+        return weightInKg;
     }
 
-    public void setKgWeight(int kgWeight) {
-        this.kgWeight = kgWeight;
+    public void setWeightInKg(int weightInKg) {
+        this.weightInKg = weightInKg;
     }
 }

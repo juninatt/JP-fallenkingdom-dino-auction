@@ -8,6 +8,17 @@ import se.pbt.dinoauction.model.entity.transaction.Transaction;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * An abstract base class representing an auction item.
+ * <p>
+ * The {@code AuctionItem} class captures common properties for all items that can be auctioned.
+ * It serves as a superclass for more specific types of auction items, such as dinosaurs.
+ * </p>
+ * <p>
+ * Each {@code AuctionItem} entity is associated with an optional transaction,
+ * represented by the {@link Transaction} class.
+ * </p>
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "auction-items")
@@ -23,7 +34,7 @@ public abstract class AuctionItem {
     private String description;
 
     @NotNull(message = "Price is required")
-    private BigDecimal dollarPrice;
+    private BigDecimal priceInDollar;
 
     private String imageResource;
 
@@ -39,22 +50,19 @@ public abstract class AuctionItem {
 
 
     /**
-     * Default constructor for the Product class.
-     * Sets the creation timestamp to the current date and time.
+     * No-argument constructor for JPA compatibility.
+     * Automatically sets the creation timestamp to the current date and time.
      */
     protected AuctionItem() { createdAt = LocalDateTime.now().withNano(0); }
 
     /**
-     * Parameterized constructor for the Product class.
-     *
-     * @param name        The name of the product.
-     * @param description The description of the product.
-     * @param dollarPrice       The dollarPrice of the product.
+     * Parameterized constructor for creating a new {@code AuctionItem} entity.
+     * Automatically sets the creation timestamp to the current date and time.
      */
-    public AuctionItem(String name, String description, BigDecimal dollarPrice) {
+    public AuctionItem(String name, String description, BigDecimal priceInDollar) {
         this.name = name;
         this.description = description;
-        this.dollarPrice = dollarPrice;
+        this.priceInDollar = priceInDollar;
         createdAt = LocalDateTime.now().withNano(0);
     }
 
@@ -84,12 +92,12 @@ public abstract class AuctionItem {
         this.description = description;
     }
 
-    public BigDecimal getDollarPrice() {
-        return dollarPrice;
+    public BigDecimal getPriceInDollar() {
+        return priceInDollar;
     }
 
-    public void setDollarPrice(BigDecimal dollarPrice) {
-        this.dollarPrice = dollarPrice;
+    public void setPriceInDollar(BigDecimal priceInDollar) {
+        this.priceInDollar = priceInDollar;
     }
 
     public String getImageResource() {

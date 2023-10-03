@@ -16,16 +16,17 @@ public record DinosaurDTO(
         String name,
         @NotBlank(message = "Species is required")
         String species,
-        @NotBlank(message = "Description is required")
-        String description,
         @NotBlank(message = "Gender is required")
         String gender,
         @NotNull(message = "Age is required")
-        double age,
+        double ageInYears,
         @Positive(message = "Weight must be greater than zero")
-        int kgWeight,
+        int weightInKg,
+        @NotBlank(message = "Description is required")
+        String description,
         @NotNull(message = "Price cannot be null")
-        BigDecimal dollarPrice
+        BigDecimal priceInDollar,
+        String imageResource
 )
 {}
 

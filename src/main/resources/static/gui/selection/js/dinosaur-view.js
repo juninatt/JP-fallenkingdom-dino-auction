@@ -12,7 +12,7 @@ function renderDinosaurs(data) {
     card.style.backgroundImage = `url(${dino.imageResource})`;
     card.innerHTML = `
       <h3>${dino.name}</h3>
-      <p>Price: ${dino.dollarPrice}</p>
+      <p>Price: ${dino.priceInDollar}</p>
     `;
     card.style.transform = `rotateY(${angleStep * index}deg) translateZ(1000px)`;
     dinosaurListElement.appendChild(card);

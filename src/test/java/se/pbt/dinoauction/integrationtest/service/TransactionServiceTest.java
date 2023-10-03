@@ -45,8 +45,8 @@ public class TransactionServiceTest {
 
             TransactionPreviewDTO result = transactionService.getOrderPreview(orderedProducts);
 
-            BigDecimal expectedTotalPrice = dinosaur1.getDollarPrice().multiply(BigDecimal.valueOf(2.00))
-                    .add(dinosaur2.getDollarPrice().multiply(BigDecimal.valueOf(3)));
+            BigDecimal expectedTotalPrice = dinosaur1.getPriceInDollar().multiply(BigDecimal.valueOf(2.00))
+                    .add(dinosaur2.getPriceInDollar().multiply(BigDecimal.valueOf(3)));
 
             assertEquals(expectedTotalPrice.stripTrailingZeros(), result.totalSum().stripTrailingZeros());        }
 
@@ -61,7 +61,7 @@ public class TransactionServiceTest {
 
             TransactionPreviewDTO result = transactionService.getOrderPreview(orderedProducts);
 
-            assertEquals(dinosaur1.getDollarPrice(), result.totalSum().stripTrailingZeros());
+            assertEquals(dinosaur1.getPriceInDollar(), result.totalSum().stripTrailingZeros());
         }
     }
 }
