@@ -3,6 +3,7 @@ package se.pbt.dinoauction.model.entity.auctionitem;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
@@ -20,6 +21,9 @@ public class Dinosaur extends AuctionItem {
 
     @NotBlank(message = "Gender is required")
     private String gender;
+
+    @NotNull(message = "Aeg is required")
+    private double age;
 
     @Positive(message = "Weight is required")
     private int kgWeight;
@@ -42,10 +46,11 @@ public class Dinosaur extends AuctionItem {
      * @param kgWeight    Weight in kilograms.
      */
     public Dinosaur(String name, String description, BigDecimal price,
-                    String species, String gender, int kgWeight) {
+                    String species, String gender, double age, int kgWeight) {
         super(name, description, price);
         this.species = species;
         this.gender = gender;
+        this.age = age;
         this.kgWeight = kgWeight;
     }
 
@@ -65,6 +70,14 @@ public class Dinosaur extends AuctionItem {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
     }
 
     public int getKgWeight() {

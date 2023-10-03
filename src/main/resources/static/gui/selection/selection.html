@@ -2,49 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dinosaur Auction</title>
+    <title>Dinosaur Auction - Select Your Dino</title>
     <link rel="stylesheet" href="selection.css">
 </head>
-<body>
+<body class="dark-theme">
 <div class="container">
-    <!-- Header or navigation could go here -->
-
     <main>
-
-        <!-- Dinosaur List Section -->
         <section id="dinosaur-list-section">
-            <button id="left-arrow">Left</button>
+            <button id="left-arrow"></button>
             <div id="dinosaur-list"></div>
-            <button id="right-arrow">Right</button>
+            <button id="right-arrow"></button>
         </section>
     </main>
-
-    <!-- Modal Section -->
-    <section>
-        <div class="modal" id="orderPreviewModal">
-            <div class="modal-header">
-                <h4>Order Preview</h4>
-            </div>
-            <div class="modal-body">
-                <ul id="orderPreviewList"></ul>
-                <p>Total Price: <span id="orderTotalPrice"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button id="confirmOrderBtn" style="margin:auto;">Confirm</button>
-                <button id="closeModalBtn">Close</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer could go here -->
 </div>
-
 <!-- Script links for functionality -->
-<script src="selection.js"></script>
+<script src="/api/v1/gui/selection/js/dinosaur-model.js"></script>
+<script src="/api/v1/gui/selection/js/dinosaur-view.js"></script>
+<script src="/api/v1/gui/selection/js/dinosaur-controller.js"></script>
 <script>
 
-
 </script>
-
 </body>
 </html>

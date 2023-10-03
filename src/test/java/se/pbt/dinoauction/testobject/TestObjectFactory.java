@@ -28,6 +28,7 @@ public class TestObjectFactory {
                 BigDecimal.ONE,
                 "Species",
                 "Gender",
+                2,
                 12
         );
     }
@@ -42,6 +43,7 @@ public class TestObjectFactory {
                 "Shimmering emerald feathers and an impressive wingspan of over 25 feet.",
                 "Female",
                 15000,
+                2,
                 BigDecimal.valueOf(15_000_000_000L)
         );
     }

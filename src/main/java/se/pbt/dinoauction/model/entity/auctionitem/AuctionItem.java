@@ -25,6 +25,8 @@ public abstract class AuctionItem {
     @NotNull(message = "Price is required")
     private BigDecimal dollarPrice;
 
+    private String imageResource;
+
     @Column(columnDefinition = "TIMESTAMP(0)", nullable = false, updatable = false)
     private final LocalDateTime createdAt;
 
@@ -88,6 +90,14 @@ public abstract class AuctionItem {
 
     public void setDollarPrice(BigDecimal dollarPrice) {
         this.dollarPrice = dollarPrice;
+    }
+
+    public String getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(String imageResource) {
+        this.imageResource = imageResource;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -20,6 +20,8 @@ public record DinosaurDTO(
         String description,
         @NotBlank(message = "Gender is required")
         String gender,
+        @NotNull(message = "Age is required")
+        double age,
         @Positive(message = "Weight must be greater than zero")
         int kgWeight,
         @NotNull(message = "Price cannot be null")

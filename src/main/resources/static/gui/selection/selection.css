@@ -1,7 +1,24 @@
-/* Dinosaur Cards and Carousel Styles */
+/* Dark Theme Styles */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* General Container Styles */
+.container {
+  padding-top: 5vh;
+}
+
+/* Dinosaur Carousel Section */
+#dinosaur-list-section {
+  padding-top: 10rem;
+}
+
+/* Dinosaur List / Carousel Styles */
 #dinosaur-list {
-  perspective: 2000px;
-  height: 300px;
+  perspective: 4000px;
+  transform-style: preserve-3d;
+  height: 50vh;
   position: relative;
   margin: auto;
   display: flex;
@@ -9,25 +26,56 @@
   align-items: center;
 }
 
+/* Individual Dinosaur Card Styles */
 .dino-card {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  background-color: rgba(255, 255, 255, 0.9); /* Increased alpha */
+  width: calc(15vw - 10px);
+  height: calc(15vw - 10px);
+  background-color: white;
   text-align: center;
   border-radius: 10px;
-  line-height: 200px;
+  line-height: calc(15vw - 10px);
   font-size: 20px;
   left: 50%;
   top: 50%;
-  margin-left: -100px; /* half of width */
-  margin-top: -100px; /* half of height */
+  margin-left: -7.5vw;
+  margin-top: -7.5vw;
   transition: transform 1s;
-  color: white;
-  background-color: #202020;
-  }
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+/* Reset margin and padding for text inside dinosaur cards */
 .dino-card h3, .dino-card p {
   margin: 0;
   padding: 0;
 }
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+  .dino-card {
+    width: calc(30vw - 10px);
+    height: calc(30vw - 10px);
+    line-height: calc(30vw - 10px);
+    margin-left: -15vw;
+    margin-top: -15vw;
+  }
+}
+
+/* Arrow Button Styles */
+#left-arrow, #right-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2em;
+  color: white;
+  position: absolute;
+  top: 50%;
+}
+
+#left-arrow { left: 2%; }
+#right-arrow { right: 2%; }
+
+#left-arrow::before { content: '←'; }
+#right-arrow::before { content: '→'; }
