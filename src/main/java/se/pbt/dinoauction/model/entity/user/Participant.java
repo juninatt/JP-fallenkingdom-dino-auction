@@ -12,6 +12,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Participant extends AppUser {
 
+    @Column(unique = true)
     @NotBlank(message = "Alias is required")
     private String alias;
 

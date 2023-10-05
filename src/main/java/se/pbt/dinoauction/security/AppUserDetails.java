@@ -3,6 +3,7 @@ package se.pbt.dinoauction.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import se.pbt.dinoauction.exception.UserAuthorityException;
 import se.pbt.dinoauction.model.entity.user.AppUser;
 import se.pbt.dinoauction.model.entity.user.security.Role;
 
@@ -37,10 +38,13 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-
-        // Iterate over the user's roles and add them as authorities
-        for (Role role : appUser.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        try {
+            // Iterate over the user's roles and add them as authorities
+            for (Role role : appUser.getRoles()) {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+        } catch (RuntimeException exception) {
+            throw new UserAuthorityException("Error while adding role authorities to user: " + appUser);
         }
 
         return authorities;

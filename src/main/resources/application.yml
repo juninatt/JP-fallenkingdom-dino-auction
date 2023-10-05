@@ -6,8 +6,20 @@ server:
 spring:
   application:
     name: DinoAuction
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dino-auction
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   activemq:
-      broker-url: tcp://localhost:61616
-      user: ${ACTIVEMQ_USER}
-      password: ${ACTIVEMQ_PASSWORD}
+    broker-url: tcp://localhost:61616
+    user: ${ACTIVEMQ_USER}
+    password: ${ACTIVEMQ_PASSWORD}
+
+logging:
+  level:
+    org.springframework.jdbc.datasource: DEBUG

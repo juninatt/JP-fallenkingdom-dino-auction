@@ -20,6 +20,7 @@ public abstract class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @NotBlank(message = "Username is required")
     @Size(min = 5, message = "Username must be at least 5 characters")
     private String username;
