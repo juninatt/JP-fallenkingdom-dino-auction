@@ -1,6 +1,7 @@
 package se.pbt.dinoauction.testobject;
 
 import se.pbt.dinoauction.model.dto.ContactDTO;
+import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.model.entity.contact.Contact;
@@ -48,6 +49,23 @@ public class TestObjectFactory {
                 null
         );
     }
+
+    /**
+     * @return A {@link DinoCardDataDTO} object with pre-set field values.
+     */
+    public static DinoCardDataDTO dinoCardDataDTO() {
+        return new DinoCardDataDTO(
+                "CardDinoName",
+                "CardSpecies",
+                "CardGender",
+                3.0,
+                15,
+                "CardDescription",
+                BigDecimal.TEN,
+                "CardImageResourceURL"
+        );
+    }
+
 
     // Participants
 

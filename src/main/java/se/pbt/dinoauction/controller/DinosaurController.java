@@ -3,6 +3,8 @@ package se.pbt.dinoauction.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
+import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.service.DinosaurService;
@@ -25,6 +27,19 @@ public class DinosaurController {
      */
     public DinosaurController(DinosaurService dinosaurService) {
         this.dinosaurService = dinosaurService;
+    }
+
+
+    /**
+     * Retrieves a list of {@link DinoCardDataDTO} objects wrapped in a {@link DinoCardDataListDTO}.
+     *
+     * @return ResponseEntity<DinoCardDataListDTO> containing a list of {@link Dinosaur} cards.
+     */
+
+    @GetMapping("/dino-cards")
+    public ResponseEntity<DinoCardDataListDTO> getDinoCardDataList() {
+        DinoCardDataListDTO cardData = dinosaurService.getDinoCardDataList();
+        return ResponseEntity.ok(cardData);
     }
 
     /**

@@ -10,11 +10,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import se.pbt.dinoauction.mapper.DinosaurMapper;
+import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
 import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
 import se.pbt.dinoauction.service.DinosaurService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -53,10 +56,11 @@ public class DinosaurControllerTest {
             var testDinosaur = dinosaurService.createDinosaur(dinosaurDTO);
 
             // Fetch the stored Dinosaur objects and validate their properties
-            var existingDinosaur = dinosaurRepository.findAll()
-                    .iterator()
-                    .next();
+            var existingDinosaur = dinosaurRepository.findAll().stream()
+                    .findFirst()
+                    .orElse(null);
 
+            assert existingDinosaur != null;
             assertEquals(testDinosaur.getName(), existingDinosaur.getName(), "The stored Dinosaur should have the expected name");
 
             // Perform the GET request and validate the response
@@ -78,8 +82,11 @@ public class DinosaurControllerTest {
             var testDinosaur = dinosaurService.createDinosaur(dinosaurDTO);
 
             // Fetch the stored Dinosaur object and validate its properties
-            var existingDinosaur = dinosaurRepository.findAll()
-                    .iterator().next();
+            var existingDinosaur = dinosaurRepository.findAll().stream()
+                    .findFirst()
+                    .orElse(null);
+
+            assert existingDinosaur != null;
             assertEquals(dinosaurDTO.name(), existingDinosaur.getName(), "The Dinosaur name should be updated");
 
             // Perform GET request and validate response
@@ -106,14 +113,15 @@ public class DinosaurControllerTest {
 
 
             // Fetch the stored Dinosaur from the database
-            var updatedDinosaur = dinosaurRepository.findAll()
-                    .iterator()
-                    .next();
+            var updatedDinosaur = dinosaurRepository.findAll().stream()
+                    .findFirst()
+                    .orElse(null);
 
             // Assert that a Dinosaur object has been stored
             assertDatabase(1, "There should be one Dinosaur entry in the database");
 
             // Assert that the stored coffee has the expected properties
+            assert updatedDinosaur != null;
             assertEquals(dinosaurDTO.name(), updatedDinosaur.getName(), "The Dinosaur name should be updated");
         }
 
@@ -124,8 +132,6 @@ public class DinosaurControllerTest {
             // Create and stores a Dinosaur object
             var dinosaurDTO = TestObjectFactory.dinosaurDTO();
             var testDinosaur = dinosaurService.createDinosaur(dinosaurDTO);
-
-            // Create an updated Dinosaur object
             var updatingDTO = TestObjectFactory.dinosaurDTO();
 
             // Perform a PUT request to update the Dinosaur object
@@ -159,9 +165,37 @@ public class DinosaurControllerTest {
             // Assert the state of the database after the DELETE operation
             assertDatabase(0, "The database should be empty after the delete operation");
         }
-    }
 
-    private void assertDatabase(int expected, String message) {
-        assertEquals(expected, dinosaurRepository.count(), message);
+        @Test
+        @DisplayName("Returns a list of all DinoCardData when accessed by an ADMIN")
+        void return_allDinoCardData_adminAccess() throws Exception {
+            // Create test objects
+            var existingDinosaur = dinosaurRepository.save(TestObjectFactory.dinosaur());
+            var expectedResponseData = DinosaurMapper.INSTANCE.toDinoCardDataDTO(existingDinosaur);
+
+            var expectedResult = new DinoCardDataListDTO(List.of(expectedResponseData));
+
+            // Perform the GET request and validate the response
+            mockMvc.perform(get("/dinosaurs/dino-cards"))
+                    .andExpect(status().isOk())  // (200 OK)
+                    .andExpect(header().string("Content-Type", "application/json"))
+                    .andExpect(content().json(objectMapper.writeValueAsString(expectedResult)));
+        }
+
+        @Test
+        @DisplayName("Returns 404 error message when database is empty and accessed by an ADMIN")
+        void return_http404_withErrorMessage_whenNoDinosaurInDatabase_adminAccess() throws Exception {
+            // Perform the GET request and expect a 404 status code
+            mockMvc.perform(get("/dinosaurs/dino-cards"))
+                    .andExpect(status().isNotFound())
+                    .andExpect(jsonPath("$.errorCode").value(404))
+                    .andExpect(jsonPath("$.errorMessage").value("No dinosaurs found in database"))
+                    .andExpect(jsonPath("$.timestamp").exists())
+                    .andExpect(jsonPath("$.details").exists());
+        }
+
+        private void assertDatabase(int expected, String message) {
+            assertEquals(expected, dinosaurRepository.count(), message);
+        }
     }
 }

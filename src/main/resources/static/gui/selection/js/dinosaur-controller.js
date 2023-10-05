@@ -5,9 +5,10 @@ let angle = 0;
 window.addEventListener('load', async () => {
   const data = await fetchDinosaurs();
   if (data) {
-    renderDinosaurs(data);
+    renderDinosaurs({dinoCardDataList: data});
   }
 });
+
 
 // Event listener to attach rotate function and showModal
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,4 +39,14 @@ function rotateCarousel(direction) {
       console.error("card.style or card.style.transform does not exist");
     }
   });
+  }
+
+  async function loadDinosaurs() {
+    const dinosaurData = await fetchDinosaurs();
+    if (dinosaurData) {
+      console.log("Loaded data:", dinosaurData);
+      renderDinosaurs(dinosaurData);
+    } else {
+      console.log("No data to load.");
+    }
 }

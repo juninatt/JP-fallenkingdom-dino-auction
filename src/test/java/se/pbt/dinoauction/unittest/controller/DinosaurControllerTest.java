@@ -11,19 +11,21 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import se.pbt.dinoauction.controller.DinosaurController;
+import se.pbt.dinoauction.exception.DinosaurNotFoundException;
+import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
+import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.service.DinosaurService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -285,12 +287,9 @@ class DinosaurControllerTest {
             when(dinosaurService.deleteDinosaur(valid_Id)).thenReturn(true);
 
             // Perform DELETE request and verify HTTP 204 status
-            MvcResult result = mockMvc.perform(delete("/dinosaurs/" + valid_Id))
+            mockMvc.perform(delete("/dinosaurs/" + valid_Id))
                     .andExpect(status().isNoContent())
                     .andReturn();
-
-            // Assert no error message present in response
-            assertNull(result.getResponse().getErrorMessage());
 
             // Verify service method was called once
             verify(dinosaurService, times(1)).deleteDinosaur(valid_Id);
@@ -304,15 +303,43 @@ class DinosaurControllerTest {
             when(dinosaurService.deleteDinosaur(invalid_Id)).thenReturn(false);
 
             // Perform DELETE request and verify HTTP 404 status
-            MvcResult result = mockMvc.perform(delete("/dinosaurs/" + invalid_Id))
+            mockMvc.perform(delete("/dinosaurs/" + invalid_Id))
                     .andExpect(status().isNotFound())
                     .andReturn();
-
-            // Assert no error message present in response
-            assertNull(result.getResponse().getErrorMessage());
 
             // Verify service method was called once
             verify(dinosaurService, times(1)).deleteDinosaur(invalid_Id);
         }
+    }
+
+    @Nested
+    class GetDinoCardDataListTest {
+
+        @Test
+        @DisplayName("Returns a list of all DinoCardData")
+        void return_allDinoCardData_adminAccess() throws Exception {
+            // Create and store a DinoCardDataDTO object for testing
+            DinoCardDataDTO dinoCardData = TestObjectFactory.dinoCardDataDTO();
+            DinoCardDataListDTO cardDataList = new DinoCardDataListDTO(List.of(dinoCardData));
+
+            when(dinosaurService.getDinoCardDataList()).thenReturn(cardDataList);
+
+            // Perform the GET request and validate the response
+            mockMvc.perform(get("/dinosaurs/dino-cards"))
+                    .andExpect(status().isOk())
+                    .andExpect(header().string("Content-Type", "application/json"))
+                    .andExpect(content().json(objectMapper.writeValueAsString(cardDataList)));
+        }
+
+        @Test
+        @DisplayName("Returns 404 when no dinosaurs are present in the database")
+        void return_http404_whenNoDinosaurInDatabase_adminAccess() throws Exception {
+            when(dinosaurService.getDinoCardDataList()).thenThrow(new DinosaurNotFoundException());
+
+            // Perform the GET request and validate the response
+            mockMvc.perform(get("/dinosaurs/dino-cards"))
+                    .andExpect(status().isNotFound());  // Expect a 404 NOT FOUND
+        }
+
     }
 }

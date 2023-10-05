@@ -2,6 +2,7 @@ package se.pbt.dinoauction.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 
@@ -28,4 +29,6 @@ public interface DinosaurMapper {
      * @return The corresponding DinosaurDTO.
      */
     DinosaurDTO toDinosaurDTO(Dinosaur dinosaurEntity);
+
+    DinoCardDataDTO toDinoCardDataDTO(Dinosaur dinosaurEntity);
 }

@@ -2,10 +2,13 @@ package se.pbt.dinoauction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.pbt.dinoauction.model.dto.DinosaurDTO;
+import se.pbt.dinoauction.exception.DinosaurConversionException;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
-import se.pbt.dinoauction.mapper.DinosaurMapper;
 import se.pbt.dinoauction.jms.JmsMessageProducer;
+import se.pbt.dinoauction.mapper.DinosaurMapper;
+import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
+import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
+import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
 
@@ -101,6 +104,24 @@ public class DinosaurService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public DinoCardDataListDTO getDinoCardDataList() {
+        List<DinoCardDataDTO> dinoCards;
+        List<Dinosaur> existingDinosaurs = dinosaurRepository.findAll();
+        if (existingDinosaurs.isEmpty())
+            throw new DinosaurNotFoundException("No dinosaurs found in database");
+        else {
+            try {
+                dinoCards = existingDinosaurs.stream()
+                        .map(DinosaurMapper.INSTANCE::toDinoCardDataDTO)
+                        .toList();
+            } catch (RuntimeException exception) {
+                throw new DinosaurConversionException(exception.getMessage(), exception.getCause());
+            }
+            System.out.println(dinoCards);
+            return new DinoCardDataListDTO(dinoCards);
         }
     }
 }

@@ -1,20 +1,18 @@
-/* Dark Theme Styles */
+/* ========= Dark Theme Global Styles ========= */
+/* Changes background and text color when dark-theme class is added to the body */
 body.dark-theme {
   background-color: #121212;
   color: #ffffff;
 }
 
-/* General Container Styles */
-.container {
-  padding-top: 5vh;
-}
-
-/* Dinosaur Carousel Section */
+/* ========= Dinosaur Carousel Container ========= */
+/* Padding at the top to push the carousel downward */
 #dinosaur-list-section {
   padding-top: 10rem;
 }
 
-/* Dinosaur List / Carousel Styles */
+/* ========= Dinosaur List / Carousel Styling ========= */
+/* Sets up a 3D perspective and centers the carousel */
 #dinosaur-list {
   perspective: 4000px;
   transform-style: preserve-3d;
@@ -26,16 +24,13 @@ body.dark-theme {
   align-items: center;
 }
 
-/* Individual Dinosaur Card Styles */
+
+/* ========= Individual Dinosaur Card Styles ========= */
+/* Style each card within the carousel */
 .dino-card {
   position: absolute;
   width: calc(15vw - 10px);
   height: calc(15vw - 10px);
-  background-color: white;
-  text-align: center;
-  border-radius: 10px;
-  line-height: calc(15vw - 10px);
-  font-size: 20px;
   left: 50%;
   top: 50%;
   margin-left: -7.5vw;
@@ -46,13 +41,10 @@ body.dark-theme {
   background-repeat: no-repeat;
 }
 
-/* Reset margin and padding for text inside dinosaur cards */
-.dino-card h3, .dino-card p {
-  margin: 0;
-  padding: 0;
-}
 
-/* Media Query for Smaller Screens */
+
+/* ========= Media Query for Mobile and Small Screens ========= */
+/* Adapt card dimensions for screens less than 768px wide */
 @media (max-width: 768px) {
   .dino-card {
     width: calc(30vw - 10px);
@@ -63,7 +55,8 @@ body.dark-theme {
   }
 }
 
-/* Arrow Button Styles */
+/* ========= Arrow Button Styles for Carousel ========= */
+/* Style the left and right navigation arrows */
 #left-arrow, #right-arrow {
   background: none;
   border: none;
