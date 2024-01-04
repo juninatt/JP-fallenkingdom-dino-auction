@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - activemq
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dino-auction
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgrespassword
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=dino-auction
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespassword
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  activemq:
+    image: rmohr/activemq:latest
+    ports:
+      - "61616:61616" # JMS
+      - "8161:8161"   # UI Web Console
+    environment:
+      - ACTIVEMQ_ADMIN_LOGIN=admin
+      - ACTIVEMQ_ADMIN_PASSWORD=secret
+
+volumes:
+  db-data:
