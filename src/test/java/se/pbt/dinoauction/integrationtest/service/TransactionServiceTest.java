@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import se.pbt.dinoauction.model.dto.TransactionPreviewDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
-import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
+import se.pbt.dinoauction.repository.DinosaurRepository;
 import se.pbt.dinoauction.service.TransactionService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;
 
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @DisplayName("TransactionService Integration Tests")
 public class TransactionServiceTest {
 
