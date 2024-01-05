@@ -5,11 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
-import se.pbt.dinoauction.jms.JmsMessageProducer;
+import se.pbt.dinoauction.jms.MessageProducer;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
-import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
-import se.pbt.dinoauction.service.DinosaurService;
+import se.pbt.dinoauction.repository.DinosaurRepository;
+import se.pbt.dinoauction.service.AuctionService;
 import se.pbt.dinoauction.testobject.TestObjectFactory;
 
 import java.util.List;
@@ -19,17 +20,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @DisplayName("Dinosaur Service Integration Tests")
-class DinosaurServiceTest {
+class AuctionServiceTest {
 
     @Autowired
     private DinosaurRepository dinosaurRepository;
 
     @Autowired
-    private JmsMessageProducer jmsMessageProducer;
+    private MessageProducer messageProducer;
 
     @Autowired
-    private DinosaurService dinosaurService;
+    private AuctionService auctionService;
 
     @BeforeEach
     void setupDatabaseWithTestDinosaurs() {
@@ -46,7 +48,7 @@ class DinosaurServiceTest {
     @Test
     @DisplayName("Verifies all items are of type dinosaur")
     void verifies_typeOfAllRetrievedItems() {
-        var result = dinosaurService.getAllDinosaurs();
+        var result = auctionService.getAllDinosaurs();
         assertNotNull(result);
         result.forEach(dinosaur -> assertEquals(Dinosaur.class, dinosaur.getClass()));
     }
@@ -54,7 +56,7 @@ class DinosaurServiceTest {
     @Test
     @DisplayName("Returns all dinosaurs in database")
     void returns_allObjects_fromDatabase() {
-        var result = dinosaurService.getAllDinosaurs();
+        var result = auctionService.getAllDinosaurs();
         assertNotNull(result);
         assertEquals(5, result.size());
     }
@@ -64,7 +66,7 @@ class DinosaurServiceTest {
     void throws_exceptionIfNoDinosaursFound() {
         dinosaurRepository.deleteAll();
         assertTrue(dinosaurRepository.findAll().isEmpty());
-        assertThrows(DinosaurNotFoundException.class, () -> dinosaurService.getAllDinosaurs());
+        assertThrows(DinosaurNotFoundException.class, () -> auctionService.getAllDinosaurs());
     }
 
     @Test
@@ -78,15 +80,15 @@ class DinosaurServiceTest {
         when(dinosaurRepositoryMock.findById(dinosaurId)).thenReturn(Optional.of(existingDinosaur));
         when(dinosaurRepositoryMock.save(existingDinosaur)).thenReturn(existingDinosaur);
 
-        JmsMessageProducer jmsMessageProducerMock = mock(JmsMessageProducer.class);
+        MessageProducer messageProducerMock = mock(MessageProducer.class);
 
-        DinosaurService dinosaurServiceMock = new DinosaurService(dinosaurRepositoryMock, jmsMessageProducerMock);
+        AuctionService auctionServiceMock = new AuctionService(dinosaurRepositoryMock, messageProducerMock);
 
-        Dinosaur result = dinosaurServiceMock.updateDinosaur(dinosaurId, dinosaurDTO);
+        Dinosaur result = auctionServiceMock.updateDinosaur(dinosaurId, dinosaurDTO);
 
         assertNotNull(result);
         assertEquals(dinosaurDTO.name(), result.getName());
-        verify(jmsMessageProducerMock).sendMessage("myQueue", "Dinosaur updated: " + result.getName());
+        verify(messageProducerMock).sendMessage("myQueue", "Dinosaur updated: " + result.getName());
     }
 
     @Test
@@ -96,13 +98,13 @@ class DinosaurServiceTest {
         DinosaurRepository dinosaurRepositoryMock = mock(DinosaurRepository.class);
         when(dinosaurRepositoryMock.findById(nonExistingDinosaurId)).thenReturn(Optional.empty());
 
-        JmsMessageProducer jmsMessageProducerMock = mock(JmsMessageProducer.class);
+        MessageProducer messageProducerMock = mock(MessageProducer.class);
 
-        DinosaurService dinosaurServiceMock = new DinosaurService(dinosaurRepositoryMock, jmsMessageProducerMock);
+        AuctionService auctionServiceMock = new AuctionService(dinosaurRepositoryMock, messageProducerMock);
 
-        Dinosaur result = dinosaurServiceMock.updateDinosaur(nonExistingDinosaurId, TestObjectFactory.dinosaurDTO());
+        Dinosaur result = auctionServiceMock.updateDinosaur(nonExistingDinosaurId, TestObjectFactory.dinosaurDTO());
 
         assertNull(result);
-        verifyNoInteractions(jmsMessageProducerMock);
+        verifyNoInteractions(messageProducerMock);
     }
 }

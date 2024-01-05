@@ -7,7 +7,7 @@ import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
 import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
-import se.pbt.dinoauction.service.DinosaurService;
+import se.pbt.dinoauction.service.AuctionService;
 
 import java.util.List;
 
@@ -16,17 +16,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dinosaurs")
-public class DinosaurController {
+public class AuctionController {
 
-    private final DinosaurService dinosaurService;
+    private final AuctionService auctionService;
 
     /**
-     * Constructor for DinosaurController.
-     *
-     * @param dinosaurService The {@link DinosaurService} for Dinosaur entities.
+     * Constructor for {@link AuctionController} class..
      */
-    public DinosaurController(DinosaurService dinosaurService) {
-        this.dinosaurService = dinosaurService;
+    public AuctionController(AuctionService auctionService) {
+        this.auctionService = auctionService;
     }
 
 
@@ -38,7 +36,7 @@ public class DinosaurController {
 
     @GetMapping("/dino-cards")
     public ResponseEntity<DinoCardDataListDTO> getDinoCardDataList() {
-        DinoCardDataListDTO cardData = dinosaurService.getDinoCardDataList();
+        DinoCardDataListDTO cardData = auctionService.getDinoCardDataList();
         return ResponseEntity.ok(cardData);
     }
 
@@ -49,7 +47,7 @@ public class DinosaurController {
      */
     @GetMapping
     public ResponseEntity<List<Dinosaur>> getAllDinosaurs() {
-        List<Dinosaur> dinosaurs = dinosaurService.getAllDinosaurs();
+        List<Dinosaur> dinosaurs = auctionService.getAllDinosaurs();
         return ResponseEntity.ok(dinosaurs);
     }
 
@@ -61,7 +59,7 @@ public class DinosaurController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Dinosaur> getDinosaurById(@PathVariable long id) {
-        var fetchedDinosaur = dinosaurService.getDinosaurById(id);
+        var fetchedDinosaur = auctionService.getDinosaurById(id);
         if (fetchedDinosaur != null) {
             return ResponseEntity.ok(fetchedDinosaur);
         } else {
@@ -77,7 +75,7 @@ public class DinosaurController {
      */
     @PostMapping
     public ResponseEntity<Dinosaur> createDinosaur(@RequestBody DinosaurDTO dinosaurData) {
-        var createdDinosaur = dinosaurService.createDinosaur(dinosaurData);
+        var createdDinosaur = auctionService.createDinosaur(dinosaurData);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDinosaur);
     }
 
@@ -90,7 +88,7 @@ public class DinosaurController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Dinosaur> updateDinosaur(@PathVariable long id, @RequestBody DinosaurDTO dinosaurData) {
-        var updatedDinosaur = dinosaurService.updateDinosaur(id, dinosaurData);
+        var updatedDinosaur = auctionService.updateDinosaur(id, dinosaurData);
         if (updatedDinosaur != null) {
             return ResponseEntity.ok(updatedDinosaur);
         } else {
@@ -106,7 +104,7 @@ public class DinosaurController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDinosaur(@PathVariable long id) {
-        boolean deleted = dinosaurService.deleteDinosaur(id);
+        boolean deleted = auctionService.deleteDinosaur(id);
         if (deleted) {
             return ResponseEntity.noContent().build();
         } else {

@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.pbt.dinoauction.exception.DinosaurConversionException;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
-import se.pbt.dinoauction.jms.JmsMessageProducer;
+import se.pbt.dinoauction.jms.MessageProducer;
 import se.pbt.dinoauction.mapper.DinosaurMapper;
 import se.pbt.dinoauction.model.dto.DinoCardDataDTO;
 import se.pbt.dinoauction.model.dto.DinoCardDataListDTO;
 import se.pbt.dinoauction.model.dto.DinosaurDTO;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
-import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
+import se.pbt.dinoauction.repository.DinosaurRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,21 +19,21 @@ import java.util.Optional;
  * Service class for handling Dinosaur-related operations.
  */
 @Service
-public class DinosaurService {
+public class AuctionService {
 
     private final DinosaurRepository dinosaurRepository;
-    private final JmsMessageProducer jmsMessageProducer;
+    private final MessageProducer messageProducer;
 
     /**
      * Constructor for DinosaurService.
      *
      * @param dinosaurRepository  The {@link DinosaurRepository} for Dinosaur entities.
-     * @param jmsMessageProducer The {@link JmsMessageProducer} for JMS messaging.
+     * @param messageProducer The {@link MessageProducer} for JMS messaging.
      */
     @Autowired
-    public DinosaurService(DinosaurRepository dinosaurRepository, JmsMessageProducer jmsMessageProducer) {
+    public AuctionService(DinosaurRepository dinosaurRepository, MessageProducer messageProducer) {
         this.dinosaurRepository = dinosaurRepository;
-        this.jmsMessageProducer = jmsMessageProducer;
+        this.messageProducer = messageProducer;
     }
 
     /**
@@ -84,7 +84,7 @@ public class DinosaurService {
             var existingDinosaur = optionalDinosaur.get();
             existingDinosaur.setName(dinosaurData.name());
             // Update other properties as needed
-            jmsMessageProducer.sendMessage("myQueue", "Dinosaur updated: " + existingDinosaur.getName());
+            messageProducer.sendMessage("myQueue", "Dinosaur updated: " + existingDinosaur.getName());
             return dinosaurRepository.save(existingDinosaur);
         } else {
             return null;
