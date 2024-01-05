@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.repository.auctionitem;
+package se.pbt.dinoauction.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

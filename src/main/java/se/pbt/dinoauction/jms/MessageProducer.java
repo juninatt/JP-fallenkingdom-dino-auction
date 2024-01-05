@@ -5,11 +5,11 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JmsMessageProducer {
+public class MessageProducer {
     private final JmsTemplate jmsTemplate;
 
     @Autowired
-    public JmsMessageProducer(JmsTemplate jmsTemplate) {
+    public MessageProducer(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 

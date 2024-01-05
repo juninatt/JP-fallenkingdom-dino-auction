@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.annotation;
+package se.pbt.dinoauction.controller.apiresponse;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;

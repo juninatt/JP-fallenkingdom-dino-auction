@@ -1,4 +1,4 @@
-package se.pbt.dinoauction.service.user.userdetails;
+package se.pbt.dinoauction.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.pbt.dinoauction.model.entity.user.AppUser;
-import se.pbt.dinoauction.repository.user.UserRepository;
+import se.pbt.dinoauction.repository.UserRepository;
 import se.pbt.dinoauction.security.AppUserDetails;
 
 /**
