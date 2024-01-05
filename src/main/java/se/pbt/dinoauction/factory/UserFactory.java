@@ -5,7 +5,7 @@ import se.pbt.dinoauction.model.entity.user.Organizer;
 import se.pbt.dinoauction.model.entity.user.Participant;
 import se.pbt.dinoauction.model.entity.user.AppUser;
 import se.pbt.dinoauction.model.entity.user.security.Role;
-import se.pbt.dinoauction.repository.user.RoleRepository;
+import se.pbt.dinoauction.repository.RoleRepository;
 
 /**
  * Creates {@link AppUser} instances with specific {@link Role} assignments.

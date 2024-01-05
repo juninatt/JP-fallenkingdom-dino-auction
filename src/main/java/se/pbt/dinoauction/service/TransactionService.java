@@ -6,7 +6,7 @@ import se.pbt.dinoauction.model.dto.TransactionPreviewDTO;
 import se.pbt.dinoauction.exception.DinosaurNotFoundException;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
 import se.pbt.dinoauction.model.entity.transaction.Transaction;
-import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
+import se.pbt.dinoauction.repository.DinosaurRepository;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

@@ -5,9 +5,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.pbt.dinoauction.factory.UserFactory;
 import se.pbt.dinoauction.model.entity.auctionitem.Dinosaur;
-import se.pbt.dinoauction.repository.auctionitem.DinosaurRepository;
-import se.pbt.dinoauction.repository.user.RoleRepository;
-import se.pbt.dinoauction.repository.user.UserRepository;
+import se.pbt.dinoauction.model.entity.user.security.Role;
+import se.pbt.dinoauction.repository.DinosaurRepository;
+import se.pbt.dinoauction.repository.RoleRepository;
+import se.pbt.dinoauction.repository.UserRepository;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,6 +39,7 @@ class DataLoader {
     private void setTestUser(BCryptPasswordEncoder passWordEncoder) {
         userRepository.deleteAll();
         var userFactory = new UserFactory(roleRepository);
+        roleRepository.save(new Role("ROLE_ADMIN"));
         var practiceUser = userFactory.createOrganizer("admin", passWordEncoder.encode("admin"));
         userRepository.save(practiceUser);
     }
